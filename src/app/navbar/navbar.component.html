@@ -1,0 +1,34 @@
+<nav>
+  <ul>
+    <li>
+      <ul class="leftside">
+        <li class="nav-component button-li">
+          <app-menu-button id="sidebar-icon" (click)="toggleShowing()" (mousedown)="doRipple($event)" [xCord]="clientX" [yCord]="clientY" [clicked]="clicked"></app-menu-button>
+        </li>
+        <li class="nav-component">
+          etc....
+        </li>
+      </ul>
+    </li>
+    <li class="search-bar">
+      <form>
+        <div>
+          <input type="text" class="search-bar-input"/>
+        </div>
+      </form>
+    </li>
+    <li>
+      <ul>
+        <li class="nav-component end">
+          account....
+        </li>
+        <li class="nav-component end">
+          etc...
+        </li>
+        <li class="nav-component end">
+          etc....
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>

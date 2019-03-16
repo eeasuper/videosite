@@ -1,0 +1,36 @@
+:host{
+  cursor: pointer;
+}  
+
+.menu_button{
+  padding: 15px 15px;
+  z-index: 3;
+  position: absolute;
+}
+
+.menu_button div{
+  width: 20px;
+  height: 20px;
+  background-image: url("/assets/icons/menu_icon.png");
+  background-size: cover;
+}
+#button-ripples{
+  width: 50px;
+  height: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  position: absolute;
+}
+.ripple{
+  position: absolute;
+  border-radius: 50%;
+  transition: transform 0.5s linear;
+  width: 10px;
+  height: 10px;
+  /*http://paletton.com/#uid=13-0u0kurKUiMPNozMVJlztHMq9*/
+  background-color: #566246;
+  opacity: 0.5;
+}
+.doRipple{
+  transform: scale(20);
+}
