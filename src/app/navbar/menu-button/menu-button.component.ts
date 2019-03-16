@@ -27,8 +27,9 @@ export class MenuButtonComponent implements OnChanges {
     this.renderer.appendChild(this.btnRipples.nativeElement, newEl);
     this.renderer.addClass(newEl, 'ripple');
     this.renderer.setStyle(newEl,'visibility', 'visible');
-    this.renderer.setStyle(newEl, 'left', this.xCord + 'px');
-    this.renderer.setStyle(newEl, 'top', this.yCord + 'px');
+    //the number 15 is minused because of the padding added to .menu_button(the parent).
+    this.renderer.setStyle(newEl, 'left', this.xCord - 15+'px');
+    this.renderer.setStyle(newEl, 'top', this.yCord - 15+'px');
     setTimeout(()=>{
       this.renderer.addClass(newEl,'doRipple');
     },0)

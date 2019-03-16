@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {SidebarService} from '../services/sidebar.service';
+import {Observable, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -11,12 +13,13 @@ export class NavbarComponent implements OnInit {
   private clientY: number = 0;
   private clicked: boolean;
 
-  constructor() { }
+  constructor(private sidebar:SidebarService) { }
 
   ngOnInit() {
   }
 
   doRipple(event: MouseEvent):void{
+    this.sidebar.toggle();
     this.clicked = true;
     this.clientX = event.clientX;
     this.clientY = event.clientY;

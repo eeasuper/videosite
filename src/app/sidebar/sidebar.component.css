@@ -1,8 +1,30 @@
+:host{
+  box-sizing: border-box;
+  position: fixed;
+  top:64px;
+  height:100%;
+  width:200px;
+  box-shadow: 6px 0 6px rgba(0,0,0,.1);
+  transition: all .2s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  transform: translateX(-260px);
+  z-index: 1;
+}
+
+:host.is-open{
+  transform: translateX(0%);
+  /*visibility: hidden;*/
+}
+
+.show{
+  visibility: visible;
+}
+
 nav {
   height: 100%;
   width: 200px;
-  box-shadow: 6px 0 6px rgba(0,0,0,.1);
-  position: fixed;
-  top: 64px;
+  /*position: fixed;*/
+  position: relative;
+  /*top: 64px;*/
   padding-top: 12px;
 }
+

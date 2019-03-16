@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,HostBinding } from '@angular/core';
+import {SidebarService} from '../services/sidebar.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
+
+  @HostBinding('class.is-open')
+  isOpen = true;
 
   private titles:object = {
     playlist:{
@@ -23,9 +27,12 @@ export class SidebarComponent implements OnInit {
   } 
   private objectValues = Object.values;
 
-  constructor() { }
+  constructor(private sidebar:SidebarService) { }
 
   ngOnInit() {
+    this.sidebar.change.subscribe(isOpen =>{
+      this.isOpen = isOpen;
+    })
   }
 
 }

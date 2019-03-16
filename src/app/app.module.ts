@@ -2,13 +2,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
+import { AppRoutingModule } from './app-routing.module';
 
 import { userReducer } from './store/reducers/user.reducer';
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {UserModule} from './store/user.module';
 import {NavbarModule} from './navbar/navbar.module';
 import {SidebarModule} from './sidebar/sidebar.module';
+import {SidebarService} from './services/sidebar.service';
+import {HomeModule} from './home/home.module'
+import {ViewVideoModule} from './view-video/view-video.module'
+import {ViewModule} from './view/view.module';
 
 @NgModule({
   declarations: [
@@ -21,9 +25,14 @@ import {SidebarModule} from './sidebar/sidebar.module';
     StoreModule.forRoot({}),
     UserModule,
     NavbarModule,
-    SidebarModule
+    SidebarModule,
+    HomeModule,
+    ViewVideoModule,
+    ViewModule
   ],
-  providers: [],
+  providers: [
+    SidebarService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
