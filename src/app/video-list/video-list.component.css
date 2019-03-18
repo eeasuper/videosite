@@ -1,0 +1,13 @@
+:host{
+  display: flex;
+  overflow:hidden;    
+  flex-wrap: wrap;
+  max-height:280px;
+}
+h2{
+  color: #4a4a48;
+  position: absolute;
+}
+
+/*ratio=0.625*/
+/*change font..don't like bold fonts*/

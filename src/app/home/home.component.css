@@ -1,59 +1,10 @@
-.body-container{
-  padding: 20px 70px;
-  display: flex;
+:host{
+  /*padding: 20px 70px;*/
+  /*width: 100%;*/
+  margin-top: 20px;
+  max-width:80%;
 }
 
-.video{
-  padding: 10px 2px;
-  box-sizing: border-box;
-  overflow: hidden;
-  max-width: 210px;
-  max-height: 240px;
-  margin: 20px 0px;
-  position: relative;
-}
-
-.video:hover .borders{
-  border-top: 1px solid #a4c2a5 !important;
-  border-bottom: 1px solid #a4c2a5 !important;
-}
-.borders{
-  position: absolute;
-  top:0;
-  bottom: 0;
-  height:99%;
-  width: 50%;
-  margin: 0px auto;
-  border-top: 1px solid #d8dad3;
-  border-bottom: 1px solid #d8dad3;
-  left: 50%;
-  margin-left: -52.5px;
-/*  transition: border-top .2s cubic-bezier(0.445, 0.05, 0.55, 0.95), 
-  border-bottom .2s cubic-bezier(0.445, 0.05, 0.55, 0.95);*/
-}
-/*ratio=0.625*/
-/*change font..don't like bold fonts*/
-
-.video-title{
-  font-size: 16px;
-  font-weight: 600;
-  display: block;
-  letter-spacing: .5px;
-  max-height:40px;
-  margin: 0 auto;
-  width: 200px;
-}
-.video img{
-  width:200px;
-  height:125px;
-  display: block;
-  margin: 10px auto;
-}
-.video-uploader, .video-views{
-  display: block;
-  font-size:13px;
-  font-weight:400;
-  max-height: 15px;
-  overflow: hidden; 
-  width: 200px;
+.section{
+  overflow: auto;
 }

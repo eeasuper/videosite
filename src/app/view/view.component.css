@@ -1,7 +1,11 @@
 :host{
   top:64px;
-  position:absolute;
+  position:fixed;
   transition: margin-left .2s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  width:100%;
 }
 
 :host.is-open-view{

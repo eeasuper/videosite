@@ -1,0 +1,45 @@
+:host{
+  padding: 10px 2px;
+  box-sizing: border-box;
+  overflow: hidden;
+  max-width: 210px;
+  max-height: 240px;
+  margin: 40px 0px 20px;
+  position: relative;
+  cursor: pointer; 
+  min-width: 210px;
+  max-height: 240px;
+  display: inline-block;
+}
+
+:host:hover .video-title{
+  color: #566246;
+}
+
+.video-title{
+  font-size: 16px;
+  font-weight: 600;
+  display: block;
+  letter-spacing: .5px;
+  max-height:40px;
+  margin: 0 auto;
+  width: 200px;
+  /*transition: color .2s cubic-bezier(0.445, 0.05, 0.55, 0.95);*/
+  cursor: pointer;
+}
+img{
+  width:200px;
+  height:125px;
+  display: block;
+  margin: 10px auto;
+  cursor: pointer;
+}
+.video-uploader, .video-views{
+  display: block;
+  font-size:13px;
+  font-weight:400;
+  max-height: 15px;
+  overflow: hidden; 
+  width: 200px;
+  cursor: pointer;
+}
