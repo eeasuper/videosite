@@ -1,2 +1,7 @@
+
+<div #videosContainer class="videos-container">
+  <div class="videos-container2">
 <h2>{{data.h2}}</h2>
-<app-video-list-tab *ngFor="let value of objectValues(data.list); let i = index;" [value]="value"></app-video-list-tab>
+<app-video-list-tab *ngFor="let value of objectValues(data.list); let i = index;" [value]="value" [videoId]="i + 1" [videos]="numOfVid"></app-video-list-tab>
+  </div>
+</div>

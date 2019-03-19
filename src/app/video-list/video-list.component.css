@@ -1,8 +1,10 @@
 :host{
   display: flex;
   overflow:hidden;    
-  flex-wrap: wrap;
+  /*flex-wrap: wrap;*/
   max-height:280px;
+  justify-content: center;
+  width:100%;
 }
 h2{
   color: #4a4a48;
@@ -11,3 +13,15 @@ h2{
 
 /*ratio=0.625*/
 /*change font..don't like bold fonts*/
+.videos-container{
+/*  display: flex;
+  flex-wrap: wrap;*/
+  overflow: hidden;
+  display: block;
+  position: relative;
+}
+
+.videos-container2{
+  white-space: nowrap;
+  display: inline-block;
+}
