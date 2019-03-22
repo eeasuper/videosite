@@ -3,7 +3,7 @@ import {VideoService} from './video-service.service';
 import {ApiCallsService} from './services/api-calls.service';
 import {SidebarService} from './services/sidebar.service';
 import {Observable} from 'rxjs'
-
+import {WindowSizeDirective} from './directives/window-size.directive'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

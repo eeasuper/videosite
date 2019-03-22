@@ -1,0 +1,31 @@
+:host{
+  display: flex;
+  overflow: hidden;
+  display: block;
+  position: relative;
+  width:90%;
+}
+
+/*height for everything inside upper-container is relative to the height created by the video tag.*/
+.upper-container{
+  white-space: nowrap;
+  display: inline-block;
+  margin-top:20px;
+  width: 100%;
+}
+
+.video{
+  position: relative;
+  width:63%;
+  display: inline-block;
+}
+
+.description{
+  position: absolute;
+  top: 20px;
+  bottom: 0;
+  right:0;
+  width: 35%;
+  display: inline-block;
+  border: 1px solid black;
+}

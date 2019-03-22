@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./view-video.component.css']
 })
 export class ViewVideoComponent implements OnInit {
+  private window:any = window;
 
   constructor() { }
 

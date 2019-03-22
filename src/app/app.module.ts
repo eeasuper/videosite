@@ -13,6 +13,8 @@ import {SidebarService} from './services/sidebar.service';
 import {HomeModule} from './home/home.module'
 import {ViewVideoModule} from './view-video/view-video.module'
 import {ViewModule} from './view/view.module';
+import {ViewPlaylistModule} from './view-playlist/view-playlist.module';
+import { WindowSizeDirectiveModule } from './directives/window-size-directive.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,6 @@ import {ViewModule} from './view/view.module';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     HttpClientModule,
     StoreModule.forRoot({}),
     UserModule,
@@ -28,7 +29,10 @@ import {ViewModule} from './view/view.module';
     SidebarModule,
     HomeModule,
     ViewVideoModule,
-    ViewModule
+    ViewModule,
+    ViewPlaylistModule,
+    AppRoutingModule,
+    WindowSizeDirectiveModule
   ],
   providers: [
     SidebarService

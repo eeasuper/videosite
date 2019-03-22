@@ -1,4 +1,5 @@
 import { Component, OnInit,Input,OnChanges,ElementRef,Renderer2 } from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-video-list-tab',

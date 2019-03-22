@@ -1,0 +1,29 @@
+:host{
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
+  width: 100%;
+}
+
+.test{
+  white-space: nowrap;
+  display: inline-block;
+}
+.container{
+  display:block;
+  overflow: hidden;
+  position: relative;
+}
+
+.playlist{
+  width:80%;
+  height: 200px;
+  border: 1px solid black;
+}
+
+.right-container{
+  display: inline-block;
+}
+img{
+  width:20%;
+}
