@@ -1,8 +1,8 @@
 :host{
   top:64px;
-  position:fixed;
+  position:absolute;
   transition: margin-left .2s cubic-bezier(0.445, 0.05, 0.55, 0.95);
-  overflow: hidden;
+  /*overflow: hidden;*/
   display: flex;
   justify-content: center;
   width:100%;

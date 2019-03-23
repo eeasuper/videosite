@@ -65,6 +65,8 @@ export class ViewPlaylistComponent implements OnInit {
     }
   }
 
+
+
   constructor() { }
 
   ngOnInit() {
