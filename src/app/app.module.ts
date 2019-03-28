@@ -14,7 +14,7 @@ import {HomeModule} from './home/home.module'
 import {ViewVideoModule} from './view-video/view-video.module'
 import {ViewModule} from './view/view.module';
 import {ViewPlaylistModule} from './view-playlist/view-playlist.module';
-import { WindowSizeDirectiveModule } from './directives/window-size-directive.module';
+import { DirectivesModule } from './directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,8 @@ import { WindowSizeDirectiveModule } from './directives/window-size-directive.mo
     ViewModule,
     ViewPlaylistModule,
     AppRoutingModule,
-    WindowSizeDirectiveModule
+    DirectivesModule,
+
   ],
   providers: [
     SidebarService

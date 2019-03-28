@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PlaylistListComponent } from './playlist-list.component';
-import {WindowSizeDirectiveModule} from '../../directives/window-size-directive.module'
+import {DirectivesModule} from '../../directives/directives.module'
 @NgModule({
   declarations: [PlaylistListComponent],
   imports: [
     CommonModule,
-    WindowSizeDirectiveModule
+    DirectivesModule
   ],
   exports:[
     PlaylistListComponent

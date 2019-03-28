@@ -1,3 +1,33 @@
-<p>
-  edit-playlist works!
-</p>
+<div class="container" appWindowSize>
+  <div class="inner-con">
+    <div class="upper-con">
+      <div class="img-con">
+        <img [src]="data.list[0].thumbnail"/>
+      </div>
+      <div class="data-con">
+        <h2 #h2Title (click)="h2Click($event)">{{data.name}}<button class="h2-button button"><div></div></button></h2>
+        <div #h2InputCon class="h2-input">
+          <form>
+            <input #h2Input   type="text" [attr.value]="data.name" (blur)="h2InputBlur($event)"/>
+          </form>
+        </div>
+        <h4>Updated {{data.updated}}</h4>
+        <button class="button-play button-med button"><span></span>Play All</button>
+        <button class="button-med button">Add Video</button>
+      </div>
+    </div>
+    <table>
+      <tbody cdkDropList (cdkDropListDropped)="drop($event)" >
+        <tr *ngFor="let value of list; let i = index;" class="tr-list-box" cdkDrag>
+          <td class="video-order">{{i+1}}</td>
+          <td class="video-thumbnail"><img [src]="value.thumbnail"/></td>
+          <td class="video-h3">
+            <h3><a class="h3-a">{{value.h3}}</a></h3>
+            <h3 class="video-h3-uploader">by {{value.uploader}}</h3>
+          </td>
+          <td class="video-uploader"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

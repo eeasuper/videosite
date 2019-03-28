@@ -4,23 +4,25 @@ import {ViewPlaylistComponent} from './view-playlist.component';
 //AppRoutingModule is used in ViewComponent.
 import {EditPlaylistComponent} from './edit-playlist/edit-playlist.component';
 import {PlaylistListComponent} from './playlist-list/playlist-list.component';
-import {PlaylistResolverService} from './playlist-resolver.service';
-
+import {PlaylistResolverService} from './playlist-list/playlist-resolver.service';
+import {EditPlaylistResolverService} from './edit-playlist/edit-playlist-resolver.service'
 const routes: Routes = [
   {
     path: 'playlist', component: ViewPlaylistComponent, children:[
       {
         //path: 'userId'
-        path:'', component: PlaylistListComponent
+        path:':userId', component: PlaylistListComponent, resolve:{
+          playlists: PlaylistResolverService
+        }
       },
       {
         //url should be like this: https://stackoverflow.com/users/edit/9798292
-        path: 'edit', component: EditPlaylistComponent
+        path: ':userId/:playlistId/edit', component: EditPlaylistComponent, resolve :{
+          playlist: EditPlaylistResolverService
+        }
         //could add another resolver here.  
       }
-    ], resolve:{
-      playlists: PlaylistResolverService
-    }
+    ]
   },
 
 ];

@@ -9,7 +9,7 @@ import {Playlist,Playlists} from '../playlist';
 })
 export class PlaylistListComponent implements OnInit {
   // @Input('data') private data;
-  private data;
+  private data;    
   // private data = [
   //   {
   //     name: 'exampleplaylist',
@@ -69,7 +69,7 @@ export class PlaylistListComponent implements OnInit {
   private objectValues = Object.values;
   private width;
 
-  orderList(data:any){
+  orderList(data:any[]){
     return data.sort((a,b)=>{
       return a.order - b.order;
     })

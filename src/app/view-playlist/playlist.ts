@@ -8,7 +8,8 @@ export class Video{
 
 export class Playlist{
   name: string;
-  created: string;
+  updated: string;
+  id: number;
   list: Video[];
 }
 
