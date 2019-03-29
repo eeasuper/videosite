@@ -12,8 +12,11 @@
           </form>
         </div>
         <h4>Updated {{data.updated}}</h4>
-        <button class="button-play button-med button"><span></span>Play All</button>
-        <button class="button-med button">Add Video</button>
+        <div class="playlist-buttons">
+          <button class="button-play button-med button"><span>Play All</span></button>
+          <button class="button-med button">Add Video</button>
+          <button class="button-med button" mat-button (click)="openDialog()">Delete Playlist</button>
+        </div>
       </div>
     </div>
     <table>
@@ -25,7 +28,8 @@
             <h3><a class="h3-a">{{value.h3}}</a></h3>
             <h3 class="video-h3-uploader">by {{value.uploader}}</h3>
           </td>
-          <td class="video-uploader"></td>
+          <!-- make anchor remove video from playlist. -->
+          <button class="button video-remove"><a></a></button>
         </tr>
       </tbody>
     </table>

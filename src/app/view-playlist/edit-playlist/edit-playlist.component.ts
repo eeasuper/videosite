@@ -1,12 +1,12 @@
-import { Component, OnInit, Renderer2, ElementRef,ViewChild} from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef,ViewChild,Inject} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {Playlist,Playlists,Video} from '../playlist';
 import {DraggableCellService} from './draggable-cell.service'
 import {Observable,Subscription} from 'rxjs';
 
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-
-
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
+import {DialogCloseComponent} from '../../reusable-components/dialog-close/dialog-close.component';
 @Component({
   selector: 'app-edit-playlist',
   templateUrl: './edit-playlist.component.html',
@@ -19,7 +19,15 @@ export class EditPlaylistComponent implements OnInit {
   @ViewChild('h2Input') private h2Input:ElementRef;
   @ViewChild('h2Title') private h2Title:ElementRef;
 
-  constructor(private router:Router,private route: ActivatedRoute, private renderer:Renderer2, private service:DraggableCellService) { }
+  constructor(private router:Router,private route: ActivatedRoute, private renderer:Renderer2, public dialog: MatDialog) { }
+
+  openDialog() {
+    this.dialog.open(DialogCloseComponent, {
+      data: {
+        type: 'playlist'
+      }
+    });
+  }
 
   h2Click(e){
     this.renderer.setStyle(this.h2Title.nativeElement, 'display', 'none');
@@ -52,9 +60,6 @@ export class EditPlaylistComponent implements OnInit {
   //   })
   // }
 
-  test2(){
-    console.log("clicked");
-  }
   ngOnInit() {
     this.route.data
       .subscribe((data: { playlist: Playlist }) => {

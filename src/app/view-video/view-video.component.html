@@ -3,18 +3,32 @@
 <video class="video" controls>
     <source src="assets/yui-ura-on.mp4" type="video/mp4">
 </video>
-<div class="description">
-  <div>
-    Title
+  <div class="caret-con">
+    <button class="toggle-button button" (click)="doClick()">
+      <span></span>
+    </button>
+    <div class="caret-hover"></div>
   </div>
-  <div>
-    Description
+  <div class="description">
+    <h1>
+      {{data.title}}
+    </h1>
+    <div class="uploader">
+      Uploaded by {{data.uploader}}
+    </div>
+    <p class="published">
+      &nbsp;&nbsp;Published on {{data.published_date}}
+    </p>
+    <div class="views">
+      {{data.views}} views
+    </div>
+<!--     <div class="buttons_con">
+      <button>
+      </button>
+    </div> -->
+    <hr>
+    <p class="description_desc">
+      {{data.description}}
+    </p>
   </div>
-  <div>
-    Views
-  </div>
-  <div>
-    Uploader
-  </div>
-</div>
 </div>

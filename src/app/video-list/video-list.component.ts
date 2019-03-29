@@ -120,7 +120,6 @@ export class VideoListComponent implements OnInit {
         return 0;
       }
       function setAttribute(state){
-        console.log("ff")
         renderer.setAttribute(element,'data-state',state);
       }
     }
@@ -162,7 +161,7 @@ export class VideoListComponent implements OnInit {
   }
 
   private isOverflowing;
-  private isSidebarOpen;
+  private isSidebarOpen = true;
 
   constructor(private renderer:Renderer2,private element:ElementRef,private sidebar:SidebarService) { }
 

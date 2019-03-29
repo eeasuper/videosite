@@ -1,0 +1,9 @@
+button{
+  z-index:1000;
+  min-width:32px;
+}
+
+mat-dialog-actions{
+  display:flex;
+  justify-content: space-around;
+}

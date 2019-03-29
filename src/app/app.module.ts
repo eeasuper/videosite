@@ -15,10 +15,12 @@ import {ViewVideoModule} from './view-video/view-video.module'
 import {ViewModule} from './view/view.module';
 import {ViewPlaylistModule} from './view-playlist/view-playlist.module';
 import { DirectivesModule } from './directives/directives.module';
-
+import {ReusableComponentsModule} from './reusable-components/reusable-components.module'
+import {DialogCloseComponent} from './reusable-components/dialog-close/dialog-close.component'
+import {MatDialogModule } from '@angular/material/dialog'
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,11 +35,13 @@ import { DirectivesModule } from './directives/directives.module';
     ViewPlaylistModule,
     AppRoutingModule,
     DirectivesModule,
-
+    ReusableComponentsModule,
+    MatDialogModule
   ],
   providers: [
     SidebarService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents:[DialogCloseComponent]
 })
 export class AppModule { }

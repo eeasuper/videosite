@@ -2,10 +2,13 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {HomeComponent} from '../home/home.component';
 import {ViewVideoComponent} from './view-video.component';
+import {ViewVideoResolverService} from './view-video-resolver.service';
 
 const viewVideoRoutes: Routes = [
   {
-    path: 'view', component: ViewVideoComponent
+    path: 'view/:videoid', component: ViewVideoComponent,resolve:{
+      video:ViewVideoResolverService
+    }
   },
 ];
 

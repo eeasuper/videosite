@@ -1,5 +1,5 @@
 :host{
-  top:64px;
+  top:50px;
   position:absolute;
   transition: margin-left .2s cubic-bezier(0.445, 0.05, 0.55, 0.95);
   /*overflow: hidden;*/
@@ -7,6 +7,8 @@
   justify-content: center;
   width:100%;
   background-color: #f1f2eb;
+  height:100%;
+  /*try 100% - 64px;*/
 }
 
 :host.is-open-view{

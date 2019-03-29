@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {HomeComponent} from './home/home.component';
 import {ViewVideoComponent} from './view-video/view-video.component';
 import {ViewVideoModule} from './view-video/view-video.module'
+import {LoginComponent} from './login/login.component';
 
 //AppRoutingModule is used in ViewComponent.
 
@@ -11,6 +12,9 @@ const routes: Routes = [
   {
     path: '', component: HomeComponent, pathMatch: 'full'
   },
+  {
+    path:'login', component: LoginComponent, pathMatch: 'full'
+  }
   // {
   //   path: 'view', loadChildren: './view-video/view-video.module#ViewVideoModule'
   // }

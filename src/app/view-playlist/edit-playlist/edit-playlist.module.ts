@@ -2,17 +2,21 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EditPlaylistComponent } from './edit-playlist.component';
 import {DirectivesModule} from '../../directives/directives.module';
-
+import {ReusableComponentsModule} from '../../reusable-components/reusable-components.module';
 import {DraggableCellService} from './draggable-cell.service';
 import {DragDropModule} from '@angular/cdk/drag-drop'; 
-
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import {DialogCloseComponent} from '../../reusable-components/dialog-close/dialog-close.component'
 @NgModule({
   declarations: [EditPlaylistComponent],
   imports: [
     CommonModule,
     DirectivesModule,
-    DragDropModule
+    DragDropModule,
+    ReusableComponentsModule,
+    BrowserAnimationsModule
   ],
-  providers:[DraggableCellService]
+  providers:[DraggableCellService],
+
 })
 export class EditPlaylistModule { }

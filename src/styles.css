@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 body{
   /*background-color: #F1F2EB;*/
   margin: 0;
@@ -21,10 +21,15 @@ ul, li{
   border: 1px solid #d8dad3;
   border-radius:3px;
   background-color: #f1f2eb;
-  transition: background-color 250ms cubic-bezier(0, 0, 0.2, 1);;
+  transition: background-color 250ms cubic-bezier(0, 0, 0.2, 1);
+  cursor: pointer;
+  outline: none;
 }
 .button:hover{
   background-color: #a4c2a5;
+}
+.button:active{
+  background-color:#566246;
 }
 
 .button-med{

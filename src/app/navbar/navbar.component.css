@@ -1,7 +1,7 @@
 :host{
   width:100%;
-  height:64px;
-  z-index:2;
+  height:50px;
+  z-index:1000;
   background-color: #F1F2EB;
   box-shadow: 0 2px 5px 0 rgba(0,0,0,.2);
   position: fixed;
@@ -42,6 +42,7 @@ nav ul:nth-child(1){
   /*flex-basis: 500px;*/
   flex: 1;
   margin: 0px 40px;
+  align-items: center;
 }
 
 .search-bar form{
@@ -52,8 +53,10 @@ nav ul:nth-child(1){
   height: 32px;
   border: 1px solid #D8DAD3;
   align-items: center;
-  border-radius: 3px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
   background-color: #fff;
+  border-right:none;
 }
 
 .search-bar form div{
@@ -72,6 +75,52 @@ nav ul:nth-child(1){
   padding: 1px;
 }
 
+.search-icon-button{
+
+  /*background-color:#fff;*/
+  border: 1px solid #D8DAD3;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  display:inline-block;
+  width:64px;
+  height:32px;
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 5px;
+  text-align:center;
+}
+
+.search-icon{
+  background-image: url('/assets/icons/search_icon.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  display:inline-block;
+  width:20px;
+  height:100%;
+}
+
+.account{
+  height: 34px;
+  width:34px;
+  border-radius: 50px;
+  border: 1px solid #d8dad3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color:#fff;
+  cursor: pointer;
+}
+
+.account span{
+  height:20px;
+  width:20px;
+  background-image: url('/assets/icons/user_icon_24.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+
+}
+
 .end{
   justify-content: flex-end;
+  margin-right:10px;
 }
