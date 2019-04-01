@@ -19,7 +19,7 @@
 }
 
 .playlist{
-  width:80%;
+  width:90%;
   height: 138px;
   margin-bottom: 10px;
   display: inline-block;
@@ -87,6 +87,14 @@ img{
   left: 50%;
   margin-left: -14px;
   text-shadow: 0px 0px 10px black;
+}
+
+.img-con-icons a{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .img-con-play{

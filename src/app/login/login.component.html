@@ -1,3 +1,40 @@
-<p>
-  login works!
-</p>
+<div class="form-container">
+  <div class="inner-con">
+    <h1>Sign In</h1>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <!-- <table>
+        <tr>
+          <td>
+            
+          </td>
+        </tr>
+      </table> -->
+      <!-- <mat-form-field class=" full-width">
+        <input matInput placeholder="Username or Email" [formControl]="emailFormControl"
+               [errorStateMatcher]="matcher"> -->
+        <!-- <mat-hint>Please insert email here</mat-hint> -->
+        <!-- <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error> -->
+      <!-- </mat-form-field> -->
+      <mat-form-field>
+        <input matInput placeholder="Username or Email" [formControl]="loginForm.get('usernameControl')"
+          [errorStateMatcher]="usernameMatcher">
+       <!--  <mat-error *ngIf="loginForm.get('usernameControl').hasError('minLength')">Minimum length is 6 characters.
+        </mat-error>
+        <mat-error *ngIf="loginForm.get('usernameControl').hasError('maxLength')">Maximum length of username or email is 24 characters.
+        </mat-error> -->
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Password" type="password" formControlName="passwordControl">
+      </mat-form-field>
+      <div class="submit-con">
+        <button type="submit" [disabled]="!loginForm.valid" class="submit button button-lar">Sign In</button>
+      </div>
+    </form>
+  </div>
+<div>
+  <!-- add google sign in? -->

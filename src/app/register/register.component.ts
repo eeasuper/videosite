@@ -4,25 +4,27 @@ import {FormControl, FormGroupDirective, NgForm, Validators,FormGroup} from '@an
 import {ErrorStateMatcher} from '@angular/material/core';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
 })
-export class LoginComponent implements OnInit {
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-    //replace with .pattern() for email with a better one I have.
-  ]);
+export class RegisterComponent implements OnInit {
 
-  loginForm = new FormGroup({
+  registerForm = new FormGroup({
     usernameControl: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^[\w][^\s]{4,24}$/),
       ]),
     passwordControl: new FormControl('', [
-      ])
-  });
-
-  usernameMatcher = new MyErrorStateMatcher();
+      Validators.required,
+      Validators.pattern(/^[\w][^\s]{6,}$/)
+      ]),
+    emailControl: new FormControl('',[
+      Validators.required,
+      Validators.email
+      ]),
+    nameControl: new FormControl('',Validators.required)
+  })
 
   matcher = new MyErrorStateMatcher();
 
@@ -33,9 +35,11 @@ export class LoginComponent implements OnInit {
       this.sidebar.toggle();  
     },0);
   }
+
   onSubmit(){
-    console.log(this.loginForm.value);
+    console.log(this.registerForm.value);
   }
+
 }
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {

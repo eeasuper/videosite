@@ -18,6 +18,11 @@ import { DirectivesModule } from './directives/directives.module';
 import {ReusableComponentsModule} from './reusable-components/reusable-components.module'
 import {DialogCloseComponent} from './reusable-components/dialog-close/dialog-close.component'
 import {MatDialogModule } from '@angular/material/dialog'
+import {MatInputModule} from '@angular/material/input';
+import {LoginModule} from './login/login.module';
+import {RegisterModule} from './register/register.module';
+import {ProfileModule} from './profile/profile.module';
+// import {ProfileResolverService} from './profile/profile-resolver.service'
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,13 +38,17 @@ import {MatDialogModule } from '@angular/material/dialog'
     ViewVideoModule,
     ViewModule,
     ViewPlaylistModule,
+    LoginModule,
+    RegisterModule,
+    ProfileModule,
     AppRoutingModule,
     DirectivesModule,
     ReusableComponentsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatInputModule
   ],
   providers: [
-    SidebarService
+    SidebarService,
   ],
   bootstrap: [AppComponent],
   entryComponents:[DialogCloseComponent]

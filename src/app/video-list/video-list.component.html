@@ -2,12 +2,14 @@
 <div #videosContainer class="videos-container">
   <div class="videos-container2">
     <h2>{{data.h2}}</h2>
-    <div class="arrow-left-con arrow" (click)="handleClick('left')"> <div class="left-arrow"></div><div class="cover"></div></div>
-    <div #page class="page" [attr.data-totalpage]="setTotalPage()">{{videoCon3.nativeElement.dataset.state}}&nbsp;/&nbsp;{{page.dataset.totalpage}}
+    <div class="arrows-container">
+      <button class="arrow-left-con arrow button" (click)="handleClick('left')"> <div class="left-arrow"></div></button>
+      <div #page class="page" [attr.data-totalpage]="setTotalPage()">{{videoCon3.nativeElement.dataset.state}}&nbsp;/&nbsp;{{page.dataset.totalpage}}
+      </div>
+      <button class="arrow-right-con arrow button" (click)="handleClick('right')"><div class="right-arrow"></div></button>
     </div>
-    <div class="arrow-right-con arrow" (click)="handleClick('right')"><div class="right-arrow"></div><div class="cover"></div></div>
     <div #videosContainer3 class="videos-container3" data-state=1>
-      <app-video-list-tab *ngFor="let value of objectValues(data.list); let i = index;" [value]="value" [videoId]="i + 1" [videos]="numOfVid"></app-video-list-tab>
+      <app-video-list-tab *ngFor="let value of data.list; let i = index;" [value]="value" [videoId]="i + 1" [videos]="numOfVid"></app-video-list-tab>
     </div>
   </div>
 </div>

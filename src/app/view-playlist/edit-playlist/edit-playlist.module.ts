@@ -7,6 +7,7 @@ import {DraggableCellService} from './draggable-cell.service';
 import {DragDropModule} from '@angular/cdk/drag-drop'; 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import {DialogCloseComponent} from '../../reusable-components/dialog-close/dialog-close.component'
+import {RouterModule} from '@angular/router'
 @NgModule({
   declarations: [EditPlaylistComponent],
   imports: [
@@ -14,7 +15,8 @@ import {DialogCloseComponent} from '../../reusable-components/dialog-close/dialo
     DirectivesModule,
     DragDropModule,
     ReusableComponentsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    RouterModule
   ],
   providers:[DraggableCellService],
 

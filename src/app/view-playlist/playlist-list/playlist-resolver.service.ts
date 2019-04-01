@@ -19,26 +19,30 @@ export class PlaylistResolverService implements Resolve<any> {
     this.test.updated = 'December 1st 2018';
     this.test.name = 'exampleplaylist'
     this.test.id = 1;
+    this.test.edit_url = '/playlist/1/1/edit'
     let playlist1:Video = {
       h3: 'Yui-Ura-On!!!',
       thumbnail: '/assets/seeding-thumbnail.png',
       uploader: 'example uploader',
       views: 'example views',
-      order: 1
+      order: 1,
+      url : '/view/1'
     }
     let playlist2:Video = {
       h3: 'Yui-Ura-On!!! 2',
       thumbnail: '/assets/seeding-thumbnail.png',
       uploader: 'example uploader2',
       views: 'example views2',
-      order: 3
+      order: 3,
+      url : '/view/1'
     }
     let playlist3:Video = {
       h3: 'Yui-Ura-On!!! 3',
       thumbnail: '/assets/seeding-thumbnail.png',
       uploader: 'example uploader3',
       views: 'example views3',
-      order: 2
+      order: 2,
+      url : '/view/1'
     }
     let a = new Array<Video>();
     this.test.list = a;
@@ -75,7 +79,6 @@ export class PlaylistResolverService implements Resolve<any> {
         take(1),
         mergeMap(data=>{
           if(data){
-            console.log(of(data));
             return of(data);
           }else{
             this.router.navigate(['/']);

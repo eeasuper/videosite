@@ -4,6 +4,7 @@ export class Video{
   uploader: string;
   views: string;
   order: number;
+  url: string;
 }
 
 export class Playlist{
@@ -11,6 +12,7 @@ export class Playlist{
   updated: string;
   id: number;
   list: Video[];
+  edit_url: string;
 }
 
 export class Playlists{

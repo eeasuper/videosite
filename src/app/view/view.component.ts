@@ -33,7 +33,7 @@ export class ViewComponent implements OnInit {
         }
 
         if(this.isOpen){
-        this.renderer.setStyle(this.element.nativeElement,"width", windowWidth-200+"px");
+          this.renderer.setStyle(this.element.nativeElement,"width", windowWidth-200+"px");
         }else{
           this.renderer.setStyle(this.element.nativeElement,"width", "100%");
         }

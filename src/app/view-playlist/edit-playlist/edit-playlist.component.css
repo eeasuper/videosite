@@ -152,6 +152,7 @@ tbody{
   background-color: #4a4a48;
   position:relative;
   vertical-align: middle;
+  display: block;
 }
 
 .tr-list-box:hover .h3-a{
@@ -187,6 +188,11 @@ td{
 .video-h3 .h3-a:hover{
   text-decoration: underline;
   cursor: pointer;
+}
+
+.h3-a{
+  color: #fff;
+  text-decoration: none;
 }
 
 .video-h3-uploader{

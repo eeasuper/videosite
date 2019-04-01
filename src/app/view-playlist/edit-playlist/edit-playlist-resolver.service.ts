@@ -26,21 +26,24 @@ export class EditPlaylistResolverService implements Resolve<Playlist> {
       thumbnail: '/assets/seeding-thumbnail.png',
       uploader: 'example uploader',
       views: 'example views',
-      order: 1
+      order: 1,
+      url: '/view/1'
     }
     let playlist2:Video = {
       h3: 'Yui-Ura-On!!! 2',
       thumbnail: '/assets/seeding-thumbnail.png',
       uploader: 'example uploader2',
       views: 'example views2',
-      order: 3
+      order: 3,
+      url: '/view/1'
     }
     let playlist3:Video = {
       h3: 'Yui-Ura-On!!! 3',
       thumbnail: '/assets/seeding-thumbnail.png',
       uploader: 'example uploader3',
       views: 'example views3',
-      order: 2
+      order: 2,
+      url: '/view/1'
     }
     let a = new Array<Video>();
     this.test.list = a;

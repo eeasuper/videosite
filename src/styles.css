@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+/*@import './theme.scss';*/
 body{
   /*background-color: #F1F2EB;*/
   margin: 0;
@@ -12,7 +12,9 @@ body{
   margin: 0;
   padding: 0;
 }
-
+h1{
+  color: #4a4a48;
+}
 ul, li{
   list-style: none;
 }
@@ -35,4 +37,10 @@ ul, li{
 .button-med{
   height:30px;
   padding:0px 5px;
+}
+
+.button-lar{
+  height:40px;
+  font-size:1em;
+  padding: 0px 10px;
 }

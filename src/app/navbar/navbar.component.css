@@ -81,9 +81,11 @@ nav ul:nth-child(1){
   border: 1px solid #D8DAD3;
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
   display:inline-block;
   width:64px;
-  height:32px;
+  height:34px;
   cursor: pointer;
   box-sizing: border-box;
   padding: 5px;

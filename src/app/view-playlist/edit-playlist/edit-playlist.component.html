@@ -25,7 +25,7 @@
           <td class="video-order">{{i+1}}</td>
           <td class="video-thumbnail"><img [src]="value.thumbnail"/></td>
           <td class="video-h3">
-            <h3><a class="h3-a">{{value.h3}}</a></h3>
+            <h3><a [routerLink]="value.url" class="h3-a">{{value.h3}}</a></h3>
             <h3 class="video-h3-uploader">by {{value.uploader}}</h3>
           </td>
           <!-- make anchor remove video from playlist. -->

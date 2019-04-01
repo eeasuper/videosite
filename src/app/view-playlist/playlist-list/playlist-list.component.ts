@@ -10,62 +10,6 @@ import {Playlist,Playlists} from '../playlist';
 export class PlaylistListComponent implements OnInit {
   // @Input('data') private data;
   private data;    
-  // private data = [
-  //   {
-  //     name: 'exampleplaylist',
-  //     created: 'December 1st 2018',
-  //     list:[
-  //       {
-  //         h3: 'Yui-Ura-On!!!',
-  //         thumbnail: '/assets/seeding-thumbnail.png',
-  //         uploader: 'example uploader',
-  //         views: 'example views',
-  //         order: 1
-  //       },
-  //       {
-  //         h3: 'Yui-Ura-On!!! 2',
-  //         thumbnail: '/assets/seeding-thumbnail.png',
-  //         uploader: 'example uploader2',
-  //         views: 'example views2',
-  //         order: 3
-  //       },
-  //       {
-  //         h3: 'Yui-Ura-On!!! 3',
-  //         thumbnail: '/assets/seeding-thumbnail.png',
-  //         uploader: 'example uploader3',
-  //         views: 'example views3',
-  //         order: 2
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     name: 'exampleplaylist2',
-  //     created: 'December 2nd 2018',
-  //     list:[
-  //       {
-  //         h3: 'Yui-Ura-On!!!',
-  //         thumbnail: '/assets/seeding-thumbnail.png',
-  //         uploader: 'example uploader',
-  //         views: 'example views',
-  //         order: 3
-  //       },
-  //       {
-  //         h3: 'Yui-Ura-On!!! 2',
-  //         thumbnail: '/assets/seeding-thumbnail.png',
-  //         uploader: 'example uploader2',
-  //         views: 'example views2',
-  //         order: 2
-  //       },
-  //       {
-  //         h3: 'Yui-Ura-On!!! 3',
-  //         thumbnail: '/assets/seeding-thumbnail.png',
-  //         uploader: 'example uploader3',
-  //         views: 'example views3',
-  //         order: 1
-  //       }
-  //     ]
-  //   }
-  // ]
   private objectValues = Object.values;
   private width;
 
@@ -96,7 +40,6 @@ export class PlaylistListComponent implements OnInit {
   ngOnInit() {
     this.route.data
       .subscribe((data: { playlists: Playlists }) => {
-        console.log(data);
         this.data = data.playlists;
     });
     // this.orderList(this.data.playlist1.list);
