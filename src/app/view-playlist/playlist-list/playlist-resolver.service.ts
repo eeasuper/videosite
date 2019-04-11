@@ -20,6 +20,7 @@ export class PlaylistResolverService implements Resolve<any> {
     this.test.name = 'exampleplaylist'
     this.test.id = 1;
     this.test.edit_url = '/playlist/1/1/edit'
+    this.test.uploader_id = 1;
     let playlist1:Video = {
       h3: 'Yui-Ura-On!!!',
       thumbnail: '/assets/seeding-thumbnail.png',

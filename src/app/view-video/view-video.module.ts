@@ -4,8 +4,9 @@ import { ViewVideoComponent } from './view-video.component';
 import {ViewVideoRoutingModule} from './view-video-routing.module'
 import {WindowPipe} from './view-video-window.pipe';
 import {ViewVideoResolverService} from './view-video-resolver.service';
+import { ViewVideoPlaylistComponent } from './view-video-playlist/view-video-playlist.component';
 @NgModule({
-  declarations: [ViewVideoComponent,WindowPipe],
+  declarations: [ViewVideoComponent,WindowPipe, ViewVideoPlaylistComponent],
   imports: [
     CommonModule,
     ViewVideoRoutingModule

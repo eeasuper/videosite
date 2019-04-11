@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     setTimeout(()=>{
-      this.sidebar.toggle();  
+      this.sidebar.toggle(false);  
     },0);
   }
 

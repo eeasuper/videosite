@@ -1,0 +1,20 @@
+<div class="playlist-container">
+  <div class="top-container">
+    <h3 class="header name">{{playlist.title}}</h3>
+    <div class="header current">{{getCurrentOrder()}} / {{playlist.playlist.length}}</div>
+  </div>
+  <div class="lower-container">
+    <div class="list" *ngFor="let val of orderList(playlist.playlist)">
+      <ng-container *ngIf="getCurrentOrder() === val.ordered">
+        <div class="li currentOrder"></div>
+      </ng-container>
+      <div class="li order">{{val.ordered}}</div>
+      <img [src]="val.thumbnail" class="li thumbnail"/>
+      <div class="li details">
+        <div class="li2 title">{{val.title}}</div>
+        <div class="li2 uploader">{{val.uploaderId}}</div>
+      </div>
+      <a [routerLink]="val.url" [queryParams]="{playlist: playlist.id}"></a>
+    </div>
+  </div>
+</div>

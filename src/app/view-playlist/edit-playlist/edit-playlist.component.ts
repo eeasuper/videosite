@@ -12,16 +12,17 @@ import {DialogCloseComponent} from '../../reusable-components/dialog-close/dialo
   templateUrl: './edit-playlist.component.html',
   styleUrls: ['./edit-playlist.component.css']
 })
-export class EditPlaylistComponent implements OnInit {
+export class EditPlaylistComponent implements OnInit{
   private data;
   private list;
   @ViewChild('h2InputCon') private h2InputCon:ElementRef;
   @ViewChild('h2Input') private h2Input:ElementRef;
   @ViewChild('h2Title') private h2Title:ElementRef;
+  @ViewChild('saveButton') private saveButton:ElementRef;
 
   constructor(private router:Router,private route: ActivatedRoute, private renderer:Renderer2, public dialog: MatDialog) { }
 
-  openDialog() {
+  openDialog():void{
     this.dialog.open(DialogCloseComponent, {
       data: {
         type: 'playlist'
@@ -29,13 +30,13 @@ export class EditPlaylistComponent implements OnInit {
     });
   }
 
-  h2Click(e){
+  h2Click(e):void{
     this.renderer.setStyle(this.h2Title.nativeElement, 'display', 'none');
     this.renderer.setStyle(this.h2InputCon.nativeElement, 'display', 'block');
     this.h2Input.nativeElement.focus();
   }
 
-  h2InputBlur(e){
+  h2InputBlur(e):void{
     //DO API CALL HERE, after success or before -for speed-do:
     this.data.name = e.target.value;
 
@@ -49,6 +50,7 @@ export class EditPlaylistComponent implements OnInit {
   }
 
   drop(e: CdkDragDrop<string[]>){
+    this.toggleSave(false);
     moveItemInArray(this.data.list, e.previousIndex, e.currentIndex);
   }
 
@@ -60,13 +62,22 @@ export class EditPlaylistComponent implements OnInit {
   //   })
   // }
 
+  saveChanges():void{
+    //do API call here.
+    this.toggleSave(true);
+  }
+  toggleSave(saveChanges:boolean):void{
+    if(!saveChanges){
+      this.renderer.removeAttribute(this.saveButton.nativeElement, 'disabled');
+    }else if(saveChanges){
+      this.renderer.setAttribute(this.saveButton.nativeElement, 'disabled','true');
+    }
+  }
   ngOnInit() {
     this.route.data
       .subscribe((data: { playlist: Playlist }) => {
         this.data = data.playlist;
         this.list = this.orderList(this.data.list);
     });
-
   }
-
 }

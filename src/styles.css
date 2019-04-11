@@ -4,19 +4,30 @@ body{
   /*background-color: #F1F2EB;*/
   margin: 0;
   padding: 0;
-  font-family: 'Roboto';
+  font-family: 'Open Sans';
   overflow-x: hidden;
+  font-weight: 400;
 }
 
 *{
   margin: 0;
   padding: 0;
+  font-family: 'Open Sans', 'Noto Sans KR', 'Arial';
 }
 h1{
   color: #4a4a48;
 }
 ul, li{
   list-style: none;
+}
+
+.anchor{
+  position: absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  cursor: pointer;
 }
 
 .button{
@@ -33,12 +44,24 @@ ul, li{
 .button:active{
   background-color:#566246;
 }
-
+.button[disabled]:hover{
+  background-color: #f1f2eb;
+}
 .button-med{
   height:30px;
   padding:0px 5px;
 }
-
+.button-accent:not([disabled]){
+  animation: buttonAccent 1.5s infinite alternate;
+}
+.button-accent:not([disabled]):active{
+  animation: none;
+  background-color:#566246;
+}
+@keyframes buttonAccent{
+  0%{background-color: #f1f2eb;}
+  100%{background-color: #a4c2a5;}
+}
 .button-lar{
   height:40px;
   font-size:1em;

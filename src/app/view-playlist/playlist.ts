@@ -13,8 +13,10 @@ export class Playlist{
   id: number;
   list: Video[];
   edit_url: string;
+  uploader_id: number;
 }
 
 export class Playlists{
   playlists: Playlist[];
+  uploader_id:number;
 }

@@ -12,8 +12,8 @@ export class SidebarComponent implements OnInit {
 
   @HostBinding('class.is-open')
   isOpen = true;
-
-  private titles:object[] = [
+  
+  private Authenticated:object[] = [
     {
       name:'My Playlists',
       url: '/playlist/1',
@@ -27,32 +27,35 @@ export class SidebarComponent implements OnInit {
       activatedIcon: '/assets/icons/fire_icon_activated.png'
     }
   ]
-  private unAuthenticated:object[] = [
-    {
-      name: 'Login',
-      url: '/login',
-      icon: '/assets/icons/user_icon_24.png',
-      activatedIcon: '/assets/icons/playlist_icon_activated.png'
-    },
-    {
-      name: 'Register',
-      url: '/register',
-      icon: '/assets/icons/blank.png',
-      activatedIcon: '/assets/icons/playlist_icon_activated.png'
-    }
-  ]
+  private titles:object[] = this.Authenticated;
+  // private unAuthenticated:object[] = [
+  //   {
+  //     name: 'Login',
+  //     url: '/login',
+  //     icon: '/assets/icons/user_icon_24.png',
+  //     activatedIcon: '/assets/icons/playlist_icon_activated.png'
+  //   },
+  //   {
+  //     name: 'Register',
+  //     url: '/register',
+  //     icon: '/assets/icons/blank.png',
+  //     activatedIcon: '/assets/icons/playlist_icon_activated.png'
+  //   }
+  // ]
   constructor(private sidebar:SidebarService, private store:Store<any>) { }
 
   ngOnInit() {
     this.sidebar.change.subscribe(isOpen =>{
       this.isOpen = isOpen;
     })
-    this.store.select('user').subscribe(user=>{
-      // console.log(user);
-      if(!user.isAuthenticated){
-        this.titles = this.unAuthenticated;
-      }
-    })
+    // this.store.select('user').subscribe(user=>{
+    //   // console.log(user);
+    //   if(!user.isAuthenticated){
+    //     this.titles = this.unAuthenticated;
+    //   }else{
+    //     this.titles = this.Authenticated;
+    //   }
+    // })
   }
 
 }

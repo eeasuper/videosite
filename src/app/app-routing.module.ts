@@ -9,9 +9,13 @@ import {RegisterComponent} from './register/register.component';
 //AppRoutingModule is used in ViewComponent.
 import {ProfileComponent} from './profile/profile.component'
 import {ProfileResolverService} from './profile/profile-resolver.service';
+import {HomeResolverService} from './home/home-resolver.service';
 const routes: Routes = [
   {
-    path: '', component: HomeComponent, pathMatch: 'full'
+    path: '', component: HomeComponent, pathMatch: 'full',
+    resolve:{
+      videoLists: HomeResolverService
+    }
   },
   {
     path:'login', component: LoginComponent, pathMatch: 'full'

@@ -9,9 +9,14 @@ export class SidebarService {
 
   @Output() change:EventEmitter<boolean> = new EventEmitter();
 
-  toggle(){
-    this.isOpen = !this.isOpen;
-    this.change.emit(this.isOpen);
+  toggle(open?:boolean){
+    if(open == null){
+      this.isOpen = !this.isOpen;
+      this.change.emit(this.isOpen);
+    }else{
+      this.isOpen = open;
+      this.change.emit(this.isOpen);
+    }
   }
 
   // toggleForDownSize(hasClosed:boolean,windowWidth:number){

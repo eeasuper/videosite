@@ -2,7 +2,7 @@
 <div #videosContainer class="videos-container">
   <div class="videos-container2">
     <h2>{{data.h2}}</h2>
-    <div class="arrows-container">
+    <div class="arrows-container" >
       <button class="arrow-left-con arrow button" (click)="handleClick('left')"> <div class="left-arrow"></div></button>
       <div #page class="page" [attr.data-totalpage]="setTotalPage()">{{videoCon3.nativeElement.dataset.state}}&nbsp;/&nbsp;{{page.dataset.totalpage}}
       </div>

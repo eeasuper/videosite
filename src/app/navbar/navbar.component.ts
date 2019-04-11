@@ -1,21 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import {SidebarService} from '../services/sidebar.service';
 import {Observable, Subscription} from 'rxjs';
-
+import { Store } from '@ngrx/store';
+import {ActionTypes} from '../store/actions/user';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
   private clientX: number = 0;
   private clientY: number = 0;
   private clicked: boolean;
-
-  constructor(private sidebar:SidebarService) { }
-
+  private authenticated:boolean;
+  constructor(private sidebar:SidebarService, private store:Store<any>) { }
+  logout(){
+    this.store.dispatch({
+      type: ActionTypes.SET_CURRENT_USER,
+      payload: {username:'',id:-1}
+    })
+  }
   ngOnInit() {
+    this.store.select('user').subscribe(user=>{
+      // console.log(user);
+      if(!user.isAuthenticated){
+        this.authenticated = false;
+      }else if(user.isAuthenticated){
+        this.authenticated = true;
+      }else{
+        this.authenticated = false
+      }
+    })
   }
 
   doRipple(event: MouseEvent):void{
@@ -36,5 +51,6 @@ export class NavbarComponent implements OnInit {
     //   this.sidebarService.isShowingSubject.next(true);
     //   this.showSidebar.emit(true);
     // } 
+
   }
 }

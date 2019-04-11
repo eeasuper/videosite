@@ -4,4 +4,5 @@ export class Video{
   uploader: string;
   views: number;
   published_date: number;
+  id:number;
 }

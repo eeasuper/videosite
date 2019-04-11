@@ -25,6 +25,20 @@ nav{
   margin: 0px 10px;
 }
 
+.logo-con{
+  display: inline-block;
+  position: relative;
+  width: 100px;
+  height: 30px;
+}
+
+.logo{
+  background-image: url('/assets/logo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 100%;
+}
+
 .nav-component{
 
 }
@@ -125,4 +139,15 @@ nav ul:nth-child(1){
 .end{
   justify-content: flex-end;
   margin-right:10px;
+}
+
+.login-register-logout{
+  position: relative;
+  display: inline-block;
+  border: 1px solid #d8dad3;
+  border-radius: 5px;
+  font-size: 0.9em;
+  box-sizing: border-box;
+  padding: 3px;
+  cursor: pointer;
 }

@@ -1,8 +1,8 @@
-<!-- [attr.width]="window.innerWidth | window" [attr.height]="window.innerHeight | window" -->
 <div class="upper-container">
-<video class="video" controls>
-    <source src="assets/yui-ura-on.mp4" type="video/mp4">
-</video>
+  <video class="video" (ended)="onEnded()" controls>
+    <!-- ===========add attribute autoplay to video in production============== -->
+      <source [attr.src]="videoSource" type="video/mp4">
+  </video>
   <div class="caret-con">
     <button class="toggle-button button" (click)="doClick()">
       <span></span>
@@ -11,24 +11,24 @@
   </div>
   <div class="description">
     <h1>
-      {{data.title}}
+      {{currentVideo.title}}
     </h1>
-    <div class="uploader">
-      Uploaded by {{data.uploader}}
+    <div class="views column">
+      {{currentVideo.view}} views
     </div>
-    <p class="published">
-      &nbsp;&nbsp;Published on {{data.published_date}}
-    </p>
-    <div class="views">
-      {{data.views}} views
-    </div>
-<!--     <div class="buttons_con">
-      <button>
-      </button>
-    </div> -->
     <hr>
-    <p class="description_desc">
-      {{data.description}}
+    <div class="uploader column">
+      Uploaded by {{currentVideo.uploaderId}}
+    </div>
+    <p class="published column">
+      Published on {{currentVideo.date}}
+    </p>
+    <hr>
+    <p class="description_desc column">
+      {{currentVideo.description}}
     </p>
   </div>
+</div>
+<div class="lower-container">
+  <app-view-video-playlist *ngIf="playlist != null" [data]="playlist" [video]="currentVideo"></app-view-video-playlist>  
 </div>

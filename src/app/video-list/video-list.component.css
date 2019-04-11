@@ -8,8 +8,10 @@
 }
 h2{
   color: #4a4a48;
-  position: absolute;
-  left:0;
+  position: relative;
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 5px;
 }
 
 /*ratio=0.625*/
@@ -20,15 +22,22 @@ h2{
   overflow: hidden;
   display: block;
   position: relative;
+  background-color: #d8dad3;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 5px;
 }
 
 .videos-container2{
   white-space: nowrap;
   display: inline-block;
+  width: 100%;
+  overflow: hidden;
 }
 
 .videos-container3{
   transition: transform .3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  position: relative;
 }
 
 .page{
@@ -39,6 +48,7 @@ h2{
   user-select:none;
   padding-top: 3px;
   margin-left:-15px;
+  font-size: 14px;
 }
 
 .left-arrow{
@@ -63,6 +73,9 @@ h2{
   left:50%;
   z-index:2;
   margin-left: -60px;
+  top:10px;
+  color: #566246;
+  font-weight: 600;
 }
 .arrow{
   width:40px;
@@ -111,7 +124,7 @@ h2{
     right: 0;
   }
   h2{
-    font-size:1.3em;
+    font-size:1em;
   }
 }
 
@@ -121,7 +134,7 @@ h2{
     display: block;
   }
   h2{
-    font-size:1.1em;
+    font-size:0.9em;
     display: block;
     position: relative;
   }

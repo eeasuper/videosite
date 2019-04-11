@@ -1,0 +1,98 @@
+:host{
+  width:35%;
+  height: 300px;
+  display: inline-block;
+  box-sizing:border-box;
+  color: #4a4a48;
+  float: right;
+}
+
+.playlist-container{
+  background-color: #d8dad3;
+  width: 100%;
+  box-sizing: inherit;
+}
+
+.top-container{ 
+  box-sizing: border-box;
+  padding: 10px 23px 0px 23px;
+}
+
+.header{
+  box-sizing: inherit;
+  padding:3px 0px;
+  white-space: normal;
+  overflow: hidden;
+}
+.name{
+  font-size: 1em;
+  max-height: 1.5em;
+}
+.current{
+  font-size:0.8em;
+  max-height:2em;
+}
+
+.lower-container{
+  overflow: auto;
+  max-height: 246px;
+}
+
+.list{
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  padding:5px;
+  position: relative;
+  overflow: hidden;
+}
+.currentOrder{
+  background-color: #a4c2a5;
+  box-sizing: inherit;
+  padding: 0px 2.5px;  
+}
+
+.order{
+  line-height: 3.3;
+  box-sizing: inherit;
+  padding: 0px 5px;
+}
+.thumbnail{
+  /*0.5609*/
+  width: 100px;
+  height:56px;
+}
+.li{
+  display: inline-block;
+}
+
+.details{
+  font-size: 0.8em;
+  box-sizing: inherit;
+  padding: 0px 5px;
+  white-space: normal;
+}
+
+.li2{
+  display: block;
+}
+
+.title{
+  max-height: 3em;
+  overflow: hidden;
+  font-weight: 600;
+}
+
+.uploader{
+  max-height: 1.4em;
+  overflow: hidden;
+}
+.list a{
+  position: absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  cursor: pointer;
+  z-index:2;
+}

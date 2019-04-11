@@ -11,11 +11,12 @@ export class VideoListComponent implements OnInit {
   @ViewChild('videosContainer') private videoCon:ElementRef;
   @ViewChild('videosContainer3') private videoCon3:any;
   @ViewChild('page') private page:ElementRef;
+  @ViewChild('arrowsContainer') arrows:ElementRef;
   @Input('data') private data:any;
   private objectValues = Object.values;
   private debounce:number = 0;
   private width:number;
-
+  private totalPage:number = 0;
   getVideoNum(width){
     //videoNum gives the current number of videos displayed on screen.
     let num;
@@ -43,7 +44,8 @@ export class VideoListComponent implements OnInit {
   }
 
   setTotalPage(){
-    this.setWidth();
+    this.setWidth();      
+    
     const videoNum = this.getVideoNum(this.width);
     //videoNum gives the current number of videos displayed on screen.
     const totalNum = Object.values(this.data.list).length;
@@ -139,7 +141,7 @@ export class VideoListComponent implements OnInit {
   }
 
   setWidth(element?:ElementRef){
-    let windowWidth = window.innerWidth;
+    let windowWidth = window.innerWidth - 20;
     let sb = 0;
     if(this.isSidebarOpen){
       sb = 200;
@@ -148,13 +150,13 @@ export class VideoListComponent implements OnInit {
       if(windowWidth < val + sb && windowWidth > arr[ind+1] + sb){
         this.width = arr[ind+1];
         if(element){
-          this.renderer.setStyle(element, 'width', this.width + 'px');
+          this.renderer.setStyle(element, 'width', this.width + 10 +'px');
         }
       }
-      if(windowWidth > val && ind === 0){
+      if(windowWidth >= val + sb && ind === 0){
         this.width = val;
         if(element){
-          this.renderer.setStyle(element, 'width', arr[ind+1] + 'px');
+          this.renderer.setStyle(element, 'width', arr[ind] + 10+'px');
         }
       }
     })
@@ -168,8 +170,8 @@ export class VideoListComponent implements OnInit {
   ngOnInit() {
     this.sidebar.change.asObservable().subscribe(isOpen=>{
       this.isSidebarOpen = isOpen;
+      this.limitVideos();
     })
-    this.limitVideos()
   }
 
 }

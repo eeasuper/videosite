@@ -2,7 +2,8 @@
   overflow: hidden;
   display: block;
   position: relative;
-  width:100%;
+  width:99%;
+  color: #4a4a48;
 }
 
 /*height for everything inside upper-container is relative to the height created by the video tag.*/
@@ -27,8 +28,7 @@
   display:inline-block;
   /*display: flex;*/
   /*flex-direction: column;*/
-  background-color: #4a4a48;
-  color: #fff;
+  background-color: #d8dad3;
   margin-left:5px;
   padding: 10px;
   box-sizing: border-box;
@@ -86,42 +86,46 @@
 }
 h1{
   font-size: 1.4rem;
-  font-weight:400;
+  font-weight:600;
   width: 100%;
-  word-break: break-word;
+  word-break: break-all;
   display: block;
   white-space: normal;
   max-height:5rem;
-  text-align:center;
-  color: #fff;
+  text-align: left;
 }
-
+.column{
+  margin-top: 5px;
+}
 .uploader{
   font-size:0.9rem;
-  margin-top:10px;
 }
 .published{
   font-size: 0.8rem;
-  color: #d8dad3;
-  margin-top:10px;
 }
 .views{
-  margin-top:10px;
 }
 
 hr{
-  margin: 10px;
+  margin: 5px 0px;
 }
 
 .description_desc{
   display: block;
   font-size: 0.9rem;
-  color: white;
   width: 100%;
   word-break: normal;
   display: block;
   white-space: normal;
   max-height:10rem;
   text-overflow: ellipsis;
-  overflow: hidden;
+  overflow: auto;
+  max-height: 13rem;
+}
+
+.lower-container{
+  white-space: nowrap;
+  margin-top: 10px;
+  width: 100%;
+  position: relative;
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit,Input,HostListener,Renderer2,ElementRef,ViewChild} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {Playlist,Playlists} from '../playlist';
+import {PlaylistService} from '../../services/playlist.service';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-playlist-list',
@@ -8,19 +10,30 @@ import {Playlist,Playlists} from '../playlist';
   styleUrls: ['./playlist-list.component.css']
 })
 export class PlaylistListComponent implements OnInit {
-  // @Input('data') private data;
+
   private data;    
   private objectValues = Object.values;
   private width;
-
+  private authenticated:boolean;
+  private loggedInId:number;
   orderList(data:any[]){
     return data.sort((a,b)=>{
       return a.order - b.order;
     })
-    // return array.reduce((acc,cur)=>{
-    //   acc[cur.order] = cur;
-    //   return acc;
-    // },{});
+  }
+
+  // navigate(playlist:any){
+  //   //maybe make interface instead of any later.
+  //   this.router.navigate([playlist.list[0].url], {
+  //     state: {
+  //       playlist: playlist
+  //     }
+  //   })
+  // }
+
+  navigate(e: Event, playlist:any){
+    e.preventDefault();
+    
   }
 
   mouseenterList(e){
@@ -35,14 +48,32 @@ export class PlaylistListComponent implements OnInit {
     this.renderer.setStyle(parent,'z-index','1');
   }
 
-  constructor(private element:ElementRef,private renderer:Renderer2, private router:Router,private route: ActivatedRoute) { }
+  constructor(private store:Store<any>,private element:ElementRef,private renderer:Renderer2, private router:Router,private route: ActivatedRoute, private service:PlaylistService) { }
+  
+  getEditAuthorization(playlistUploaderId:number){
+    if(playlistUploaderId === this.loggedInId){
+      return true;
+    }else{
+      false;
+    }
+  }
 
   ngOnInit() {
     this.route.data
       .subscribe((data: { playlists: Playlists }) => {
         this.data = data.playlists;
     });
-    // this.orderList(this.data.playlist1.list);
+    this.store.select('user').subscribe(user=>{
+      console.log(user);
+      this.loggedInId = user.user.id      
+      if(!user.isAuthenticated){
+        this.authenticated = false;
+      }else if(user.isAuthenticated){
+        this.authenticated = true;
+      }else{
+        this.authenticated = false
+      }
+    })
   }
 
 }

@@ -4,12 +4,12 @@
   overflow: hidden;
   max-width: 210px;
   max-height: 240px;
-  margin: 40px 0px 20px;
   position: relative;
   cursor: pointer; 
   min-width: 210px;
   max-height: 240px;
   display: inline-block;
+  vertical-align: top;
 }
 
 :host:hover .video-title{
@@ -19,11 +19,7 @@
 .video-title{
   font-size: 16px;
   font-weight: 600;
-  display: block;
-  letter-spacing: .5px;
   max-height:40px;
-  margin: 0 auto;
-  width: 200px;
   /*transition: color .2s cubic-bezier(0.445, 0.05, 0.55, 0.95);*/
   cursor: pointer;
 }
@@ -31,17 +27,23 @@ img{
   width:200px;
   height:125px;
   display: block;
-  margin: 10px auto;
+  margin: 5px auto;
   cursor: pointer;
 }
-.video-uploader, .video-views{
+
+.video-uploader, .video-views, .video-title{
   display: block;
-  font-size:13px;
-  font-weight:400;
-  max-height: 15px;
   overflow: hidden; 
   width: 200px;
-  cursor: pointer;
+  margin: 0 auto;
+  word-break: break-word;
+  white-space: normal;
+}
+
+.video-uploader, .video-views{
+  font-size:13px;
+  font-weight:400;
+  color: #566246;
 }
 a{
   position: absolute;

@@ -1,12 +1,22 @@
-<div class="container" appWindowSize>
+<div class="container">
   <!-- <div class="test"> -->
+  <div class="banner-container">
+    <div class="banner">
+
+    </div>
+    <div class="banner-content">
+      <h1>
+        eeasuper's Playlists
+      </h1>
+    </div>
+  </div>
   <div class="playlist" *ngFor="let value of data; let i = index;">
     <div class="inner-con">
       <div class="img-con">
-        <img [src]="data[i].list[0].thumbnail"/>
+        <img [src]="value.list[0].thumbnail"/>
         <div class="img-con-cover">
-          <div class="img-con-play img-con-icons"></div>
-          <div class="img-con-edit img-con-icons"><a [routerLink]="data[i].edit_url"></a></div>
+          <div class="img-con-play img-con-icons"><a [routerLink]="value.list[0].url" [queryParams]="{playlist:value.id}"></a></div>
+          <div class="img-con-edit img-con-icons" *ngIf="getEditAuthorization(value.uploader_id)"><a [routerLink]="data[i].edit_url"></a></div>
           <div class="img-con-cover-fill"></div>
         </div>
       </div>
@@ -18,7 +28,9 @@
             <li class="value-updated">&nbsp;&nbsp;&nbsp;Last updated on {{value.updated}}</li>
             <li class="value-list" (mouseenter) = "mouseenterList($event)" (mouseleave)= "mouseleaveList($event)">
               <ul class="playlist-list-con">
-                <li *ngFor="let val of orderList(value.list); let ind = index;">{{ind+1}}. {{val.h3}}</li>
+                <li *ngFor="let val of orderList(value.list); let ind = index;">
+                  <a [routerLink]="val.url" [queryParams]="{playlist: value.id}" class="list-anchor">{{ind+1}}. {{val.h3}}</a>
+                </li>
                 <li>test</li>
                 <li>test</li>
                 <li>test</li>

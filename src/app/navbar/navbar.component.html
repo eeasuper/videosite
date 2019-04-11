@@ -5,8 +5,9 @@
         <li class="nav-component button-li">
           <app-menu-button (click)="toggleShowing()" (mousedown)="doRipple($event)" [xCord]="clientX" [yCord]="clientY" [clicked]="clicked"></app-menu-button>
         </li>
-        <li class="nav-component">
-          etc....
+        <li class="nav-component logo-con">
+          <div class="logo"></div>
+          <a [routerLink]="['/']" class="anchor"></a>
         </li>
       </ul>
     </li>
@@ -20,10 +21,28 @@
     </li>
     <li>
       <ul>
-        <li class="nav-component end">
+        <li class="end" *ngIf="authenticated">
+          <button class="login-register-logout button" (click)="logout()">
+            <span>Logout</span>
+            <a [routerLink]="['/']" class="anchor"></a>
+          </button>
+        </li>
+        <li  *ngIf="authenticated" class="nav-component end">
           <div class="account">
             <span></span>
           </div>
+        </li>
+        <li class="end" *ngIf="!authenticated">
+          <button class="login-register-logout button">
+            <span>Login</span>
+            <a [routerLink]="['/login']" class="anchor"></a>
+          </button>
+        </li>
+        <li class="end" *ngIf="!authenticated">
+          <button class="login-register-logout button">
+            <span>Register</span>
+            <a [routerLink]="['/register']" class="anchor"></a>
+          </button>
         </li>
 <!--         <li class="nav-component end">
           etc...
