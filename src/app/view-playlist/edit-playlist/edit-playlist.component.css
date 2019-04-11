@@ -58,8 +58,8 @@ h2 button{
   position: absolute;
   right:0;
   top:0;
-  height:29px;
-  width:29px;
+  bottom:0;
+  min-width:30px;
 }
 
 .h2-button div{

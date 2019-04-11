@@ -3,6 +3,6 @@
   <h1 mat-dialog-title>Delete this {{data.type}}?</h1>
 </div>
 <mat-dialog-actions>
-  <button class="button button-med" cdkFocusInitial mat-dialog-close>Yes</button>
+  <button class="button button-med" cdkFocusInitial mat-dialog-close (click)="delete(data.type)">Yes</button>
   <button class="button button-med" mat-dialog-close>No</button>
 </mat-dialog-actions>

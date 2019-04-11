@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import {Observable,of} from 'rxjs';
-
+import {Router} from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +12,7 @@ export class ApiCallsService {
   public ip:string;
   // lastViewedTime: CustomDate;
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, private route:Router) { }
 
   getIP():Observable<any>{
     return this.http.get("https://api.ipify.org?format=json").pipe(
@@ -61,6 +61,21 @@ export class ApiCallsService {
     return this.server + "/video/"+videoId+"/thumbnail"
   }
 
+  getAllPlaylists(userId:string):Observable<any>{
+    return this.http.get(this.server + "/user/"+userId+"/playlist").pipe(
+      catchError(this.handleError('getAllPlaylists()',''))
+    )
+  }
+
+  deletePlaylist(playlistId:string){
+    this.http.delete(this.server+"/playlist/"+playlistId).pipe(
+      catchError(this.handleError('deletePlaylist()',''))
+    ).subscribe((val)=>{
+      //https://stackoverflow.com/questions/46603088/angular-4-http-delete-not-working
+      this.route.navigate(["/"]);
+    })
+  }
+
   setViewCount(videoFile:string){
     if(!this.ip){
       this.getIP().subscribe((res:any)=> {
@@ -79,6 +94,11 @@ export class ApiCallsService {
         })
       });
     }
+  }
+
+  setDate(dateLong:number):string{
+    const options = {year: 'numeric', month: 'long', day: 'numeric'}
+    return new Date(dateLong).toLocaleDateString("en-US", options);
   }
 
   private handleError<T> (operation = 'operation', result?: T) {

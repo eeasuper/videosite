@@ -13,8 +13,7 @@ import {DialogCloseComponent} from '../../reusable-components/dialog-close/dialo
   styleUrls: ['./edit-playlist.component.css']
 })
 export class EditPlaylistComponent implements OnInit{
-  private data;
-  private list;
+  private playlist;
   @ViewChild('h2InputCon') private h2InputCon:ElementRef;
   @ViewChild('h2Input') private h2Input:ElementRef;
   @ViewChild('h2Title') private h2Title:ElementRef;
@@ -25,7 +24,8 @@ export class EditPlaylistComponent implements OnInit{
   openDialog():void{
     this.dialog.open(DialogCloseComponent, {
       data: {
-        type: 'playlist'
+        type: 'playlist',
+        id: this.playlist.id
       }
     });
   }
@@ -38,20 +38,20 @@ export class EditPlaylistComponent implements OnInit{
 
   h2InputBlur(e):void{
     //DO API CALL HERE, after success or before -for speed-do:
-    this.data.name = e.target.value;
+    this.playlist.title = e.target.value;
 
     this.renderer.setStyle(this.h2Title.nativeElement, 'display', 'block');
     this.renderer.setStyle(this.h2InputCon.nativeElement, 'display','none');
   }
-  orderList(data:Video[]){
-    return data.sort((a,b)=>{
-      return a.order - b.order;
-    })
-  }
+  // orderList(data:Video[]){
+  //   return data.sort((a,b)=>{
+  //     return a.order - b.order;
+  //   })
+  // }
 
   drop(e: CdkDragDrop<string[]>){
     this.toggleSave(false);
-    moveItemInArray(this.data.list, e.previousIndex, e.currentIndex);
+    moveItemInArray(this.playlist.playlist, e.previousIndex, e.currentIndex);
   }
 
   // makeIndexBeOrder(list){
@@ -76,8 +76,7 @@ export class EditPlaylistComponent implements OnInit{
   ngOnInit() {
     this.route.data
       .subscribe((data: { playlist: Playlist }) => {
-        this.data = data.playlist;
-        this.list = this.orderList(this.data.list);
+        this.playlist = data.playlist;
     });
   }
 }

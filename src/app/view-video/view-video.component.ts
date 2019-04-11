@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild,ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {Video} from './Video';
 import {ApiCallsService} from '../services/api-calls.service';
@@ -8,6 +8,8 @@ import {ApiCallsService} from '../services/api-calls.service';
   styleUrls: ['./view-video.component.css']
 })
 export class ViewVideoComponent implements OnInit {
+  @ViewChild('videoPlayer') private video:ElementRef;
+  // private video:HTMLVideoElement = this.v.nativeElement;
   private currentVideo;
   private playlist;
   private videoSource;
@@ -20,12 +22,15 @@ export class ViewVideoComponent implements OnInit {
 
   onEnded(){
     if(this.playlist){
-      let currentOrder = this.playlist.list.filter((val)=>{
+      let currentVid = this.playlist.playlist.filter((val)=>{
         return val.id === this.currentVideo.id;
-      })[0].order
-      let nextVideo = this.playlist.list.filter((val)=>{
-        return currentOrder + 1 === val.order;
       })[0];
+      let nextVideo;
+      this.playlist.playlist.map((val,ind,arr)=>{
+        if(val.id === this.currentVideo.id){
+          nextVideo = arr[ind +1];
+        }
+      })
       if(!nextVideo){
         return;
       }
@@ -40,6 +45,10 @@ export class ViewVideoComponent implements OnInit {
         // console.log(data);
         this.currentVideo = data.video[0];
         this.videoSource = this.service.getVideoSource(this.currentVideo.id);
+        // this.cdRef.detectChanges();
+        if(this.video.nativeElement.ended){
+          this.video.nativeElement.load();
+        }
         const options = {year: 'numeric', month: 'long', day: 'numeric'}
         this.currentVideo.date = new Date(this.currentVideo.date).toLocaleDateString("en-US", options);
         if(data.video[1]){

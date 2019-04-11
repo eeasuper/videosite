@@ -1,6 +1,5 @@
 <div class="upper-container">
-  <video class="video" (ended)="onEnded()" controls>
-    <!-- ===========add attribute autoplay to video in production============== -->
+  <video #videoPlayer autoplay class="video" (ended)="onEnded()" controls>
       <source [attr.src]="videoSource" type="video/mp4">
   </video>
   <div class="caret-con">

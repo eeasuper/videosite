@@ -8,14 +8,14 @@ import { Observable, of, EMPTY,BehaviorSubject }  from 'rxjs';
 import { mergeMap, take }         from 'rxjs/operators';
 
 import {Playlist,Video,Playlists} from '../playlist';
-
+import {ApiCallsService} from '../../services/api-calls.service';
 @Injectable({
   providedIn: 'root'
 })
 //change to resolve<Playlists or somethingelse.>
 export class PlaylistResolverService implements Resolve<any> {
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private service:ApiCallsService) {
     this.test.updated = 'December 1st 2018';
     this.test.name = 'exampleplaylist'
     this.test.id = 1;
@@ -62,7 +62,7 @@ export class PlaylistResolverService implements Resolve<any> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Observable<never> {
     //returns Observable<Playlists>
-    // let id = route.paramMap.get('userId');
+    let userId = route.paramMap.get('userId');
 
   //  return this.cs.getCrisis(id).pipe(
   //     take(1),
@@ -76,6 +76,24 @@ export class PlaylistResolverService implements Resolve<any> {
   //     })
   //   );
   // }
+  return this.service.getAllPlaylists(userId).pipe(
+      take(1),
+      mergeMap(data=>{
+        if(data){
+          data.forEach((val,ind)=>{
+            val.playlist = Object.values(val.playlist);
+            val.thumbnail = this.service.getVideoThumbnail(val.playlist[0].id);
+            val.url = "/view/"+val.playlist[0].id;
+            val.edit_url = "/playlist/"+val.userId+"/"+val.id+"/edit";
+            val.date = this.service.setDate(val.date);
+          })
+          return of(data);
+        }else{
+          this.router.navigate(['/']);
+          return EMPTY;
+        }
+      })
+    )
   return this.test1.asObservable().pipe(
         take(1),
         mergeMap(data=>{

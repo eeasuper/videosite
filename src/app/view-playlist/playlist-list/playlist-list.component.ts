@@ -11,16 +11,16 @@ import { Store } from '@ngrx/store';
 })
 export class PlaylistListComponent implements OnInit {
 
-  private data;    
+  private playlists:any;    
   private objectValues = Object.values;
   private width;
   private authenticated:boolean;
   private loggedInId:number;
-  orderList(data:any[]){
-    return data.sort((a,b)=>{
-      return a.order - b.order;
-    })
-  }
+  // orderList(playlists:any[]){
+  //   return playlists.sort((a,b)=>{
+  //     return a.order - b.order;
+  //   })
+  // }
 
   // navigate(playlist:any){
   //   //maybe make interface instead of any later.
@@ -61,7 +61,7 @@ export class PlaylistListComponent implements OnInit {
   ngOnInit() {
     this.route.data
       .subscribe((data: { playlists: Playlists }) => {
-        this.data = data.playlists;
+        this.playlists = data.playlists;
     });
     this.store.select('user').subscribe(user=>{
       console.log(user);

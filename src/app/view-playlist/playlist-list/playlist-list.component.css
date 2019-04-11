@@ -176,7 +176,8 @@ img{
 .value-list{
   position: relative;
   height: 5rem;
-  overflow: hidden;
+  margin-top: 2px;
+  /*overflow: hidden;*/
   /*border: 2px solid #d8dad3;*/
 }
 .value-list:hover{
@@ -184,25 +185,14 @@ img{
   overflow: initial;
 }
 
-.value-list:hover .playlist-list-con{
-  box-shadow: 0 0px 5px 0 rgba(216,218,211,.2);
-}
-
-.playlist-list-con-cover{
-  position: absolute;
-  top:0;
-  bottom:0;
-  right:0;
-  left:0;
-  background-color: #4a4a48;
-  z-index: -1;
-  opacity: 0.8;
-}
 .playlist-list-con{
-   box-shadow: 0 0px 5px 0 rgba(216,218,211,.2);
+   /*box-shadow: 0 0px 5px 0 rgba(216,218,211,.2);*/
+  box-shadow: 0 0px 5px 0 rgba(216,218,211,.2);
   overflow: auto;
-  height: 100%;
+  max-height: 100%;
   padding: 5px;
+  position: relative;
+  background-color: #4a4a48;
 }
 .playlist-list-con li{
   line-height: 1.2;
