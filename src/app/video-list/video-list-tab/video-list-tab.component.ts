@@ -8,9 +8,7 @@ import {Router} from '@angular/router';
 })
 export class VideoListTabComponent implements OnInit,OnChanges {
 
-  @Input('value') value:object;
-  @Input('videoId') videoId:number;
-  @Input('videos') numOfVid:number;
+  @Input('value') video:object;
 
   constructor(private renderer:Renderer2,private element:ElementRef) { }
 
@@ -18,11 +16,6 @@ export class VideoListTabComponent implements OnInit,OnChanges {
   }
 
   ngOnChanges(){
-    if(this.videoId >= this.numOfVid){
-      // this.renderer.setStyle(this.element.nativeElement, 'transform', 
-        // 'translate(' + ((this.videoId -1) * 100)+'%'+',-130%)');
-      // this.renderer.setStyle(this.element.nativeElement, 'visibility', 'hidden');
-      // this.renderer.setStyle(this.element.nativeElement, 'position', 'absolute');
-    }
+    
   }
 }

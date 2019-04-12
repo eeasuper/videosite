@@ -28,9 +28,9 @@
           </button>
         </li>
         <li  *ngIf="authenticated" class="nav-component end">
-          <div class="account">
+          <button class="account" [routerLink]="['/profile',user.id]">
             <span></span>
-          </div>
+          </button>
         </li>
         <li class="end" *ngIf="!authenticated">
           <button class="login-register-logout button">

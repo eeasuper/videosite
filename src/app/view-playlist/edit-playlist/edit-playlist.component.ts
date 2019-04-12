@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {Playlist,Playlists,Video} from '../playlist';
 import {DraggableCellService} from './draggable-cell.service'
 import {Observable,Subscription} from 'rxjs';
-
+import {ApiCallsService} from '../../services/api-calls.service';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
 import {DialogCloseComponent} from '../../reusable-components/dialog-close/dialog-close.component';
@@ -19,7 +19,7 @@ export class EditPlaylistComponent implements OnInit{
   @ViewChild('h2Title') private h2Title:ElementRef;
   @ViewChild('saveButton') private saveButton:ElementRef;
 
-  constructor(private router:Router,private route: ActivatedRoute, private renderer:Renderer2, public dialog: MatDialog) { }
+  constructor(private router:Router,private route: ActivatedRoute, private renderer:Renderer2, public dialog: MatDialog, private service:ApiCallsService) { }
 
   openDialog():void{
     this.dialog.open(DialogCloseComponent, {
@@ -61,9 +61,12 @@ export class EditPlaylistComponent implements OnInit{
   //     return val;
   //   })
   // }
-
+  // playAll(){
+  //   this.router.navigate(["/view",this.playlist.playlist[0].url])
+  // }
   saveChanges():void{
-    //do API call here.
+    this.service.setPlaylistOrder(this.playlist);
+    console.log(this.playlist);
     this.toggleSave(true);
   }
   toggleSave(saveChanges:boolean):void{

@@ -150,21 +150,24 @@ export class ViewVideoResolverService implements Resolve<any>{
 */
     //=====in production stage use backend connection return below:
     console.log("going through resolver")
-    return forkJoin(
-      this.service.getVideoDescription(videoId),
-      this.service.getPlaylist(this.viewPlaylist).pipe(
-        map(result=>{
-          result.playlist = Object.values(result.playlist);
-          result.playlist.forEach((val:any,ind)=>{
-            val.ordered = ind + 1;
-            val.thumbnail = this.service.getVideoThumbnail(val.id);
-            val.url = "/view/"+val.id;
+    if(this.viewPlaylist){
+      return forkJoin(
+        this.service.getVideoDescription(videoId),
+        this.service.getPlaylist(this.viewPlaylist).pipe(
+          map(result=>{
+            result.playlist = Object.values(result.playlist);
+            result.playlist.forEach((val:any,ind)=>{
+              val.ordered = ind + 1;
+              val.thumbnail = this.service.getVideoThumbnail(val.id);
+              val.url = "/view/"+val.id;
+            })
+            console.log(result);
+            return result;
           })
-          console.log(result);
-          return result;
-        })
-        )
-    )
+          )
+      )
+    }
+    return this.service.getVideoDescription(videoId)
     //When testing use the return below.
     // return this.test1.asObservable().pipe(
     //     take(1),

@@ -13,12 +13,15 @@ export class VideoListComponent implements OnInit {
   @ViewChild('page') private page:ElementRef;
   @ViewChild('arrowsContainer') arrows:ElementRef;
   @Input('data') private data:any;
+  @Input('title') private title:string;
   private objectValues = Object.values;
   private debounce:number = 0;
   private width:number;
   private totalPage:number = 0;
+
+  //===totalVideos gives the total number of videos in the list, videoCon2.
   getVideoNum(width){
-    //videoNum gives the current number of videos displayed on screen.
+    //getVideoNum gives the current number of videos displayed on screen.
     let num;
     switch(width){
       case 1260:
@@ -45,12 +48,10 @@ export class VideoListComponent implements OnInit {
 
   setTotalPage(){
     this.setWidth();      
-    
     const videoNum = this.getVideoNum(this.width);
     //videoNum gives the current number of videos displayed on screen.
-    const totalNum = Object.values(this.data.list).length;
-    //totalNum gives the total number of videos in the list, videoCon2.
-    const totalWindows = Math.ceil(totalNum/videoNum);
+    const totalVideos = this.data.length;
+    const totalWindows = Math.ceil(totalVideos/videoNum);
     //totalWindows gives the total number of 'windows' to exist for all videoes to get displayed by scrolling.
     return totalWindows;
   }
@@ -58,11 +59,10 @@ export class VideoListComponent implements OnInit {
   handleClick(direction){
     const width = this.width;
     const data = this.data;
-    const videoNum = this.getVideoNum(width);
+    const videoNum = this.getVideoNum(this.width);
     //videoNum gives the current number of videos displayed on screen.
-    const totalNum = Object.values(data.list).length;
-    //totalNum gives the total number of videos in the list, videoCon2.
-    const totalWindows = Math.ceil(totalNum/videoNum);
+    const totalVideos = this.data.length;
+    const totalWindows = Math.ceil(totalVideos/videoNum);
     //totalWindows gives the total number of 'windows' to exist for all videoes to get displayed by scrolling.
 
     this.renderer.setStyle(this.videoCon3.nativeElement,'transform',
@@ -80,7 +80,7 @@ export class VideoListComponent implements OnInit {
     
     function getTranslateValue(renderer,element){
       let state = parseInt(element.dataset.state);
-      if(totalNum/videoNum>2){
+      if(totalVideos/videoNum>2){
         if(direction ==="right"){
           if(state != 1 && state){
             if(totalWindows - state != 0){
@@ -111,7 +111,7 @@ export class VideoListComponent implements OnInit {
 
       } 
       if(direction==="right"){
-        let multiplier = totalNum - videoNum;
+        let multiplier = totalVideos - videoNum;
         if(multiplier >0){
           setAttribute(2);  
         }
@@ -147,14 +147,25 @@ export class VideoListComponent implements OnInit {
       sb = 200;
     }
     [1260,1050,840,630,420,210].forEach((val, ind, arr)=>{
+
       if(windowWidth < val + sb && windowWidth > arr[ind+1] + sb){
         this.width = arr[ind+1];
-        if(element){
+        const videoNum = this.getVideoNum(this.width);
+        const videoLength = this.data.length;
+        if(element && (videoLength < videoNum)){
+          this.renderer.setStyle(element, 'width', arr[(arr.length-videoLength)] + 10 +'px');
+        }
+        else if(element){
           this.renderer.setStyle(element, 'width', this.width + 10 +'px');
         }
       }
-      if(windowWidth >= val + sb && ind === 0){
+      else if(windowWidth >= val + sb && ind === 0){
         this.width = val;
+        const videoNum = this.getVideoNum(this.width);
+        const videoLength = this.data.length;
+        if(element && (videoLength < videoNum)){
+          this.renderer.setStyle(element, 'width', arr[(arr.length-videoLength)] + 10 +'px');
+        }
         if(element){
           this.renderer.setStyle(element, 'width', arr[ind] + 10+'px');
         }
@@ -170,8 +181,10 @@ export class VideoListComponent implements OnInit {
   ngOnInit() {
     this.sidebar.change.asObservable().subscribe(isOpen=>{
       this.isSidebarOpen = isOpen;
+      this.setWidth(this.videoCon.nativeElement);
       this.limitVideos();
     })
+    console.log(this.data);
   }
 
 }

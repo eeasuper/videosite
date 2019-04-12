@@ -3,6 +3,7 @@
   display: block;
   position: relative;
   width:100%;
+  margin-top: -20px;
 }
 
 .banner-container{
@@ -34,6 +35,9 @@
 .banner-content{
   z-index: 2;
   width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 app-video-list{
@@ -41,13 +45,19 @@ app-video-list{
 }
 
 h1{
-  top: 50%;
-  position: absolute;
-  margin-top: -0.75em;
+  margin-bottom:20px;
+}
+
+.buttons-con{
+  display: flex;
+  flex-direction: row;
 }
 
 .upload-button{
-  position: absolute;
-  bottom: 5px;
-  left: 70%;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.playlists-button{
+display: inline-block;
 }

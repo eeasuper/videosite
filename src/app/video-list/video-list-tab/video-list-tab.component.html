@@ -1,6 +1,6 @@
 <!-- add anchor tag here later. inside h3. -->
-<h3 class="video-title">{{value.h3}}</h3>
-<img [src]="value.thumbnail"/>
-<h4 class="video-uploader">{{value.uploader}}</h4>
-<h4 class="video-views">{{value.views}}</h4>
-<a routerLink="/view/yui-ura-on"></a>
+<h3 class="video-title">{{video.title}}</h3>
+<img [src]="video.thumbnail"/>
+<h4 class="video-uploader">{{video.uploaderId}}</h4>
+<h4 class="video-views">{{video.view}}</h4>
+<a [routerLink]="['/view',video.id]"></a>

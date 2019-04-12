@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 // import { Response } from '@angular/http';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import {Observable,of} from 'rxjs';
 import {Router} from '@angular/router';
@@ -11,7 +11,12 @@ export class ApiCallsService {
   private server:string = "http://localhost:8080"
   public ip:string;
   // lastViewedTime: CustomDate;
-
+  private httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        "Accept" : "application/json"
+      })
+    }
   constructor(private http:HttpClient, private route:Router) { }
 
   getIP():Observable<any>{
@@ -43,6 +48,12 @@ export class ApiCallsService {
     )
   }
 
+  getVideoRecentList(userId:string):Observable<any>{
+    return this.http.get(this.server+"/video/"+userId+"/recent").pipe(
+        catchError(this.handleError('getVideoRecentList()',''))
+      )
+  }
+
   getVideoRandomList(): Observable<any>{
     // 1. Get video model of each video
     // 2. put respective video id into each image...
@@ -57,7 +68,7 @@ export class ApiCallsService {
     )
   }
 
-  getVideoThumbnail(videoId:string){
+  getVideoThumbnail(videoId:string):string{
     return this.server + "/video/"+videoId+"/thumbnail"
   }
 
@@ -67,6 +78,22 @@ export class ApiCallsService {
     )
   }
 
+  setPlaylistOrder(playlist:any){
+    //maybe change any to interface later.
+    let list = playlist.playlist;
+    let body = {}
+    list.forEach((val,ind)=>{
+      body[ind+1] = {
+        "id": val.id
+      }
+    })
+    console.log(body);
+    this.http.put(this.server + "/playlist/"+playlist.id+"/edit/order-change",body).pipe(
+      catchError(this.handleError('setPlaylistOrder()',''))
+    ).subscribe(()=>{
+    })
+  }
+
   deletePlaylist(playlistId:string){
     this.http.delete(this.server+"/playlist/"+playlistId).pipe(
       catchError(this.handleError('deletePlaylist()',''))
@@ -74,6 +101,12 @@ export class ApiCallsService {
       //https://stackoverflow.com/questions/46603088/angular-4-http-delete-not-working
       this.route.navigate(["/"]);
     })
+  }
+
+  getUser(userId:string):Observable<any>{
+    return this.http.get(this.server+"/user/"+userId).pipe(
+      catchError(this.handleError('getUser()',''))
+    )
   }
 
   setViewCount(videoFile:string){

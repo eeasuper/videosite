@@ -24,9 +24,9 @@ const routes: Routes = [
     path:'register', component: RegisterComponent, pathMatch: 'full'
   },
   {
-    path:'profile/:id', component: ProfileComponent, pathMatch: 'full',
+    path:'profile/:userId', component: ProfileComponent, pathMatch: 'full',
     resolve: {
-      user: ProfileResolverService
+      data: ProfileResolverService
     }
   }
   // {

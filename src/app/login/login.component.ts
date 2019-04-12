@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
 import {SidebarService} from '../services/sidebar.service'
 import {FormControl, FormGroupDirective, NgForm, Validators,FormGroup} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
@@ -10,7 +10,7 @@ import {Router} from '@angular/router'
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit,OnDestroy {
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
@@ -50,6 +50,11 @@ export class LoginComponent implements OnInit {
     })
     this.router.navigate(['/']);
 
+  }
+  ngOnDestroy(){
+    setTimeout(()=>{
+      this.sidebar.toggle(true);  
+    },0);
   }
 }
 

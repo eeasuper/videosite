@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {User} from './User'
+import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -8,16 +9,22 @@ import {User} from './User'
 })
 export class ProfileComponent implements OnInit {
   private user;
-  private data;
+  private recentVideo;
+  private recentVideoTitle:string = "Uploaded Recently";
   //data is for video list.
-  constructor(private router:Router,private route: ActivatedRoute) { }
+  constructor(private router:Router,private route: ActivatedRoute,private store:Store<any>) { }
 
   ngOnInit() {
     this.route.data
-      .subscribe((data: { user: User }) => {
-        this.user = data.user;
-        this.data = data.user.recent_uploads;
+      .subscribe((data: { data: any }) => {
+        console.log(data.data);
+        this.user = data.data[1];
+        this.recentVideo = data.data[0];
+        // this.recentVideo = data.data.recentVideoList;
+        console.log(this.recentVideo);
+        // this.user = data.data.user;
     });
+
     console.log(this.user);
   }
 

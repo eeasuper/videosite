@@ -13,6 +13,7 @@ export class NavbarComponent implements OnInit {
   private clientY: number = 0;
   private clicked: boolean;
   private authenticated:boolean;
+  private user;
   constructor(private sidebar:SidebarService, private store:Store<any>) { }
   logout(){
     this.store.dispatch({
@@ -27,6 +28,7 @@ export class NavbarComponent implements OnInit {
         this.authenticated = false;
       }else if(user.isAuthenticated){
         this.authenticated = true;
+        this.user = user.user;
       }else{
         this.authenticated = false
       }

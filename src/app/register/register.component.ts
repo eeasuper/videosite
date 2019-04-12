@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
 import {SidebarService} from '../services/sidebar.service'
 import {FormControl, FormGroupDirective, NgForm, Validators,FormGroup} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
@@ -8,7 +8,7 @@ import {ErrorStateMatcher} from '@angular/material/core';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit,OnDestroy {
 
   registerForm = new FormGroup({
     usernameControl: new FormControl('', [
@@ -39,7 +39,11 @@ export class RegisterComponent implements OnInit {
   onSubmit(){
     console.log(this.registerForm.value);
   }
-
+  ngOnDestroy(){
+    setTimeout(()=>{
+      this.sidebar.toggle(true);  
+    },0);
+  }
 }
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
