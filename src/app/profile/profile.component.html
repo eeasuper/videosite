@@ -1,13 +1,12 @@
 <div class="banner-container">
   <div class="banner">
-
   </div>
   <div class="banner-content">
     <h1>
       {{user.username}}'s Videos
     </h1>
     <div class="buttons-con">
-      <button class="upload-button button button-med">Upload Video</button>
+      <button class="upload-button button button-med" (click)="openUploadDialog()">Upload Video</button>
       <button class="playlists-button button button-med" [routerLink]="['/playlist',user.id]">My Playlists</button>
     </div>
   </div>

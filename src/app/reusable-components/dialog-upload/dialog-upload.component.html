@@ -1,0 +1,34 @@
+<div >
+<div mat-dialog-content class="container">
+  <h1 mat-dialog-title>Upload a Video</h1>
+  <form [formGroup] = "formGroup" (ngSubmit)="onSubmit()">
+    <button mat-button color="primary" class="upload-button-button" type="button">
+      <input id="upload-button" class="upload-button-input" type="file" (change)="onFileChange($event)" [formControl]="formGroup.get('fileControl')"/>
+      <label for="upload-button" class="upload-button-label"></label>
+      Choose Video
+    </button>
+    Valid File Types: .mp4, .webm, .ogg
+    <br>
+    Uploaded Video:
+    <span *ngIf="uploadedFileName" class="uploadedFileName">{{uploadedFileName}}</span>
+    <div class="form-field-con">
+      <mat-form-field class="title-input">
+        <input matInput #message minLength="5" maxlength="75" placeholder="Title" [formControl]="formGroup.get('titleControl')" [errorStateMatcher]="matcher">
+        <mat-hint align="end">{{message.value.length}} / 75</mat-hint>
+        <mat-error *ngIf="formGroup.get('titleControl').hasError('required')">
+          Title is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="description-input">
+        <textarea matInput placeholder="Video Description" maxlength="2500" [formControl]="formGroup.get('descriptionControl')"></textarea>
+        <mat-hint align="end">{{message.value.length}} / 2500 </mat-hint>
+      </mat-form-field>
+    </div>
+    <button *ngIf="!loading" type="submit" mat-button color="accent" [disabled]="!formGroup.valid || !validUpload" class="submit-button">Upload Video</button>
+    <mat-spinner *ngIf="loading" diameter=50></mat-spinner>
+  </form>
+</div>
+<mat-dialog-actions>
+  <button class="button button-med" mat-dialog-close>Close</button>
+</mat-dialog-actions>
+</div>

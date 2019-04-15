@@ -1,0 +1,21 @@
+<div >
+<div mat-dialog-content class="container">
+  <h1 mat-dialog-title>Add Videos to Playlist</h1>
+  <form [formGroup] = "formGroup" (ngSubmit)="onSubmit()">
+    <div class="form-field-con" formArrayName="urls">
+
+      <div *ngFor="let url of urls.controls; let i=index" class="url-input-con">
+        <input  minLength="5" placeholder="Video Url" class="url-input" [formControlName]="i">
+      </div>
+      <div class="plus-icon-con">
+        <div class="plus-icon" (click)="addLink()"></div>
+      </div>
+    </div>
+    <button *ngIf="!loading" type="submit" mat-button color="accent" class="submit-button">Add Video to Playlist</button>
+    <mat-spinner *ngIf="loading" diameter=50></mat-spinner>
+  </form>
+</div>
+<mat-dialog-actions>
+  <button class="button button-med" mat-dialog-close>Close</button>
+</mat-dialog-actions>
+</div>

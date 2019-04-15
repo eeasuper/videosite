@@ -7,6 +7,7 @@ import {ApiCallsService} from '../../services/api-calls.service';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
 import {DialogCloseComponent} from '../../reusable-components/dialog-close/dialog-close.component';
+import {DialogAddVideoPlaylistComponent} from '../../reusable-components/dialog-add-video-playlist/dialog-add-video-playlist.component';
 @Component({
   selector: 'app-edit-playlist',
   templateUrl: './edit-playlist.component.html',
@@ -26,6 +27,14 @@ export class EditPlaylistComponent implements OnInit{
       data: {
         type: 'playlist',
         id: this.playlist.id
+      }
+    });
+  }
+
+  openAddDialog():void{
+    this.dialog.open(DialogAddVideoPlaylistComponent,{
+      data:{
+        id: this.playlist.id,
       }
     });
   }

@@ -4,12 +4,16 @@ import { ProfileComponent } from './profile.component';
 import {ProfileResolverService} from './profile-resolver.service';
 import {VideoListModule} from '../video-list/video-list.module';
 import {RouterModule} from '@angular/router'
+// import {ReusableComponentsModule} from '../reusable-components/reusable-components.module';
+// import {DialogUploadComponent} from '../reusable-components/dialog-upload/dialog-upload.component';
 @NgModule({
   declarations: [ProfileComponent],
   imports: [
     CommonModule,
     VideoListModule,
-    RouterModule
+    RouterModule,
+    // ReusableComponentsModule,
+    // DialogUploadComponent
   ],
   exports: [
     ProfileComponent

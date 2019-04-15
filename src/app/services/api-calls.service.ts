@@ -109,6 +109,43 @@ export class ApiCallsService {
     )
   }
 
+  uploadVideo(formData:FormData,userId:number):Observable<any>{
+    let httpOptions = {
+      headers: new HttpHeaders({
+        "Authorization": "random_lol",
+      })
+    }
+    return this.http.post(this.server + "/upload/"+userId,formData,httpOptions).pipe(
+      catchError(this.handleError('uploadVideo()',''))
+    )
+  }
+
+  addVideoToPlaylist(playlistId:any, array:string[]):Observable<any>{
+    let body = [];
+    //localhost:4200/view/1?playlist=1
+    array.forEach((val,ind)=>{
+      let a = val.substring(val.lastIndexOf("view/")+5, val.lastIndexOf("?"));
+      console.log(a);
+      body.push({
+        id: a
+      })
+    })
+    return this.http.post(this.server + "/playlist/"+playlistId+"/edit/add-video",body).pipe(
+      catchError(this.handleError('addVideoToPlaylist()',''))
+    );
+  }
+
+  setVideoContent(videoId:number, title:string, description:string):Observable<any>{
+    let body = {
+      id: videoId,
+      title: title,
+      description: description
+    }
+    return this.http.put(this.server+"/video", body).pipe(
+      catchError(this.handleError('setVideoContent()',''))
+    )
+  }
+
   setViewCount(videoFile:string){
     if(!this.ip){
       this.getIP().subscribe((res:any)=> {

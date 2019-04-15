@@ -54,10 +54,6 @@ export class ProfileResolverService implements Resolve<any>{
         this.authenticated = false
       }
     })
-    // if(!this.authenticated){
-    //   this.router.navigate(['/']);
-    //   return;
-    // }
     return forkJoin(
         this.service.getVideoRecentList(userId).pipe(
           map((val)=>{

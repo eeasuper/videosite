@@ -17,6 +17,8 @@ import {ViewPlaylistModule} from './view-playlist/view-playlist.module';
 import { DirectivesModule } from './directives/directives.module';
 import {ReusableComponentsModule} from './reusable-components/reusable-components.module'
 import {DialogCloseComponent} from './reusable-components/dialog-close/dialog-close.component'
+import {DialogUploadComponent} from './reusable-components/dialog-upload/dialog-upload.component'
+import {DialogAddVideoPlaylistComponent} from './reusable-components/dialog-add-video-playlist/dialog-add-video-playlist.component';
 import {MatDialogModule } from '@angular/material/dialog'
 import {MatInputModule} from '@angular/material/input';
 import {LoginModule} from './login/login.module';
@@ -51,6 +53,10 @@ import {ProfileModule} from './profile/profile.module';
     SidebarService,
   ],
   bootstrap: [AppComponent],
-  entryComponents:[DialogCloseComponent]
+  entryComponents:[
+    DialogCloseComponent,
+    DialogUploadComponent,
+    DialogAddVideoPlaylistComponent
+  ]
 })
 export class AppModule { }
