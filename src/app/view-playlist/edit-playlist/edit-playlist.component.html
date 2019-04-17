@@ -2,7 +2,8 @@
   <div class="inner-con">
     <div class="upper-con">
       <div class="img-con">
-        <img [src]="playlist.playlist[0].thumbnail"/>
+        <!-- <img [src]="playlist.playlist[0].thumbnail"/> -->
+        <img [src]="mainThumbnail"/>
       </div>
       <div class="data-con">
         <h2 #h2Title (click)="h2Click($event)">{{playlist.title}}<button class="h2-button button"><div></div></button></h2>

@@ -15,42 +15,7 @@ import {ApiCallsService} from '../../services/api-calls.service';
 })
 export class EditPlaylistResolverService implements Resolve<Playlist> {
 
-  private test:Playlist = new Playlist();
-  private test1:BehaviorSubject<any> = new BehaviorSubject<any>(this.test);
   constructor(private router: Router, private store:Store<any>, private service:ApiCallsService) {
-    this.test.updated = 'December 1st 2018';
-    this.test.name = 'exampleplaylist'
-    this.test.id = 1;
-    this.test.uploader_id = 1;
-    let playlist1:Video = {
-      h3: 'Yui-Ura-On!!!',
-      thumbnail: '/assets/seeding-thumbnail.png',
-      uploader: 'example uploader',
-      views: 'example views',
-      order: 1,
-      url: '/view/1'
-    }
-    let playlist2:Video = {
-      h3: 'Yui-Ura-On!!! 2',
-      thumbnail: '/assets/seeding-thumbnail.png',
-      uploader: 'example uploader2',
-      views: 'example views2',
-      order: 3,
-      url: '/view/1'
-    }
-    let playlist3:Video = {
-      h3: 'Yui-Ura-On!!! 3',
-      thumbnail: '/assets/seeding-thumbnail.png',
-      uploader: 'example uploader3',
-      views: 'example views3',
-      order: 2,
-      url: '/view/1'
-    }
-    let a = new Array<Video>();
-    this.test.list = a;
-    this.test.list.push(playlist1);
-    this.test.list.push(playlist2);
-    this.test.list.push(playlist3);
   }
   getEditAuthorization(playlistUploaderId:number, loggedInId:number){
     if(playlistUploaderId === loggedInId){
@@ -86,7 +51,6 @@ export class EditPlaylistResolverService implements Resolve<Playlist> {
           val.url = "/view/"+val.id;
         })
         result.date = this.service.setDate(result.date);
-        console.log(result);
         return result;
       })
     )

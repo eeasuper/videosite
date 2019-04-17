@@ -53,11 +53,7 @@ h1{
   flex-direction: row;
 }
 
-.upload-button{
+.menu-button{
   display: inline-block;
   margin-right: 5px;
-}
-
-.playlists-button{
-display: inline-block;
 }

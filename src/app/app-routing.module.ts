@@ -10,11 +10,13 @@ import {RegisterComponent} from './register/register.component';
 import {ProfileComponent} from './profile/profile.component'
 import {ProfileResolverService} from './profile/profile-resolver.service';
 import {HomeResolverService} from './home/home-resolver.service';
+import {NotFoundComponent} from './not-found/not-found.component';
+// import {ViewPlaylistComponent} from './view-playlist/view-playlist.component';
 const routes: Routes = [
   {
     path: '', component: HomeComponent, pathMatch: 'full',
     resolve:{
-      videoLists: HomeResolverService
+      videoList: HomeResolverService
     }
   },
   {
@@ -28,7 +30,19 @@ const routes: Routes = [
     resolve: {
       data: ProfileResolverService
     }
-  }
+  },
+  {
+    path:'view', loadChildren: './view-video/view-video.module#ViewVideoModule'
+  },
+  {
+    path:'playlist', loadChildren: './view-playlist/view-playlist.module#ViewPlaylistModule'
+  },
+  {
+    path:'notfound', component: NotFoundComponent, pathMatch: 'full'
+  },
+  {
+    path:'**', component: NotFoundComponent, pathMatch: 'full'
+  },
   // {
   //   path: 'view', loadChildren: './view-video/view-video.module#ViewVideoModule'
   // }

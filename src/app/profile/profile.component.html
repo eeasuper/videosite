@@ -6,8 +6,10 @@
       {{user.username}}'s Videos
     </h1>
     <div class="buttons-con">
-      <button class="upload-button button button-med" (click)="openUploadDialog()">Upload Video</button>
-      <button class="playlists-button button button-med" [routerLink]="['/playlist',user.id]">My Playlists</button>
+      <button class="menu-button button button-med" (click)="openUploadDialog()" *ngIf="authorized">Upload Video</button>
+      <button class="menu-button button button-med" [routerLink]="['/playlist',user.id]">{{user.username}}'s Playlists</button
+        >
+      <button class="menu-button button button-med" (click)="openPlaylistDialog()" *ngIf="authorized">Create Playlist</button>
     </div>
   </div>
 </div>

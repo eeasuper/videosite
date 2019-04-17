@@ -15,7 +15,7 @@ import {RouterModule} from '@angular/router'
     DirectivesModule,
     DragDropModule,
     ReusableComponentsModule,
-    BrowserAnimationsModule,
+    // BrowserAnimationsModule,
     RouterModule
   ],
   providers:[DraggableCellService],

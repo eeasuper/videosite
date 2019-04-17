@@ -4,6 +4,7 @@
   position: relative;
   width:99%;
   color: #4a4a48;
+  margin-top: -20px;
 }
 
 /*height for everything inside upper-container is relative to the height created by the video tag.*/
@@ -125,7 +126,21 @@ hr{
 
 .lower-container{
   white-space: nowrap;
-  margin-top: 10px;
+  margin-top: 5px;
   width: 100%;
   position: relative;
+  display:inline-block;
+}
+
+@media only screen and (max-width: 840px){
+  .upper-container{
+    flex-direction: column;
+  }
+  .upper-container video{
+    width: 100%;
+  }
+  .description{ 
+    width:100%;
+    margin:5px 0 0 0;
+  }
 }

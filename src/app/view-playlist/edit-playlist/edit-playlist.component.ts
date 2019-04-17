@@ -8,6 +8,8 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
 import {DialogCloseComponent} from '../../reusable-components/dialog-close/dialog-close.component';
 import {DialogAddVideoPlaylistComponent} from '../../reusable-components/dialog-add-video-playlist/dialog-add-video-playlist.component';
+import {timer} from 'rxjs';
+import {switchMap} from 'rxjs/operators';
 @Component({
   selector: 'app-edit-playlist',
   templateUrl: './edit-playlist.component.html',
@@ -19,6 +21,7 @@ export class EditPlaylistComponent implements OnInit{
   @ViewChild('h2Input') private h2Input:ElementRef;
   @ViewChild('h2Title') private h2Title:ElementRef;
   @ViewChild('saveButton') private saveButton:ElementRef;
+  private mainThumbnail:string;
 
   constructor(private router:Router,private route: ActivatedRoute, private renderer:Renderer2, public dialog: MatDialog, private service:ApiCallsService) { }
 
@@ -48,34 +51,24 @@ export class EditPlaylistComponent implements OnInit{
   h2InputBlur(e):void{
     //DO API CALL HERE, after success or before -for speed-do:
     this.playlist.title = e.target.value;
-
     this.renderer.setStyle(this.h2Title.nativeElement, 'display', 'block');
     this.renderer.setStyle(this.h2InputCon.nativeElement, 'display','none');
   }
-  // orderList(data:Video[]){
-  //   return data.sort((a,b)=>{
-  //     return a.order - b.order;
-  //   })
-  // }
 
   drop(e: CdkDragDrop<string[]>){
     this.toggleSave(false);
     moveItemInArray(this.playlist.playlist, e.previousIndex, e.currentIndex);
+    let timer$ = timer(4000);
+    timer$.pipe(
+      switchMap(()=>{
+        this.mainThumbnail = this.playlist.playlist[0].thumbnail;
+        return new Observable;
+      })
+    ).subscribe(()=>{});
   }
 
-  // makeIndexBeOrder(list){
-  //   //use this function when making the api call.
-  //   return list.map((val,ind)=>{
-  //     val.order = ind;
-  //     return val;
-  //   })
-  // }
-  // playAll(){
-  //   this.router.navigate(["/view",this.playlist.playlist[0].url])
-  // }
   saveChanges():void{
     this.service.setPlaylistOrder(this.playlist);
-    console.log(this.playlist);
     this.toggleSave(true);
   }
   toggleSave(saveChanges:boolean):void{
@@ -89,6 +82,7 @@ export class EditPlaylistComponent implements OnInit{
     this.route.data
       .subscribe((data: { playlist: Playlist }) => {
         this.playlist = data.playlist;
+        this.mainThumbnail = this.playlist.playlist[0].thumbnail;
     });
   }
 }

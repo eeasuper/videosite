@@ -10,8 +10,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { DialogAddVideoPlaylistComponent } from './dialog-add-video-playlist/dialog-add-video-playlist.component';
+import { DialogCreatePlaylistComponent } from './dialog-create-playlist/dialog-create-playlist.component';
 @NgModule({
-  declarations: [DialogCloseComponent, DialogUploadComponent, DialogAddVideoPlaylistComponent],
+  declarations: [DialogCloseComponent, DialogUploadComponent, DialogAddVideoPlaylistComponent, DialogCreatePlaylistComponent],
   imports: [
     CommonModule,
     MatDialogModule,

@@ -1,11 +1,13 @@
 import { Component, OnInit,Inject} from '@angular/core';
 import { MAT_DIALOG_DATA,MatDialogRef,MatDialog} from '@angular/material';
 import {ApiCallsService} from '../../services/api-calls.service';
-import { FormBuilder,Validators, FormArray } from '@angular/forms';
+import { FormBuilder,Validators, FormArray,AsyncValidatorFn,ValidationErrors,FormControl } from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import { Store } from '@ngrx/store';
 import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
+import {timer,Observable} from 'rxjs';
+import {switchMap} from 'rxjs/operators'
 @Component({
   selector: 'app-dialog-add-video-playlist',
   templateUrl: './dialog-add-video-playlist.component.html',
@@ -15,7 +17,7 @@ export class DialogAddVideoPlaylistComponent implements OnInit {
   private loading:boolean = false;;
   private formGroup = this.fb.group({
     urls: this.fb.array([
-      this.fb.control('')
+      this.fb.control('',[Validators.required],[this.asyncValidator(this.service)])
     ])
   });
   
@@ -25,8 +27,7 @@ export class DialogAddVideoPlaylistComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData, private router:Router,private snackBar: MatSnackBar, private store:Store<any>,private service:ApiCallsService,private fb: FormBuilder) { }
 
   addLink(){
-    this.urls.push(this.fb.control(''));
-    console.log(this.formGroup.get('urls'));
+    this.urls.push(this.fb.control('',[Validators.required],[this.asyncValidator(this.service)]));
   }
 
   onSubmit(){
@@ -47,6 +48,20 @@ export class DialogAddVideoPlaylistComponent implements OnInit {
     this.snackBar.open(message, action, {
       duration: 5000,
     });
+  }
+  asyncValidator(service:ApiCallsService):AsyncValidatorFn{
+    //https://www.concretepage.com/angular-2/angular-custom-async-validator-example#Debounce
+    return (control:FormControl):Promise<ValidationErrors | null> | Observable<ValidationErrors | null> =>{
+    let timer$ = timer(2000);
+     return timer$.pipe(
+      switchMap(()=> {
+        let videoId = service.checkUrl(control.value);
+        return service.getVideoDescription(videoId).toPromise().then((val:any)=>{
+        return (!val.id) ? {"invalidUrl": true} : null;
+        })
+      })
+    )
+  }
   }
   ngOnInit() {
   }

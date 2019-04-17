@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 // import { Response } from '@angular/http';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
-import {Observable,of} from 'rxjs';
+import { catchError, map, tap,switchMap } from 'rxjs/operators';
+import {Observable,of,timer} from 'rxjs';
 import {Router} from '@angular/router';
+import {ValidationErrors,FormControl,AbstractControl} from '@angular/forms'
+import { Store } from '@ngrx/store';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,7 +19,7 @@ export class ApiCallsService {
         "Accept" : "application/json"
       })
     }
-  constructor(private http:HttpClient, private route:Router) { }
+  constructor(private http:HttpClient, private route:Router,private store:Store<any>,) { }
 
   getIP():Observable<any>{
     return this.http.get("https://api.ipify.org?format=json").pipe(
@@ -48,6 +50,7 @@ export class ApiCallsService {
     )
   }
 
+  
   getVideoRecentList(userId:string):Observable<any>{
     return this.http.get(this.server+"/video/"+userId+"/recent").pipe(
         catchError(this.handleError('getVideoRecentList()',''))
@@ -99,7 +102,9 @@ export class ApiCallsService {
       catchError(this.handleError('deletePlaylist()',''))
     ).subscribe((val)=>{
       //https://stackoverflow.com/questions/46603088/angular-4-http-delete-not-working
-      this.route.navigate(["/"]);
+      this.store.select('user').subscribe(user=>{
+        this.route.navigate(["/playlist",user.user.id]);  
+      })
     })
   }
 
@@ -124,16 +129,32 @@ export class ApiCallsService {
     let body = [];
     //localhost:4200/view/1?playlist=1
     array.forEach((val,ind)=>{
-      let a = val.substring(val.lastIndexOf("view/")+5, val.lastIndexOf("?"));
-      console.log(a);
+      let a = this.checkUrl(val);
       body.push({
         id: a
       })
     })
+    console.log(playlistId);
     return this.http.post(this.server + "/playlist/"+playlistId+"/edit/add-video",body).pipe(
       catchError(this.handleError('addVideoToPlaylist()',''))
     );
   }
+
+  checkUrl(val:string){
+    if(val.lastIndexOf("?") !== -1){
+        return val.substring(val.lastIndexOf("view/")+5, val.lastIndexOf("?"));  
+      }else{
+        console.log("ff");
+        return val.substring(val.lastIndexOf("view/")+5, val.length); 
+      }
+  }
+
+  createPlaylist(playlistData:object):Observable<any>{
+    return this.http.post(this.server+"/playlist",playlistData).pipe(
+      catchError(this.handleError('createPlaylist()',''))
+    )
+  }
+
 
   setVideoContent(videoId:number, title:string, description:string):Observable<any>{
     let body = {
@@ -176,7 +197,9 @@ export class ApiCallsService {
    
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
-   
+      if(error.status === 404){
+        this.route.navigate(['/notfound']);
+      }
       // TODO: better job of transforming error for user consumption
       // this.log(`${operation} failed: ${error.message}`);
    

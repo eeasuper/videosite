@@ -8,7 +8,7 @@ import {PlaylistResolverService} from './playlist-list/playlist-resolver.service
 import {EditPlaylistResolverService} from './edit-playlist/edit-playlist-resolver.service'
 const routes: Routes = [
   {
-    path: 'playlist', component: ViewPlaylistComponent, children:[
+    path: '', component: ViewPlaylistComponent, children:[
       {
         //path: 'userId'
         path:':userId', component: PlaylistListComponent, resolve:{

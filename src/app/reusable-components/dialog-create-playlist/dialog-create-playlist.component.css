@@ -33,22 +33,9 @@ form{
   padding: 10px 0px;
   box-sizing: border-box;
 }
-
-.url-input-con{
-  width: 100%;
+.mat-input{
+  width:90%;
 }
-.url-input{
-  width: 90%;
-  margin: 10px auto 5px;
-  outline: none;
-  padding: 5px;
-  box-sizing: border-box;
-  border-radius: 5px;
-  border: 1px solid #d8dad3;
-  display: block;
-  color: #4a4a48;
-}
-
 .url-error{
   display: block;
   width:90%;
@@ -64,6 +51,26 @@ form{
   height:50px;
   margin: 0 auto;
   font-size: 0.75em;
+}
+
+.url-con{
+  width:100%;
+  height:100%;
+  display: inline-block;
+}
+.url-input-con{
+  width: 100%;
+}
+.url-input{
+  width: 90%;
+  margin: 10px auto 5px;
+  outline: none;
+  padding: 5px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid #d8dad3;
+  display: block;
+  color: #4a4a48;
 }
 .url-lists-con{
   width:100%;
@@ -84,7 +91,6 @@ form{
   background-size: contain;
   cursor: pointer;
 }
-
 
 .submit-button{
   background-color: #4a4a48;

@@ -2,12 +2,12 @@
   <video #videoPlayer autoplay class="video" (ended)="onEnded()" controls>
       <source [attr.src]="videoSource" type="video/mp4">
   </video>
-  <div class="caret-con">
+  <!-- <div class="caret-con">
     <button class="toggle-button button" (click)="doClick()">
       <span></span>
     </button>
     <div class="caret-hover"></div>
-  </div>
+  </div> -->
   <div class="description">
     <h1>
       {{currentVideo.title}}

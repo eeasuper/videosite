@@ -20,8 +20,8 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field class="description-input">
-        <textarea matInput placeholder="Video Description" maxlength="2500" [formControl]="formGroup.get('descriptionControl')"></textarea>
-        <mat-hint align="end">{{message.value.length}} / 2500 </mat-hint>
+        <textarea matInput #description placeholder="Video Description" maxlength="2500" [formControl]="formGroup.get('descriptionControl')"></textarea>
+        <mat-hint align="end">{{description.value.length}} / 2500 </mat-hint>
       </mat-form-field>
     </div>
     <button *ngIf="!loading" type="submit" mat-button color="accent" [disabled]="!formGroup.valid || !validUpload" class="submit-button">Upload Video</button>

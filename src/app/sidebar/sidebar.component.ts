@@ -12,50 +12,58 @@ export class SidebarComponent implements OnInit {
 
   @HostBinding('class.is-open')
   isOpen = true;
-  
-  private Authenticated:object[] = [
+
+  private myPlaylistsUrl;
+  private unAuthenticated:object[] = [
     {
-      name:'My Playlists',
-      url: '/playlist/1',
-      icon: '/assets/icons/playlist_icon.png',
+      name: 'Login',
+      url: '/login',
+      icon: '/assets/icons/user_icon_24.png',
+      activatedIcon: '/assets/icons/playlist_icon_activated.png'
+    },
+    {
+      name: 'Register',
+      url: '/register',
+      icon: '/assets/icons/blank.png',
       activatedIcon: '/assets/icons/playlist_icon_activated.png'
     },
     {
       name:'Trending',
-      url: '/playlist/1',
+      url: '/',
       icon: '/assets/icons/fire_icon.png',
       activatedIcon: '/assets/icons/fire_icon_activated.png'
     }
   ]
-  private titles:object[] = this.Authenticated;
-  // private unAuthenticated:object[] = [
-  //   {
-  //     name: 'Login',
-  //     url: '/login',
-  //     icon: '/assets/icons/user_icon_24.png',
-  //     activatedIcon: '/assets/icons/playlist_icon_activated.png'
-  //   },
-  //   {
-  //     name: 'Register',
-  //     url: '/register',
-  //     icon: '/assets/icons/blank.png',
-  //     activatedIcon: '/assets/icons/playlist_icon_activated.png'
-  //   }
-  // ]
+  private titles:object[] = this.unAuthenticated;
   constructor(private sidebar:SidebarService, private store:Store<any>) { }
 
   ngOnInit() {
     this.sidebar.change.subscribe(isOpen =>{
       this.isOpen = isOpen;
     })
-    // this.store.select('user').subscribe(user=>{
-    //   // console.log(user);
-    //   if(!user.isAuthenticated){
-    //     this.titles = this.unAuthenticated;
-    //   }else{
-    //     this.titles = this.Authenticated;
-    //   }
-    // })
+    this.store.select('user').subscribe(user=>{
+      if(!user.isAuthenticated){
+        this.titles = this.unAuthenticated;
+      }else if(user.isAuthenticated){
+        console.log(user);
+        this.myPlaylistsUrl = '/playlist/'+user.user.id;
+        let authenticated:object[] = [
+          {
+            name:'My Playlists',
+            url: this.myPlaylistsUrl,
+            icon: '/assets/icons/playlist_icon.png',
+            activatedIcon: '/assets/icons/playlist_icon_activated.png'
+          },
+          {
+            name:'Trending',
+            url: '/',
+            icon: '/assets/icons/fire_icon.png',
+            activatedIcon: '/assets/icons/fire_icon_activated.png'
+          }
+        ]
+        this.titles = authenticated;
+      }
+    })
   }
 
 }

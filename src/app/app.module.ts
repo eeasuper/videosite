@@ -19,27 +19,32 @@ import {ReusableComponentsModule} from './reusable-components/reusable-component
 import {DialogCloseComponent} from './reusable-components/dialog-close/dialog-close.component'
 import {DialogUploadComponent} from './reusable-components/dialog-upload/dialog-upload.component'
 import {DialogAddVideoPlaylistComponent} from './reusable-components/dialog-add-video-playlist/dialog-add-video-playlist.component';
+import {DialogCreatePlaylistComponent} from './reusable-components/dialog-create-playlist/dialog-create-playlist.component';
 import {MatDialogModule } from '@angular/material/dialog'
 import {MatInputModule} from '@angular/material/input';
 import {LoginModule} from './login/login.module';
 import {RegisterModule} from './register/register.module';
 import {ProfileModule} from './profile/profile.module';
+import { NotFoundComponent } from './not-found/not-found.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 // import {ProfileResolverService} from './profile/profile-resolver.service'
 @NgModule({
   declarations: [
     AppComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     StoreModule.forRoot({}),
+    BrowserAnimationsModule,
     UserModule,
     NavbarModule,
     SidebarModule,
     HomeModule,
     ViewVideoModule,
     ViewModule,
-    ViewPlaylistModule,
+    // ViewPlaylistModule,
     LoginModule,
     RegisterModule,
     ProfileModule,
@@ -56,7 +61,8 @@ import {ProfileModule} from './profile/profile.module';
   entryComponents:[
     DialogCloseComponent,
     DialogUploadComponent,
-    DialogAddVideoPlaylistComponent
+    DialogAddVideoPlaylistComponent,
+    DialogCreatePlaylistComponent
   ]
 })
 export class AppModule { }

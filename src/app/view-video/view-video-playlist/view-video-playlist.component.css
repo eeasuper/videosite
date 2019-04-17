@@ -1,6 +1,5 @@
 :host{
   width:35%;
-  height: 300px;
   display: inline-block;
   box-sizing:border-box;
   color: #4a4a48;
@@ -15,7 +14,9 @@
 
 .top-container{ 
   box-sizing: border-box;
-  padding: 10px 23px 0px 23px;
+  padding: 10px 23px 5px 23px;
+  background-color: #566246;
+  color: #f1f2eb;
 }
 
 .header{
@@ -95,4 +96,11 @@
   right:0;
   cursor: pointer;
   z-index:2;
+}
+
+@media only screen and (max-width: 840px){
+  :host{
+    width:100%;
+    float:left;
+  }
 }

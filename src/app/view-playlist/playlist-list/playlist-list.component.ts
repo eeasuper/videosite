@@ -64,7 +64,6 @@ export class PlaylistListComponent implements OnInit {
         this.playlists = data.playlists;
     });
     this.store.select('user').subscribe(user=>{
-      console.log(user);
       this.loggedInId = user.user.id      
       if(!user.isAuthenticated){
         this.authenticated = false;

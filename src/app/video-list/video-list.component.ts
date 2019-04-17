@@ -184,7 +184,6 @@ export class VideoListComponent implements OnInit {
       this.setWidth(this.videoCon.nativeElement);
       this.limitVideos();
     })
-    console.log(this.data);
   }
 
 }
