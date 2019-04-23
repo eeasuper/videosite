@@ -1,11 +1,18 @@
 import { Injectable } from '@angular/core';
 // import { Response } from '@angular/http';
-import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { HttpClient,HttpHeaders, HttpEvent,
+  HttpInterceptor,
+  HttpHandler,
+  HttpRequest, } from '@angular/common/http';
 import { catchError, map, tap,switchMap } from 'rxjs/operators';
 import {Observable,of,timer} from 'rxjs';
 import {Router} from '@angular/router';
 import {ValidationErrors,FormControl,AbstractControl} from '@angular/forms'
 import { Store } from '@ngrx/store';
+import {ActionTypes} from '../store/actions/user.actions';
+import {MatSnackBar} from '@angular/material';
+import * as jwt_decode from "jwt-decode";
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,13 +20,17 @@ export class ApiCallsService {
   private server:string = "http://localhost:8080"
   public ip:string;
   // lastViewedTime: CustomDate;
+  private jwt:string = localStorage.getItem("jwtToken") ? localStorage.getItem("jwtToken"):null;
   private httpOptions = {
+      // headers: new HttpHeaders({
+      //   "Content-Type": "application/json",
+      //   "Accept" : "application/json"
+      // })
       headers: new HttpHeaders({
-        "Content-Type": "application/json",
-        "Accept" : "application/json"
+        "Authorization": `Bearer ${this.jwt}`
       })
     }
-  constructor(private http:HttpClient, private route:Router,private store:Store<any>,) { }
+  constructor(private http:HttpClient, private route:Router,private store:Store<any>,private snackBar: MatSnackBar) { }
 
   getIP():Observable<any>{
     return this.http.get("https://api.ipify.org?format=json").pipe(
@@ -27,18 +38,18 @@ export class ApiCallsService {
     )
   }
 
-  getCurrentTime():number{
-    // let today = new Date();
-    // return {
-    //   'year': today.getFullYear(),
-    //   'month': today.getMonth()+1,
-    //   'day': today.getDate(),
-    //   'hour': today.getHours(),
-    //   'minutes': today.getMinutes(),
-    //   'seconds': today.getSeconds()
-    // }
-    return new Date().getTime();
-  }
+  // getCurrentTime():number{
+  //   // let today = new Date();
+  //   // return {
+  //   //   'year': today.getFullYear(),
+  //   //   'month': today.getMonth()+1,
+  //   //   'day': today.getDate(),
+  //   //   'hour': today.getHours(),
+  //   //   'minutes': today.getMinutes(),
+  //   //   'seconds': today.getSeconds()
+  //   // }
+  //   return new Date().getTime();
+  // }
 
   getVideoSource(videoId:number){
     return this.server + "/video/view/"+videoId;
@@ -50,7 +61,19 @@ export class ApiCallsService {
     )
   }
 
-  
+  // getVideoList(pageIndex:number,limit:number,userId:number):Observable<any>{
+  getVideoList(userId:number):Observable<any>{
+    //list should be ordered by date.
+    //pageIndex should indicate the position of the list SQL should retrieve data.
+    //limit indicates the amount of videos that should be attained starting from the position of the list 
+    //(pageIndex * limit) should give the position of the list for SQL to start retrieving data.
+    //In backend: SQL query limit by ASC or DESC order. and then send as response only the part of the query that client wants...or maybe it's just better to give the whole thing from the start?
+    return this.http.get(this.server+"/video/"+userId+"/all").pipe(
+      catchError(this.handleError('getVideoList()',''))
+    )
+    // return null;
+  }
+
   getVideoRecentList(userId:string):Observable<any>{
     return this.http.get(this.server+"/video/"+userId+"/recent").pipe(
         catchError(this.handleError('getVideoRecentList()',''))
@@ -90,15 +113,22 @@ export class ApiCallsService {
         "id": val.id
       }
     })
-    console.log(body);
-    this.http.put(this.server + "/playlist/"+playlist.id+"/edit/order-change",body).pipe(
+    this.isLocalStorageJWTExists();
+    this.http.put(this.server + "/playlist/"+playlist.id+"/edit/order-change",body,this.httpOptions).pipe(
       catchError(this.handleError('setPlaylistOrder()',''))
-    ).subscribe(()=>{
-    })
+    ).subscribe(()=>{})
+  }
+
+  setPlaylistTitle(playlistId:number, title:string){
+    this.isLocalStorageJWTExists();
+    this.http.put(this.server+"/playlist/"+playlistId+"/edit/title-change", {"title":title},this.httpOptions).pipe(
+      catchError(this.handleError('setPlaylistTitle()','',"Something went wrong. Title couldn't be set."))
+    ).subscribe(()=>{})
   }
 
   deletePlaylist(playlistId:string){
-    this.http.delete(this.server+"/playlist/"+playlistId).pipe(
+    this.isLocalStorageJWTExists();
+    this.http.delete(this.server+"/playlist/"+playlistId,this.httpOptions).pipe(
       catchError(this.handleError('deletePlaylist()',''))
     ).subscribe((val)=>{
       //https://stackoverflow.com/questions/46603088/angular-4-http-delete-not-working
@@ -115,12 +145,8 @@ export class ApiCallsService {
   }
 
   uploadVideo(formData:FormData,userId:number):Observable<any>{
-    let httpOptions = {
-      headers: new HttpHeaders({
-        "Authorization": "random_lol",
-      })
-    }
-    return this.http.post(this.server + "/upload/"+userId,formData,httpOptions).pipe(
+    this.isLocalStorageJWTExists();
+    return this.http.post(this.server + "/upload/"+userId,formData,this.httpOptions).pipe(
       catchError(this.handleError('uploadVideo()',''))
     )
   }
@@ -135,7 +161,8 @@ export class ApiCallsService {
       })
     })
     console.log(playlistId);
-    return this.http.post(this.server + "/playlist/"+playlistId+"/edit/add-video",body).pipe(
+    this.isLocalStorageJWTExists();
+    return this.http.post(this.server + "/playlist/"+playlistId+"/edit/add-video",body,this.httpOptions).pipe(
       catchError(this.handleError('addVideoToPlaylist()',''))
     );
   }
@@ -150,7 +177,8 @@ export class ApiCallsService {
   }
 
   createPlaylist(playlistData:object):Observable<any>{
-    return this.http.post(this.server+"/playlist",playlistData).pipe(
+    this.isLocalStorageJWTExists();
+    return this.http.post(this.server+"/playlist",playlistData,this.httpOptions).pipe(
       catchError(this.handleError('createPlaylist()',''))
     )
   }
@@ -162,39 +190,123 @@ export class ApiCallsService {
       title: title,
       description: description
     }
-    return this.http.put(this.server+"/video", body).pipe(
+    this.isLocalStorageJWTExists();
+    return this.http.put(this.server+"/video", body,this.httpOptions).pipe(
       catchError(this.handleError('setVideoContent()',''))
     )
   }
 
-  setViewCount(videoFile:string){
-    if(!this.ip){
-      this.getIP().subscribe((res:any)=> {
-        this.ip=res.ip;
-        //change date to actual new Date(). or just send date.getTime();
-        let body = {
-          "ip": this.ip,
-          "date": this.getCurrentTime(),
-          "fileName": videoFile
-        }
-        console.log(body);
-        this.http.post(this.server+"/addViewCount", body).pipe(
-          catchError(this.handleError('setViewCount()',''))
-        ).subscribe((val)=>{
-          console.log(val);
-        })
-      });
-    }
+  setViewCount(videoId:number,ip:string):Observable<any>{
+    let body;
+    // this.getIP().subscribe((res:any)=> {
+    //   res.ip;
+    //   //change date to actual new Date(). or just send date.getTime();
+      body = {
+        "ip": ip,
+        "date": new Date().getTime(),
+        "videoId": videoId
+      }
+      return this.http.post(this.server+"/addViewCount", body).pipe(
+        catchError(this.handleError('setViewCount()',''))
+      );
+    // });
   }
 
+  getViewCount(videoId:number):Observable<any>{
+    return this.http.get(this.server+"/getViewCount/"+videoId).pipe(
+      catchError(this.handleError('getViewCount()',''))
+    )
+  }
+
+  login(user:any):Promise<any>{
+    let body = {
+      username: user.usernameControl,
+      password: user.passwordControl
+    }
+    return new Promise((res,rej)=>{
+      this.http.post(this.server+"/login", body, {observe: 'response'}).pipe(
+        catchError(this.handleError('login()',''))
+      ).toPromise().then((val:any)=>{
+        console.log(val);
+        //if user is successfully sent back:
+        localStorage.setItem("jwtToken", val.body.token);
+        if(val.status === 201){
+          res(val.body);  
+        }
+        rej(null)
+      }).catch((err)=>{
+        console.log(err);
+        rej(err);
+      })
+    })
+  }
+  logout(){
+    localStorage.removeItem("jwtToken");
+  }
+  register(user:any):Promise<any>{
+    let body = {
+      username: user.usernameControl,
+      password: user.passwordControl,
+      name: user.nameControl,
+      email: user.emailControl
+    }
+    return new Promise((res,rej)=>{
+      this.http.post(this.server+"/register", body, {observe: 'response'}).pipe(
+        catchError(this.handleError('register()',''))
+      ).toPromise().then((val:any)=>{
+        console.log(val);
+        localStorage.setItem("jwtToken", val.body.token);
+        if(val.status === 201){
+          res(val.body);  
+        }
+      }).catch((err)=>{
+          console.log(err);
+          rej(err);
+        })
+    })
+  }
   setDate(dateLong:number):string{
     const options = {year: 'numeric', month: 'long', day: 'numeric'}
     return new Date(dateLong).toLocaleDateString("en-US", options);
   }
 
-  private handleError<T> (operation = 'operation', result?: T) {
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 3000,
+    });
+  }
+
+  isLocalStorageJWTExists():string{
+    //If jwt token exists, append it to the httpHeader for verification else delete it.
+    let jwt:string = localStorage.getItem("jwtToken") ? localStorage.getItem("jwtToken"):null;
+    console.log(jwt);
+    if(jwt){
+      this.httpOptions.headers.append("Authorization", `Bearer ${jwt}`);
+      return jwt;
+    }else{
+      this.httpOptions.headers.delete("Authorization");
+      return null;
+    }
+  }
+
+  validateDecodeJWT(){
+    let jwt = jwt_decode(localStorage.getItem("jwtToken"));
+    if(jwt!=null){
+      this.store.dispatch({
+          type: ActionTypes.SET_CURRENT_USER,
+          payload: {
+            username: jwt.sub,
+            id: jwt.usr_id
+          }
+        })  
+    }
+  }
+
+  private handleError<T> (operation = 'operation', result?: T,snackbarMessage?:string) {
     return (error: any): Observable<T> => {
-   
+     if(snackbarMessage){
+       this.openSnackBar(snackbarMessage, "Okay")
+     }
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
       if(error.status === 404){

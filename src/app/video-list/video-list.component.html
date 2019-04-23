@@ -1,10 +1,10 @@
 
-<div #videosContainer class="videos-container">
+<div #videosContainer class="videos-container" [hidden]="data.length === 0">
   <div class="videos-container2">
     <h2>{{title}}</h2>
     <div class="arrows-container" >
       <button class="arrow-left-con arrow button" (click)="handleClick('left')"> <div class="left-arrow"></div></button>
-      <div #page class="page" [attr.data-totalpage]="setTotalPage()">{{videoCon3.nativeElement.dataset.state}}&nbsp;/&nbsp;{{page.dataset.totalpage}}
+      <div #page class="page" [attr.data-totalpage]="setTotalPage()">{{videoCon3.nativeElement.dataset.state}}&nbsp;/&nbsp;{{totalPage}}
       </div>
       <button class="arrow-right-con arrow button" (click)="handleClick('right')"><div class="right-arrow"></div></button>
     </div>

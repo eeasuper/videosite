@@ -6,7 +6,7 @@ import {ViewVideoResolverService} from './view-video-resolver.service';
 
 const viewVideoRoutes: Routes = [
   {
-    path: 'view/:videoid', component: ViewVideoComponent,resolve:{
+    path: 'view/:videoid', component: ViewVideoComponent,pathMatch:'full',resolve:{
       video:ViewVideoResolverService
     }
   },

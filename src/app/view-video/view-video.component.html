@@ -1,6 +1,9 @@
 <div class="upper-container">
   <video #videoPlayer autoplay class="video" (ended)="onEnded()" controls>
       <source [attr.src]="videoSource" type="video/mp4">
+      <source [attr.src]="videoSource" type="video/ogg">
+      <source [attr.src]="videoSource" type="video/webm">
+      Your browser does not support the video tag.
   </video>
   <!-- <div class="caret-con">
     <button class="toggle-button button" (click)="doClick()">
@@ -17,7 +20,7 @@
     </div>
     <hr>
     <div class="uploader column">
-      Uploaded by {{currentVideo.uploaderId}}
+      Uploaded by {{currentVideo.uploaderUsername}}
     </div>
     <p class="published column">
       Published on {{currentVideo.date}}

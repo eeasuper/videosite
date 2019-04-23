@@ -2,7 +2,10 @@ import { Component, OnInit,OnDestroy } from '@angular/core';
 import {SidebarService} from '../services/sidebar.service'
 import {FormControl, FormGroupDirective, NgForm, Validators,FormGroup} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
-
+import {ApiCallsService} from '../services/api-calls.service';
+import { Store } from '@ngrx/store';
+import {ActionTypes} from '../store/actions/user.actions';
+import {Router} from '@angular/router'
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -28,7 +31,7 @@ export class RegisterComponent implements OnInit,OnDestroy {
 
   matcher = new MyErrorStateMatcher();
 
-  constructor(private sidebar:SidebarService) { }
+  constructor(private sidebar:SidebarService, private router:Router,private service:ApiCallsService, private store:Store<any>) { }
 
   ngOnInit() {
     setTimeout(()=>{
@@ -38,6 +41,18 @@ export class RegisterComponent implements OnInit,OnDestroy {
 
   onSubmit(){
     console.log(this.registerForm.value);
+    this.service.register(this.registerForm.value).then((val)=>{
+      if(val != null){
+        this.store.dispatch({
+          type: ActionTypes.SET_CURRENT_USER,
+          payload: {
+            username: val.username,
+            id: val.id
+          }
+        })  
+      }
+    })
+    this.router.navigate(['/']);
   }
   ngOnDestroy(){
     setTimeout(()=>{

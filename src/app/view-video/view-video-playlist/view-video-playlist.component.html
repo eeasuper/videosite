@@ -12,7 +12,7 @@
       <img [src]="val.thumbnail" class="li thumbnail"/>
       <div class="li details">
         <div class="li2 title">{{val.title}}</div>
-        <div class="li2 uploader">{{val.uploaderId}}</div>
+        <div class="li2 uploader">{{val.uploaderUsername}}</div>
       </div>
       <a [routerLink]="val.url" [queryParams]="{playlist: playlist.id}"></a>
     </div>

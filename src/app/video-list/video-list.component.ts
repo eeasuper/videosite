@@ -1,4 +1,4 @@
-import { Component, OnInit,Input,HostListener,Renderer2,ElementRef,ViewChild} from '@angular/core';
+import { Component, OnInit,Input,HostListener,Renderer2,ElementRef,ViewChild,ChangeDetectorRef} from '@angular/core';
 import {SidebarService} from '../services/sidebar.service';
 
 @Component({
@@ -9,16 +9,36 @@ import {SidebarService} from '../services/sidebar.service';
 export class VideoListComponent implements OnInit {
 
   @ViewChild('videosContainer') private videoCon:ElementRef;
-  @ViewChild('videosContainer3') private videoCon3:any;
-  @ViewChild('page') private page:ElementRef;
-  @ViewChild('arrowsContainer') arrows:ElementRef;
+  // private videoCon:ElementRef;
+  // @ViewChild('videosContainer') set videoConSetter(content: ElementRef) {
+  //   this.videoCon = content;
+  // }
+  @ViewChild('videosContainer3') private videoCon3:ElementRef;
+  // private videoCon3:ElementRef;
+  // @ViewChild('videosContainer3') set videoCon3Setter(content: ElementRef) {
+  //   this.videoCon3 = content;
+  // }
+  @ViewChild('videosContainer3') private page:ElementRef;
+  // private page:ElementRef;
+  // @ViewChild('videosContainer3') set pageSetter(content: ElementRef) {
+  //   this.page = content;
+  // }
+  @ViewChild('arrowsContainer') private arrows:ElementRef;
+  // private arrows:ElementRef;
+  // @ViewChild('arrowsContainer') set arrowsContainerSetter(content: ElementRef) {
+  //   this.arrows = content;
+  // }
   @Input('data') private data:any;
   @Input('title') private title:string;
   private objectValues = Object.values;
   private debounce:number = 0;
   private width:number;
   private totalPage:number = 0;
+  private pageNum;
 
+  getPageNum(){
+    return this.videoCon3.nativeElement.dataset.state;
+  }
   //===totalVideos gives the total number of videos in the list, videoCon2.
   getVideoNum(width){
     //getVideoNum gives the current number of videos displayed on screen.
@@ -52,6 +72,7 @@ export class VideoListComponent implements OnInit {
     //videoNum gives the current number of videos displayed on screen.
     const totalVideos = this.data.length;
     const totalWindows = Math.ceil(totalVideos/videoNum);
+    this.totalPage = totalWindows;
     //totalWindows gives the total number of 'windows' to exist for all videoes to get displayed by scrolling.
     return totalWindows;
   }
@@ -176,16 +197,15 @@ export class VideoListComponent implements OnInit {
   private isOverflowing;
   private isSidebarOpen = true;
 
-  constructor(private renderer:Renderer2,private element:ElementRef,private sidebar:SidebarService) { }
+  constructor(private renderer:Renderer2,private changeDetector : ChangeDetectorRef,private element:ElementRef,private sidebar:SidebarService) { }
 
   ngOnInit() {
     this.sidebar.change.asObservable().subscribe(isOpen=>{
       this.isSidebarOpen = isOpen;
       this.setWidth(this.videoCon.nativeElement);
       this.limitVideos();
-    })
+    })        
   }
-
 }
 
 /*

@@ -3,6 +3,7 @@ import {SidebarService} from '../services/sidebar.service';
 import {Observable, Subscription} from 'rxjs';
 import { Store } from '@ngrx/store';
 import {ActionTypes} from '../store/actions/user';
+import {ApiCallsService} from '../services/api-calls.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -14,8 +15,9 @@ export class NavbarComponent implements OnInit {
   private clicked: boolean;
   private authenticated:boolean;
   private user;
-  constructor(private sidebar:SidebarService, private store:Store<any>) { }
+  constructor(private service:ApiCallsService, private sidebar:SidebarService, private store:Store<any>) { }
   logout(){
+    this.service.logout();
     this.store.dispatch({
       type: ActionTypes.SET_CURRENT_USER,
       payload: {username:'',id:-1}

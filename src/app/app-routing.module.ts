@@ -20,16 +20,16 @@ const routes: Routes = [
     }
   },
   {
-    path:'login', component: LoginComponent, pathMatch: 'full'
+    path:'login', component: LoginComponent
   },
   {
     path:'register', component: RegisterComponent, pathMatch: 'full'
   },
   {
-    path:'profile/:userId', component: ProfileComponent, pathMatch: 'full',
-    resolve: {
-      data: ProfileResolverService
-    }
+    path:'notfound', component: NotFoundComponent, pathMatch: 'full'
+  },
+  {
+    path:'profile', loadChildren: './profile/profile.module#ProfileModule'
   },
   {
     path:'view', loadChildren: './view-video/view-video.module#ViewVideoModule'
@@ -38,14 +38,8 @@ const routes: Routes = [
     path:'playlist', loadChildren: './view-playlist/view-playlist.module#ViewPlaylistModule'
   },
   {
-    path:'notfound', component: NotFoundComponent, pathMatch: 'full'
+    path:'**', pathMatch: 'full', redirectTo: 'notfound'
   },
-  {
-    path:'**', component: NotFoundComponent, pathMatch: 'full'
-  },
-  // {
-  //   path: 'view', loadChildren: './view-video/view-video.module#ViewVideoModule'
-  // }
 ];
 
 @NgModule({

@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
 import {DialogUploadComponent} from '../reusable-components/dialog-upload/dialog-upload.component';
 import {DialogCreatePlaylistComponent} from '../reusable-components/dialog-create-playlist/dialog-create-playlist.component';
+import {ProfileService} from './profile.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -16,7 +17,7 @@ export class ProfileComponent implements OnInit {
   private recentVideoTitle:string = "Uploaded Recently";
   private authorized:boolean=false;
   private loggedInUserId:number;
-  constructor(private router:Router,private route: ActivatedRoute,private store:Store<any>,public dialog: MatDialog) { }
+  constructor(private router:Router,private route: ActivatedRoute,private store:Store<any>,public dialog: MatDialog,private profile:ProfileService) { }
 
   openUploadDialog():void{
     this.dialog.open(DialogUploadComponent, {
@@ -38,7 +39,9 @@ export class ProfileComponent implements OnInit {
     this.route.data
       .subscribe((data: { data: any }) => {
         this.user = data.data[1];
-        this.recentVideo = data.data[0];
+        // this.recentVideo = data.data[0];
+        this.profile.recentVideos = data.data[0];
+        this.profile.userId = this.user.id;
     });
     this.store.select('user').subscribe(user=>{
       let userId = parseInt(this.route.snapshot.paramMap.get('userId'));

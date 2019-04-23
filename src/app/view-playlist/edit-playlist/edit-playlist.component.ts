@@ -50,6 +50,7 @@ export class EditPlaylistComponent implements OnInit{
 
   h2InputBlur(e):void{
     //DO API CALL HERE, after success or before -for speed-do:
+    this.service.setPlaylistTitle(this.playlist.id,e.target.value);
     this.playlist.title = e.target.value;
     this.renderer.setStyle(this.h2Title.nativeElement, 'display', 'block');
     this.renderer.setStyle(this.h2InputCon.nativeElement, 'display','none');

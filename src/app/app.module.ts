@@ -28,6 +28,7 @@ import {ProfileModule} from './profile/profile.module';
 import { NotFoundComponent } from './not-found/not-found.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 // import {ProfileResolverService} from './profile/profile-resolver.service'
+import {ViewVideoListModule} from './view-video-list/view-video-list.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,10 +43,11 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
     NavbarModule,
     SidebarModule,
     HomeModule,
+    LoginModule,
     ViewVideoModule,
     ViewModule,
     // ViewPlaylistModule,
-    LoginModule,
+    ViewVideoListModule,
     RegisterModule,
     ProfileModule,
     AppRoutingModule,

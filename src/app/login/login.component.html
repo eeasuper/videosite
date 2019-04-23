@@ -21,7 +21,7 @@
         </mat-error> -->
       <!-- </mat-form-field> -->
       <mat-form-field>
-        <input matInput placeholder="Username or Email" [formControl]="loginForm.get('usernameControl')"
+        <input matInput placeholder="Username" [formControl]="loginForm.get('usernameControl')"
           [errorStateMatcher]="usernameMatcher">
        <!--  <mat-error *ngIf="loginForm.get('usernameControl').hasError('minLength')">Minimum length is 6 characters.
         </mat-error>

@@ -5,6 +5,7 @@ import {ErrorStateMatcher} from '@angular/material/core';
 import { Store } from '@ngrx/store';
 import {ActionTypes} from '../store/actions/user.actions';
 import {Router} from '@angular/router'
+import {ApiCallsService} from '../services/api-calls.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -28,7 +29,7 @@ export class LoginComponent implements OnInit,OnDestroy {
 
   matcher = new MyErrorStateMatcher();
 
-  constructor(private sidebar:SidebarService, private store:Store<any>, private router:Router) { }
+  constructor(private sidebar:SidebarService, private store:Store<any>, private router:Router, private service:ApiCallsService) { }
 
   ngOnInit() {
     setTimeout(()=>{
@@ -36,15 +37,18 @@ export class LoginComponent implements OnInit,OnDestroy {
     },0);
   }
   onSubmit(){
-    console.log(this.loginForm.value);
-    // Do dispatch after getting 200 from api call:
-    this.store.dispatch({
-      type: ActionTypes.SET_CURRENT_USER,
-      payload: {
-        username: this.loginForm.value.usernameControl,
-        id: 1
+    this.service.login(this.loginForm.value).then((val)=>{
+      if(val != null){
+        this.store.dispatch({
+          type: ActionTypes.SET_CURRENT_USER,
+          payload: {
+            username: val.username,
+            id: val.id
+          }
+        })  
       }
     })
+    
     this.store.select('user').subscribe((data)=>{
       // console.log(data);
     })

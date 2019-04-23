@@ -43,13 +43,15 @@ export class ViewVideoComponent implements OnInit {
       .subscribe((data: { video:Video }) => {
         // this.currentVideo = data.video;
         // console.log(data);
-        this.currentVideo = data.video[0] || data.video;
+        this.currentVideo = data.video[2] || data.video;
+        console.log(data.video);
+        this.currentVideo.view = (data.video[1] != null)? data.video[1]: -1;
         this.videoSource = this.service.getVideoSource(this.currentVideo.id);
         //========load() is called so that video is loaded with new src when data is updated.
         this.video.nativeElement.load();
         const options = {year: 'numeric', month: 'long', day: 'numeric'}
         this.currentVideo.date = new Date(this.currentVideo.date).toLocaleDateString("en-US", options);
-        this.playlist = data.video[1] || null;
+        this.playlist = (data.video[3] != null) ? data.video[3] : null;
         // if(data.video[1]){
         //   this.playlist = data.video[1];
         // }else{

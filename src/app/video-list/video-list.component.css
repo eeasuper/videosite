@@ -6,6 +6,7 @@
   justify-content: center;
   width:100%;
 }
+div[hidden] { display: none; }
 h2{
   color: #4a4a48;
   position: relative;

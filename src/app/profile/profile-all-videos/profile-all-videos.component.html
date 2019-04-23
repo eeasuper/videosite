@@ -1,0 +1,10 @@
+<!-- Paginator here -->
+<mat-paginator [length]="length"
+              [pageSize]="pageSize"
+              [pageSizeOptions]="pageSizeOptions"
+              (page)="test($event)"
+              class="paginator">
+</mat-paginator>
+<app-view-video-list [videos]="videos" [pageIndex]="pageIndex" [pageSize]="pageSize"></app-view-video-list>
+
+<!-- <router-outlet></router-outlet> -->
