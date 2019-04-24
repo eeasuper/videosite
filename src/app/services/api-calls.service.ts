@@ -17,15 +17,11 @@ import * as jwt_decode from "jwt-decode";
   providedIn: 'root'
 })
 export class ApiCallsService {
-  private server:string = "http://localhost:8080"
+  // private server:string = "http://localhost:8080"
+  private server:string = "https://video-site-backend.herokuapp.com"
   public ip:string;
-  // lastViewedTime: CustomDate;
   private jwt:string = localStorage.getItem("jwtToken") ? localStorage.getItem("jwtToken"):null;
   private httpOptions = {
-      // headers: new HttpHeaders({
-      //   "Content-Type": "application/json",
-      //   "Accept" : "application/json"
-      // })
       headers: new HttpHeaders({
         "Authorization": `Bearer ${this.jwt}`
       })
@@ -38,19 +34,6 @@ export class ApiCallsService {
     )
   }
 
-  // getCurrentTime():number{
-  //   // let today = new Date();
-  //   // return {
-  //   //   'year': today.getFullYear(),
-  //   //   'month': today.getMonth()+1,
-  //   //   'day': today.getDate(),
-  //   //   'hour': today.getHours(),
-  //   //   'minutes': today.getMinutes(),
-  //   //   'seconds': today.getSeconds()
-  //   // }
-  //   return new Date().getTime();
-  // }
-
   getVideoSource(videoId:number){
     return this.server + "/video/view/"+videoId;
   }
@@ -61,17 +44,10 @@ export class ApiCallsService {
     )
   }
 
-  // getVideoList(pageIndex:number,limit:number,userId:number):Observable<any>{
   getVideoList(userId:number):Observable<any>{
-    //list should be ordered by date.
-    //pageIndex should indicate the position of the list SQL should retrieve data.
-    //limit indicates the amount of videos that should be attained starting from the position of the list 
-    //(pageIndex * limit) should give the position of the list for SQL to start retrieving data.
-    //In backend: SQL query limit by ASC or DESC order. and then send as response only the part of the query that client wants...or maybe it's just better to give the whole thing from the start?
     return this.http.get(this.server+"/video/"+userId+"/all").pipe(
       catchError(this.handleError('getVideoList()',''))
     )
-    // return null;
   }
 
   getVideoRecentList(userId:string):Observable<any>{
@@ -81,8 +57,6 @@ export class ApiCallsService {
   }
 
   getVideoRandomList(): Observable<any>{
-    // 1. Get video model of each video
-    // 2. put respective video id into each image...
     return this.http.get(this.server + "/video/random").pipe(
         catchError(this.handleError('getVideoRandomList()',''))
       )
@@ -105,7 +79,6 @@ export class ApiCallsService {
   }
 
   setPlaylistOrder(playlist:any){
-    //maybe change any to interface later.
     let list = playlist.playlist;
     let body = {}
     list.forEach((val,ind)=>{
@@ -131,7 +104,6 @@ export class ApiCallsService {
     this.http.delete(this.server+"/playlist/"+playlistId,this.httpOptions).pipe(
       catchError(this.handleError('deletePlaylist()',''))
     ).subscribe((val)=>{
-      //https://stackoverflow.com/questions/46603088/angular-4-http-delete-not-working
       this.store.select('user').subscribe(user=>{
         this.route.navigate(["/playlist",user.user.id]);  
       })
@@ -153,7 +125,6 @@ export class ApiCallsService {
 
   addVideoToPlaylist(playlistId:any, array:string[]):Observable<any>{
     let body = [];
-    //localhost:4200/view/1?playlist=1
     array.forEach((val,ind)=>{
       let a = this.checkUrl(val);
       body.push({
@@ -197,19 +168,14 @@ export class ApiCallsService {
   }
 
   setViewCount(videoId:number,ip:string):Observable<any>{
-    let body;
-    // this.getIP().subscribe((res:any)=> {
-    //   res.ip;
-    //   //change date to actual new Date(). or just send date.getTime();
-      body = {
-        "ip": ip,
-        "date": new Date().getTime(),
-        "videoId": videoId
-      }
-      return this.http.post(this.server+"/addViewCount", body).pipe(
-        catchError(this.handleError('setViewCount()',''))
-      );
-    // });
+    let body = {
+      "ip": ip,
+      "date": new Date().getTime(),
+      "videoId": videoId
+    }
+    return this.http.post(this.server+"/addViewCount", body).pipe(
+      catchError(this.handleError('setViewCount()',''))
+    );
   }
 
   getViewCount(videoId:number):Observable<any>{
@@ -227,7 +193,6 @@ export class ApiCallsService {
       this.http.post(this.server+"/login", body, {observe: 'response'}).pipe(
         catchError(this.handleError('login()',''))
       ).toPromise().then((val:any)=>{
-        console.log(val);
         //if user is successfully sent back:
         localStorage.setItem("jwtToken", val.body.token);
         if(val.status === 201){
@@ -254,7 +219,6 @@ export class ApiCallsService {
       this.http.post(this.server+"/register", body, {observe: 'response'}).pipe(
         catchError(this.handleError('register()',''))
       ).toPromise().then((val:any)=>{
-        console.log(val);
         localStorage.setItem("jwtToken", val.body.token);
         if(val.status === 201){
           res(val.body);  
@@ -279,7 +243,6 @@ export class ApiCallsService {
   isLocalStorageJWTExists():string{
     //If jwt token exists, append it to the httpHeader for verification else delete it.
     let jwt:string = localStorage.getItem("jwtToken") ? localStorage.getItem("jwtToken"):null;
-    console.log(jwt);
     if(jwt){
       this.httpOptions.headers.append("Authorization", `Bearer ${jwt}`);
       return jwt;
@@ -308,7 +271,7 @@ export class ApiCallsService {
        this.openSnackBar(snackbarMessage, "Okay")
      }
       // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
+      // console.error(error); // log to console instead
       if(error.status === 404){
         this.route.navigate(['/notfound']);
       }
