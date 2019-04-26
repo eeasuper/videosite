@@ -13,7 +13,7 @@ export class VideoListComponent implements OnInit {
   // @ViewChild('videosContainer') set videoConSetter(content: ElementRef) {
   //   this.videoCon = content;
   // }
-  @ViewChild('videosContainer3') private videoCon3:ElementRef;
+  @ViewChild('videosContainer3') public videoCon3:ElementRef;
   // private videoCon3:ElementRef;
   // @ViewChild('videosContainer3') set videoCon3Setter(content: ElementRef) {
   //   this.videoCon3 = content;
@@ -28,12 +28,12 @@ export class VideoListComponent implements OnInit {
   // @ViewChild('arrowsContainer') set arrowsContainerSetter(content: ElementRef) {
   //   this.arrows = content;
   // }
-  @Input('data') private data:any;
-  @Input('title') private title:string;
+  @Input('data') public data:any;
+  @Input('title') public title:string;
   private objectValues = Object.values;
   private debounce:number = 0;
   private width:number;
-  private totalPage:number = 0;
+  public totalPage:number = 0;
   private pageNum;
 
   getPageNum(){

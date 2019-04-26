@@ -11,13 +11,13 @@ import {MatSnackBar} from '@angular/material';
   styleUrls: ['./dialog-upload.component.css']
 })
 export class DialogUploadComponent implements OnInit {
-  private uploadedFileName:string;
+  public uploadedFileName:string;
   private validFiles:string[]= [".mp4",".webm",".ogg"];
-  private loading;
+  public loading;
   private validUpload:boolean = false;
   private fileToUpload:FormData;
 
-  private formGroup = new FormGroup({
+  public formGroup = new FormGroup({
     fileControl: new FormControl('', [
       Validators.required
       ]),

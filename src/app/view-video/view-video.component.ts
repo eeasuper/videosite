@@ -10,9 +10,9 @@ import {ApiCallsService} from '../services/api-calls.service';
 export class ViewVideoComponent implements OnInit {
   @ViewChild('videoPlayer') private video:ElementRef;
   // private video:HTMLVideoElement = this.v.nativeElement;
-  private currentVideo;
-  private playlist;
-  private videoSource;
+  public currentVideo;
+  public playlist;
+  public videoSource;
   //
   constructor(private router:Router,private route: ActivatedRoute, private service:ApiCallsService) { }
 

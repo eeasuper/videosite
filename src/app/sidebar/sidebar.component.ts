@@ -13,8 +13,8 @@ export class SidebarComponent implements OnInit {
   @HostBinding('class.is-open')
   isOpen = true;
 
-  private myPlaylistsUrl;
-  private unAuthenticated:object[] = [
+  public myPlaylistsUrl;
+  public unAuthenticated:any[] = [
     {
       name: 'Login',
       url: '/login',
@@ -34,7 +34,7 @@ export class SidebarComponent implements OnInit {
       activatedIcon: '/assets/icons/fire_icon_activated.png'
     }
   ]
-  private titles:object[] = this.unAuthenticated;
+  public titles:object[] = this.unAuthenticated;
   constructor(private sidebar:SidebarService, private store:Store<any>) { }
 
   ngOnInit() {

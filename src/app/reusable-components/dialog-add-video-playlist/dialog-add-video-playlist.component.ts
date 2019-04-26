@@ -14,8 +14,8 @@ import {switchMap} from 'rxjs/operators'
   styleUrls: ['./dialog-add-video-playlist.component.css']
 })
 export class DialogAddVideoPlaylistComponent implements OnInit {
-  private loading:boolean = false;;
-  private formGroup = this.fb.group({
+  public loading:boolean = false;;
+  public formGroup = this.fb.group({
     urls: this.fb.array([
       this.fb.control('',[Validators.required],[this.asyncValidator(this.service)])
     ])

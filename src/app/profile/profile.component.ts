@@ -12,10 +12,10 @@ import {ProfileService} from './profile.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  private user;
+  public user;
   private recentVideo;
   private recentVideoTitle:string = "Uploaded Recently";
-  private authorized:boolean=false;
+  public authorized:boolean=false;
   private loggedInUserId:number;
   constructor(private router:Router,private route: ActivatedRoute,private store:Store<any>,public dialog: MatDialog,private profile:ProfileService) { }
 

@@ -10,10 +10,10 @@ import {ApiCallsService} from '../services/api-calls.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  private clientX: number = 0;
-  private clientY: number = 0;
-  private clicked: boolean;
-  private authenticated:boolean;
+  public clientX: number = 0;
+  public clientY: number = 0;
+  public clicked: boolean;
+  public authenticated:boolean;
   private user;
   constructor(private service:ApiCallsService, private sidebar:SidebarService, private store:Store<any>) { }
   logout(){

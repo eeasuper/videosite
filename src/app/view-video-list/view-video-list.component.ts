@@ -10,7 +10,7 @@ export class ViewVideoListComponent implements OnInit,OnChanges {
   @Input('pageIndex') private pageIndex;
   @Input('pageSize') private pageSize;
   constructor() { }
-  private list;
+  public list;
   paginate (array, page_size, page_number) {
     if(page_number === 0){
       page_number = 0;

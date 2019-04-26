@@ -11,7 +11,7 @@ import { Store } from '@ngrx/store';
 })
 export class PlaylistListComponent implements OnInit {
 
-  private playlists:any;    
+  public playlists:any;    
   private objectValues = Object.values;
   private width;
   private authenticated:boolean;

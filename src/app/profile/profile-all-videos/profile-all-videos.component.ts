@@ -10,11 +10,11 @@ import {PageEvent} from '@angular/material';
 })
 export class ProfileAllVideosComponent implements OnInit {
   //https://material.angular.io/components/paginator/examples
-  private videos;
-  private length;
-  private pageSize = 5;
-  private pageSizeOptions:number[] = [5,10,25,100];
-  private pageIndex = 0;
+  public videos;
+  public length;
+  public pageSize = 5;
+  public pageSizeOptions:number[] = [5,10,25,100];
+  public pageIndex = 0;
   pageEvent: PageEvent;
   test(e:PageEvent){
     this.pageIndex = e.pageIndex;

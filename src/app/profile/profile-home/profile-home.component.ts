@@ -6,8 +6,8 @@ import {ProfileService} from '../profile.service';
   styleUrls: ['./profile-home.component.css']
 })
 export class ProfileHomeComponent implements OnInit {
-  private recentVideosTitle = "Uploaded Recently"
-  private recentVideos;
+  public recentVideosTitle = "Uploaded Recently"
+  public recentVideos;
   constructor(private profile:ProfileService) { }
 
   ngOnInit() {

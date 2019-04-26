@@ -6,7 +6,7 @@ import {ApiCallsService} from '../../services/api-calls.service'
   styleUrls: ['./view-video-playlist.component.css']
 })
 export class ViewVideoPlaylistComponent implements OnInit {
-  @Input('data') private playlist;
+  @Input('data') public playlist;
   @Input('video') private videoData;
   // private objectValues = Object.values;
   orderList(data:any[]){

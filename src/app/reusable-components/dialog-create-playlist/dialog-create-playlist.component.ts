@@ -17,8 +17,8 @@ import {switchMap} from 'rxjs/operators'
 })
 export class DialogCreatePlaylistComponent implements OnInit {
   private invalidUrl= true;
-  private loading:boolean = false;
-  private formGroup = this.fb.group({
+  public loading:boolean = false;
+  public formGroup = this.fb.group({
     title: ['',[Validators.required,Validators.maxLength(75),Validators.minLength(5)]],
     urls: this.fb.array([
       this.fb.control('',[Validators.required],[this.asyncValidator(this.service)])

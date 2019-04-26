@@ -8,7 +8,7 @@ import {Router} from '@angular/router';
 })
 export class VideoListTabComponent implements OnInit,OnChanges {
 
-  @Input('value') video:object;
+  @Input('value') public video:any;
 
   constructor(private renderer:Renderer2,private element:ElementRef) { }
 

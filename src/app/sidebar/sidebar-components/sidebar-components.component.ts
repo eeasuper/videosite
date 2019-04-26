@@ -6,7 +6,7 @@ import { Component, OnInit,Input } from '@angular/core';
   styleUrls: ['./sidebar-components.component.css']
 })
 export class SidebarComponentsComponent implements OnInit {
-  @Input('value') private value:object;
+  @Input('value') public value:any;
 
   constructor() { }
 

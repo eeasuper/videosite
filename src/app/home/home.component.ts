@@ -9,8 +9,8 @@ import {SafeUrl, DomSanitizer} from '@angular/platform-browser';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  private randomList:any[];
-  private randomVideoTitle:string = "Recommended";
+  public randomList:any[];
+  public randomVideoTitle:string = "Recommended";
   constructor(private api:ApiCallsService,private route: ActivatedRoute, private sanitizer:DomSanitizer) { }
 
   ngOnInit() {

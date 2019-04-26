@@ -16,12 +16,12 @@ import {switchMap} from 'rxjs/operators';
   styleUrls: ['./edit-playlist.component.css']
 })
 export class EditPlaylistComponent implements OnInit{
-  private playlist;
+  public playlist;
   @ViewChild('h2InputCon') private h2InputCon:ElementRef;
   @ViewChild('h2Input') private h2Input:ElementRef;
   @ViewChild('h2Title') private h2Title:ElementRef;
   @ViewChild('saveButton') private saveButton:ElementRef;
-  private mainThumbnail:string;
+  public mainThumbnail:string;
 
   constructor(private router:Router,private route: ActivatedRoute, private renderer:Renderer2, public dialog: MatDialog, private service:ApiCallsService) { }
 
