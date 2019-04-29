@@ -2,7 +2,6 @@
   display: flex;
   overflow:hidden;    
   /*flex-wrap: wrap;*/
-  max-height:280px;
   justify-content: center;
   width:100%;
 }
@@ -12,8 +11,8 @@ h2{
   position: relative;
   font-weight: 600;
   font-size: 18px;
-  margin-bottom: 5px;
 }
+
 
 /*ratio=0.625*/
 /*change font..don't like bold fonts*/
@@ -24,7 +23,7 @@ h2{
   display: block;
   position: relative;
   background-color: #d8dad3;
-  padding: 10px;
+  padding: 0px 10px;
   box-sizing: border-box;
   border-radius: 5px;
 }
@@ -34,6 +33,12 @@ h2{
   display: inline-block;
   width: 100%;
   overflow: hidden;
+}
+
+.header{
+  position: relative;
+  width:100%;
+  margin-top: 5px;
 }
 
 .videos-container3{
@@ -74,7 +79,7 @@ h2{
   left:50%;
   z-index:2;
   margin-left: -60px;
-  top:10px;
+  top:0px;
   color: #566246;
   font-weight: 600;
 }
@@ -101,7 +106,10 @@ h2{
   animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);;
 }
 
-
+.arrowsRight{
+  left: auto;
+  right: 0;
+}
 @keyframes leftarrow{
   0%{
     transform:translateX(0px);
@@ -119,24 +127,25 @@ h2{
   }
 }
 
-@media only screen and (max-width: 630px) {
+@media only screen and (max-width: 860px) {
   .arrows-container{
-    left: auto;
-    right: 0;
   }
   h2{
     font-size:1em;
   }
 }
 
-@media only screen and (max-width: 420px) {
+@media only screen and (max-width: 440px) {
   .arrows-container{
     position: relative;
     display: block;
+    width: 100%;
+    margin: 0 auto;
   }
   h2{
     font-size:0.9em;
     display: block;
     position: relative;
+    margin-bottom: 0px;
   }
 }

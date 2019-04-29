@@ -9,25 +9,13 @@ import {SidebarService} from '../services/sidebar.service';
 export class VideoListComponent implements OnInit {
 
   @ViewChild('videosContainer') private videoCon:ElementRef;
-  // private videoCon:ElementRef;
-  // @ViewChild('videosContainer') set videoConSetter(content: ElementRef) {
-  //   this.videoCon = content;
-  // }
+
   @ViewChild('videosContainer3') public videoCon3:ElementRef;
-  // private videoCon3:ElementRef;
-  // @ViewChild('videosContainer3') set videoCon3Setter(content: ElementRef) {
-  //   this.videoCon3 = content;
-  // }
+
   @ViewChild('videosContainer3') private page:ElementRef;
-  // private page:ElementRef;
-  // @ViewChild('videosContainer3') set pageSetter(content: ElementRef) {
-  //   this.page = content;
-  // }
-  @ViewChild('arrowsContainer') private arrows:ElementRef;
-  // private arrows:ElementRef;
-  // @ViewChild('arrowsContainer') set arrowsContainerSetter(content: ElementRef) {
-  //   this.arrows = content;
-  // }
+
+  @ViewChild('arrows') private arrows:ElementRef;
+
   @Input('data') public data:any;
   @Input('title') public title:string;
   private objectValues = Object.values;
@@ -152,7 +140,6 @@ export class VideoListComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   limitVideos(){
-    let windowWidth = window.innerWidth;
     if(this.debounce === 0){
       this.debounce = window.setTimeout(()=>{
         this.setWidth(this.videoCon.nativeElement);
@@ -174,10 +161,16 @@ export class VideoListComponent implements OnInit {
         const videoNum = this.getVideoNum(this.width);
         const videoLength = this.data.length;
         if(element && (videoLength < videoNum)){
+          //if the number of videos sent from the backend is equal to the length of this array, set width as equal to the length of the data sent.
           this.renderer.setStyle(element, 'width', arr[(arr.length-videoLength)] + 10 +'px');
         }
         else if(element){
           this.renderer.setStyle(element, 'width', this.width + 10 +'px');
+        }
+        if(this.width <= 630){
+          this.renderer.addClass(this.arrows.nativeElement, 'arrowsRight');
+        }else{
+          this.renderer.removeClass(this.arrows.nativeElement,'arrowsRight');
         }
       }
       else if(windowWidth >= val + sb && ind === 0){
@@ -185,6 +178,7 @@ export class VideoListComponent implements OnInit {
         const videoNum = this.getVideoNum(this.width);
         const videoLength = this.data.length;
         if(element && (videoLength < videoNum)){
+          //if the number of videos sent from the backend is equal to the length of this array, set width as equal to the length of the data sent.
           this.renderer.setStyle(element, 'width', arr[(arr.length-videoLength)] + 10 +'px');
         }
         if(element){
@@ -203,7 +197,7 @@ export class VideoListComponent implements OnInit {
     this.sidebar.change.asObservable().subscribe(isOpen=>{
       this.isSidebarOpen = isOpen;
       this.setWidth(this.videoCon.nativeElement);
-      this.limitVideos();
+      // this.limitVideos();
     })        
   }
 }

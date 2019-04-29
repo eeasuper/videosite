@@ -57,7 +57,11 @@ export class LoginComponent implements OnInit,OnDestroy {
   }
   ngOnDestroy(){
     setTimeout(()=>{
-      this.sidebar.toggle(true);  
+      if(window.innerWidth <= 440 || window.innerHeight <= 360){
+        this.sidebar.toggle(false)
+      }else{
+        this.sidebar.toggle(true);  
+      }
     },0);
   }
 }

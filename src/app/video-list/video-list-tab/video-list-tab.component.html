@@ -1,6 +1,6 @@
 <!-- add anchor tag here later. inside h3. -->
 <h3 class="video-title">{{video.title}}</h3>
 <img [src]="video.thumbnail"/>
-<h4 class="video-uploader">{{video.uploaderUsername}}</h4>
-<h4 class="video-views">{{video.view}}</h4>
+<h4 class="video-uploader">Uploaded by {{video.uploaderUsername}}</h4>
+<h4 class="video-views">{{video.view}} views</h4>
 <a [routerLink]="['/view',video.id]"></a>
