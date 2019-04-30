@@ -16,6 +16,7 @@ export class VideoListComponent implements OnInit {
 
   @ViewChild('arrows') private arrows:ElementRef;
 
+  @ViewChild('titleh2') private titleh2:ElementRef;
   @Input('data') public data:any;
   @Input('title') public title:string;
   private objectValues = Object.values;
@@ -55,7 +56,7 @@ export class VideoListComponent implements OnInit {
   }
 
   setTotalPage(){
-    this.setWidth();      
+   this.setWidth(this.videoCon.nativeElement);      
     const videoNum = this.getVideoNum(this.width);
     //videoNum gives the current number of videos displayed on screen.
     const totalVideos = this.data.length;
@@ -89,28 +90,33 @@ export class VideoListComponent implements OnInit {
     
     function getTranslateValue(renderer,element){
       let state = parseInt(element.dataset.state);
+      //state indicates the page number it is currently in. 1 is a special number because it is the first page.
       if(totalVideos/videoNum>2){
         if(direction ==="right"){
           if(state != 1 && state){
+            //when page number is not the first page and page number exists.
             if(totalWindows - state != 0){
+              //when it is not the last page. For ex. 6/6.
               state+=1;
               setAttribute(state);
               return (videoNum * (state-1)) * 210;
             }else if(totalWindows - state === 0){
-              console.log("disable right button");
+              //when it IS the last page.
               return (videoNum * (state-1)) * 210;
             }
           }
+          //move the first page to the second page otherwise.
           state = 2;
           setAttribute(state);
           return videoNum * 210;          
         }
         if(direction ==="left"){
           if(state !=1 && state){
+            //when page number is not the first page and page number exists.
             if(state != 2 && state){
               state -= 1;
               setAttribute(state);
-              return -(videoNum * 210);
+              return -(((videoNum * (state)) * 210) - (videoNum * 210));
             }
           }
           state =1;
@@ -131,6 +137,7 @@ export class VideoListComponent implements OnInit {
         return 0;
       }
       function setAttribute(state){
+        //set videoCon3's data-state. state indicates the page number it is currently in.
         renderer.setAttribute(element,'data-state',state);
       }
     }
@@ -140,6 +147,10 @@ export class VideoListComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   limitVideos(){
+    this.limit();
+  }
+
+  limit(){
     if(this.debounce === 0){
       this.debounce = window.setTimeout(()=>{
         this.setWidth(this.videoCon.nativeElement);
@@ -155,8 +166,7 @@ export class VideoListComponent implements OnInit {
       sb = 200;
     }
     [1260,1050,840,630,420,210].forEach((val, ind, arr)=>{
-
-      if(windowWidth < val + sb && windowWidth > arr[ind+1] + sb){
+      if(windowWidth < val + sb && (windowWidth > arr[ind+1] + sb)){
         this.width = arr[ind+1];
         const videoNum = this.getVideoNum(this.width);
         const videoLength = this.data.length;
@@ -167,13 +177,21 @@ export class VideoListComponent implements OnInit {
         else if(element){
           this.renderer.setStyle(element, 'width', this.width + 10 +'px');
         }
+        //===Adjustments for when screen size gets lower.
         if(this.width <= 630){
           this.renderer.addClass(this.arrows.nativeElement, 'arrowsRight');
         }else{
           this.renderer.removeClass(this.arrows.nativeElement,'arrowsRight');
         }
+        if(this.width <= 210){
+        }else{
+          this.renderer.removeClass(this.arrows.nativeElement, 'small-window-arrows');
+          this.renderer.removeClass(this.titleh2.nativeElement, 'small-window-h2');
+        }
+        //^===Adjustsments for when screen size gets lower.
       }
       else if(windowWidth >= val + sb && ind === 0){
+        //if the windowWidth is greater than or equal to 1260 including whether sidebar is opened or not.
         this.width = val;
         const videoNum = this.getVideoNum(this.width);
         const videoLength = this.data.length;
@@ -184,6 +202,20 @@ export class VideoListComponent implements OnInit {
         if(element){
           this.renderer.setStyle(element, 'width', arr[ind] + 10+'px');
         }
+      }else if(!(arr[ind+1] + sb) && windowWidth < val + sb){
+        //if val is 210, arr[ind+1] gives NaN.
+        this.width = 210;
+        const videoNum = this.getVideoNum(this.width);
+        const videoLength = this.data.length;
+        if(element && (videoLength < videoNum)){
+          //if the number of videos sent from the backend is equal to the length of this array, set width as equal to the length of the data sent.
+          this.renderer.setStyle(element, 'width', arr[(arr.length-videoLength)] + 10 +'px');
+        }
+        else if(element){
+          this.renderer.setStyle(element, 'width', this.width + 10 +'px');
+        }
+        this.renderer.addClass(this.arrows.nativeElement, 'small-window-arrows');
+        this.renderer.addClass(this.titleh2.nativeElement, 'small-window-h2');
       }
     })
   }
@@ -197,8 +229,7 @@ export class VideoListComponent implements OnInit {
     this.sidebar.change.asObservable().subscribe(isOpen=>{
       this.isSidebarOpen = isOpen;
       this.setWidth(this.videoCon.nativeElement);
-      // this.limitVideos();
-    })        
+    })
   }
 }
 

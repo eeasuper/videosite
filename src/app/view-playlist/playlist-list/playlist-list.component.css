@@ -83,6 +83,7 @@ display:flex;
   margin-right:10px;
   width:100%;
 }
+/*ratio: 0.625*/
 .img-con{
   display: inline-block;
   position: relative;
@@ -219,4 +220,32 @@ img{
 }
 .list{
   text-align: initial;
+}
+
+@media only screen and (max-width: 630px) {
+  .playlist{
+    height: 100%;
+    width:324px;
+  }
+  .inner-con{
+    flex-direction: column;
+
+  }
+  .img-con{
+    width:324px;
+    height:202.5px;
+  }
+  .img-con-icons{
+    margin-top: 71px;
+  }
+  .value-list{
+    display: none;
+  }
+  .right-container{
+    padding: 5px;
+    width: auto;
+  }
+  .img-con-edit{
+    display: none;
+  }
 }

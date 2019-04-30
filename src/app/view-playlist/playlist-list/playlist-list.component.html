@@ -5,7 +5,7 @@
     </div>
     <div class="banner-content">
       <h1>
-        {{playlists[0].userId}}'s Playlists
+        {{playlists[0].username}}'s Playlists
       </h1>
     </div>
   </div>
@@ -24,7 +24,7 @@
         <div class="list">
           <ul>
             <li class="value-name">{{value.title}}</li>
-            <li class="value-updated">&nbsp;&nbsp;&nbsp;Last updated on {{value.date}}</li>
+            <li class="value-updated">Last updated on {{value.date}}</li>
             <li class="value-list" (mouseenter) = "mouseenterList($event)" (mouseleave)= "mouseleaveList($event)">
               <ul class="playlist-list-con">
                 <li *ngFor="let val of value.playlist; let ind = index;">

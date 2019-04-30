@@ -71,3 +71,19 @@ p{
   bottom:0;
   right:0;
 }
+@media only screen and (max-width: 440px) {
+  .list-con{
+    height: auto;
+  }
+  .left-con{
+    flex-direction: column;
+  }
+  .description{
+    display: none;
+  }
+  .thumbnail{
+    width: 100%;
+    height: auto;
+    
+  }
+}

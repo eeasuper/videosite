@@ -15,7 +15,7 @@
   justify-content: center;
   width:100%;
   margin: 0px auto 0 auto;
-  height: 150px;
+  min-height: 150px;
   position: relative;
   border-bottom: 3px solid #566246;
 }
@@ -41,21 +41,33 @@
 }
 
 app-video-list{
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 h1{
   margin-bottom:20px;
   cursor: pointer;
   outline: none;
+  word-break: break-word;
+  white-space: normal;
 }
 
 .buttons-con{
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .menu-button{
   display: inline-block;
-  margin-right: 5px;
+  margin: 5px;
+}
+
+@media only screen and (max-width: 440px) {
+  .buttons-con{
+    justify-content: center;
+  }
+  h1{
+    text-align: center;
+  }
 }

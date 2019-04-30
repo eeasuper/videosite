@@ -12,9 +12,10 @@
   margin-top: 20px;
   flex-wrap:wrap;
   background-color: #f1f2eb;
+  width: 100%;
 }
 .inner-con{
-  width:90%;
+  width:95%;
   /*border: 1px solid black;*/
   color:#4a4a48;
   background-color: #fff;
