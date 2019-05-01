@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-// import { Response } from '@angular/http';
 import { HttpClient,HttpHeaders, HttpEvent,
   HttpInterceptor,
   HttpHandler,
@@ -118,6 +117,7 @@ export class ApiCallsService {
 
   uploadVideo(formData:FormData,userId:number):Observable<any>{
     this.isLocalStorageJWTExists();
+    console.log(userId);
     return this.http.post(this.server + "/upload/"+userId,formData,this.httpOptions).pipe(
       catchError(this.handleError('uploadVideo()',''))
     )
@@ -181,6 +181,12 @@ export class ApiCallsService {
   getViewCount(videoId:number):Observable<any>{
     return this.http.get(this.server+"/getViewCount/"+videoId).pipe(
       catchError(this.handleError('getViewCount()',''))
+    )
+  }
+
+  getSearch(title:string):Observable<any>{
+    return this.http.get(this.server+"/search/"+title).pipe(
+      catchError(this.handleError('getSearch()',''))
     )
   }
 

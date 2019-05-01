@@ -4,6 +4,8 @@ import {Observable, Subscription} from 'rxjs';
 import { Store } from '@ngrx/store';
 import {ActionTypes} from '../store/actions/user';
 import {ApiCallsService} from '../services/api-calls.service';
+import { FormBuilder,Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -15,7 +17,13 @@ export class NavbarComponent implements OnInit {
   public clicked: boolean;
   public authenticated:boolean;
   private user;
-  constructor(private service:ApiCallsService, private sidebar:SidebarService, private store:Store<any>) { }
+  public formGroup = this.fb.group({
+    query: ['',[Validators.required]],
+  });
+  get queryControl(){
+    return this.formGroup.get('query');
+  }
+  constructor(private service:ApiCallsService, private sidebar:SidebarService, private store:Store<any>,private fb: FormBuilder,private router:Router) { }
   logout(){
     this.service.logout();
     this.store.dispatch({
@@ -25,7 +33,6 @@ export class NavbarComponent implements OnInit {
   }
   ngOnInit() {
     this.store.select('user').subscribe(user=>{
-      // console.log(user);
       if(!user.isAuthenticated){
         this.authenticated = false;
       }else if(user.isAuthenticated){
@@ -47,14 +54,7 @@ export class NavbarComponent implements OnInit {
     },0)
   }
 
-  toggleShowing(): void{
-    // if(this.isSidebarShowing){
-    //   this.sidebarService.isShowingSubject.next(false);
-    //   this.showSidebar.emit(false);
-    // }else if(!this.isSidebarShowing){
-    //   this.sidebarService.isShowingSubject.next(true);
-    //   this.showSidebar.emit(true);
-    // } 
-
+  onSubmit(e){
+    this.router.navigate(["search",this.queryControl.value]);
   }
 }

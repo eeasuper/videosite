@@ -61,7 +61,7 @@ export class DialogUploadComponent implements OnInit {
   onSubmit(){
     this.loading = true;
     return this.service.uploadVideo(this.fileToUpload,this.data.userId).toPromise().then((res)=>{
-      return this.service.setVideoContent(res.id, this.formGroup.get('titleControl').value, this.formGroup.get('descriptionControl').value)
+      return this.service.setVideoContent(parseInt(res.id), this.formGroup.get('titleControl').value, this.formGroup.get('descriptionControl').value)
         .toPromise().then((res)=>{
           this.loading = false;
           this.openSnackBar("Video is successfully uploaded", "Okay!");

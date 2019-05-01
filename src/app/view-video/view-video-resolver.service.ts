@@ -17,46 +17,17 @@ import {ApiCallsService} from '../services/api-calls.service';
 export class ViewVideoResolverService implements Resolve<any>{
 
   constructor(private router: Router, private route:ActivatedRoute,private http:HttpClient, private service:ApiCallsService) {
-    // this.test.title = "This is a test title for developing purposes."
-    // this.test.description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam rhoncus mi ac enim luctus efficitur. Praesent hendrerit dui at nisi elementum, aliquam ultricies sem vulputate. Aenean quis tortor sed augue fermentum auctor id vel dolor. Nulla diam ligula, dapibus bibendum sollicitudin et, varius non tellus. Nulla faucibus ac eros eu pharetra. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla efficitur sagittis nisl, nec p";
-    // this.test.uploader ="test_uploader";
-    // this.test.views = 130203;
-    // this.test.id = 1;
-    // this.test.published_date = new Date().getTime();
   }
 
-
-  // private playlistSubject:BehaviorSubject<any> = new BehaviorSubject<any>(this.playlistList);
-//https://stackoverflow.com/questions/48146996/angular-4-how-to-return-multiple-observables-in-resolver?rq=1
   getIP():Observable<any>{
     return this.http.get("https://api.ipify.org?format=json").pipe(
-      // catchError(this.handleError('getIP()', ''))
     )
   }
   private viewPlaylist;
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Observable<never> {
     let videoId = route.paramMap.get('videoid');
     this.viewPlaylist = route.queryParams['playlist'];
-    // let playlist;
-    // this.playlistSubject.subscribe((val)=>{
-    //   playlist = val.playlist1;
-    // })
-    //api:
-    /*
-      call backend with playlist Id and videoId.if videoId is included in the playlist searched, return the playlist data.
-    */
-    // let result = [];
-/*
- this.playlist.playlist = Object.values(this.playlist.playlist);
-    this.playlist.playlist.forEach((val:any,ind)=>{
-      val.ordered = ind + 1;
-      val.thumbnail = this.service.getVideoThumbnail(val.id);
-      val.url = "/view/"+val.id;
-    })
-*/
-//"175.195.234.65"}
-    //=====in production stage use backend connection return below:
-    // console.log("going through resolver")
+
     if(this.viewPlaylist){
       return forkJoin(
         this.service.getIP().pipe(
@@ -89,24 +60,6 @@ export class ViewVideoResolverService implements Resolve<any>{
         this.service.getViewCount(parseInt(videoId)),
         this.service.getVideoDescription(videoId)
       )
-    //When testing use the return below.
-    // return this.test1.asObservable().pipe(
-    //     take(1),
-    //     mergeMap(data=>{
-    //       if(this.viewPlaylist){
-    //         // console.log(of([data, playlist]));
-    //         return of([data, playlist]);
-    //       }
-    //       if(data){
-    //         return of([data]);
-    //       }else{
-    //         this.router.navigate(['/']);
-    //         return EMPTY;
-    //       }
-    //     })
-    //   );
-  // console.log(a);
-  // return a;
   }
   
   pipe(ob:Observable<any>):Observable<any>{
@@ -114,7 +67,6 @@ export class ViewVideoResolverService implements Resolve<any>{
       take(1),
       mergeMap(data=>{
         if(data){
-          // console.log(of(data));
           return of(data);
         }else{
           this.router.navigate(['/']);

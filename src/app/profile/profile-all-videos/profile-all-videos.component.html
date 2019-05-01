@@ -2,7 +2,7 @@
 <mat-paginator [length]="length"
               [pageSize]="pageSize"
               [pageSizeOptions]="pageSizeOptions"
-              (page)="test($event)"
+              (page)="nextPage($event)"
               class="paginator">
 </mat-paginator>
 <app-view-video-list [videos]="videos" [pageIndex]="pageIndex" [pageSize]="pageSize"></app-view-video-list>

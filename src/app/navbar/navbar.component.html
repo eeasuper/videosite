@@ -3,7 +3,7 @@
     <li>
       <ul class="leftside">
         <li class="nav-component button-li">
-          <app-menu-button (click)="toggleShowing()" (mousedown)="doRipple($event)" [xCord]="clientX" [yCord]="clientY" [clicked]="clicked"></app-menu-button>
+          <app-menu-button (mousedown)="doRipple($event)" [xCord]="clientX" [yCord]="clientY" [clicked]="clicked"></app-menu-button>
         </li>
         <li class="nav-component logo-con">
           <div class="logo"></div>
@@ -12,12 +12,12 @@
       </ul>
     </li>
     <li class="search-bar">
-      <form>
+      <form [formGroup]="formGroup" id="query" (ngSubmit)="onSubmit($event)">
         <div>
-          <input type="text" class="search-bar-input"/>
+          <input type="text" class="search-bar-input" formControlName="query"/>
         </div>
       </form>
-      <button class="search-icon-button button button-med"><span class="search-icon"></span></button>
+      <button form ="query" type="submit" class="search-icon-button button button-med"><span class="search-icon"></span></button>
     </li>
     <li>
       <ul>

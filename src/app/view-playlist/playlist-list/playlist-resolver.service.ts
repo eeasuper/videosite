@@ -66,7 +66,6 @@ export class PlaylistResolverService implements Resolve<any> {
         take(1),
         mergeMap(data=>{
           if(data){
-            console.log(data);
             data.forEach((val,ind)=>{
               val.playlist = Object.values(val.playlist);
               val.thumbnail = this.service.getVideoThumbnail(val.playlist[0].id);

@@ -45,7 +45,6 @@ export class SidebarComponent implements OnInit {
       if(!user.isAuthenticated){
         this.titles = this.unAuthenticated;
       }else if(user.isAuthenticated){
-        console.log(user);
         this.myPlaylistsUrl = '/playlist/'+user.user.id;
         let authenticated:object[] = [
           {

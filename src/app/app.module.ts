@@ -27,7 +27,7 @@ import {RegisterModule} from './register/register.module';
 import {ProfileModule} from './profile/profile.module';
 import { NotFoundComponent } from './not-found/not-found.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
-// import {ProfileResolverService} from './profile/profile-resolver.service'
+import {SearchModule} from './search/search.module';
 import {ViewVideoListModule} from './view-video-list/view-video-list.module';
 @NgModule({
   declarations: [
@@ -46,7 +46,7 @@ import {ViewVideoListModule} from './view-video-list/view-video-list.module';
     LoginModule,
     ViewVideoModule,
     ViewModule,
-    // ViewPlaylistModule,
+    SearchModule,
     ViewVideoListModule,
     RegisterModule,
     ProfileModule,

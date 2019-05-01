@@ -16,20 +16,6 @@ export class PlaylistListComponent implements OnInit {
   private width;
   private authenticated:boolean;
   private loggedInId:number;
-  // orderList(playlists:any[]){
-  //   return playlists.sort((a,b)=>{
-  //     return a.order - b.order;
-  //   })
-  // }
-
-  // navigate(playlist:any){
-  //   //maybe make interface instead of any later.
-  //   this.router.navigate([playlist.list[0].url], {
-  //     state: {
-  //       playlist: playlist
-  //     }
-  //   })
-  // }
 
   navigate(e: Event, playlist:any){
     e.preventDefault();

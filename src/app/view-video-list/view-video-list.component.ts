@@ -17,18 +17,14 @@ export class ViewVideoListComponent implements OnInit,OnChanges {
     }else{
       // --page_number; 
     }
-    // because pages logically start with 1, but technically with 0
     return array.slice(page_number * page_size, (page_number + 1) * page_size);
   }
   setList(list){
-    //[1,2,3,4,5], 2 
     this.list = this.paginate(this.videos, this.pageSize, this.pageIndex)
   }
 
   ngOnChanges(){
     this.setList(this.videos);
-    console.log(this.list);
-    console.log(this.pageIndex)
   }
   ngOnInit() {
 

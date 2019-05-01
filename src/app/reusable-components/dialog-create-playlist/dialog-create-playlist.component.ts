@@ -34,10 +34,6 @@ export class DialogCreatePlaylistComponent implements OnInit {
   }
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData, private dialog:MatDialog, private router:Router,private snackBar: MatSnackBar, private store:Store<any>,private service:ApiCallsService,private fb: FormBuilder) { }
 
-  test(i){
-    this.urls.controls[i].setErrors({invalid: true});
-  }
-
   addLink(){
     let control = this.fb.control('',[Validators.required],[this.asyncValidator(this.service)]);
     this.urls.push(control);

@@ -28,7 +28,7 @@
           <td class="video-thumbnail"><img [src]="value.thumbnail"/></td>
           <td class="video-h3">
             <h3><a [routerLink]="value.url" [queryParams]="{playlist:playlist.id}"class="h3-a">{{value.title}}</a></h3>
-            <h3 class="video-h3-uploader">by {{value.uploaderId}}</h3>
+            <h3 class="video-h3-uploader">by {{value.uploaderUsername}}</h3>
           </td>
           <!-- make anchor remove video from playlist. -->
           <button class="button video-remove"><a></a></button>

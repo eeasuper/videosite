@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit {
   openUploadDialog():void{
     this.dialog.open(DialogUploadComponent, {
       data: {
-        user: this.loggedInUserId
+        userId: this.loggedInUserId
       }
     });
   }
@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
   openPlaylistDialog():void{
     this.dialog.open(DialogCreatePlaylistComponent,{
       data:{
-        user:this.loggedInUserId
+        userId:this.loggedInUserId
       }
     })
   }

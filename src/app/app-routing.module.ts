@@ -11,7 +11,8 @@ import {ProfileComponent} from './profile/profile.component'
 import {ProfileResolverService} from './profile/profile-resolver.service';
 import {HomeResolverService} from './home/home-resolver.service';
 import {NotFoundComponent} from './not-found/not-found.component';
-// import {ViewPlaylistComponent} from './view-playlist/view-playlist.component';
+import {SearchComponent} from './search/search.component';
+import {SearchResolverService} from './search/search-resolver.service';
 const routes: Routes = [
   {
     path: '', component: HomeComponent, pathMatch: 'full',
@@ -36,6 +37,11 @@ const routes: Routes = [
   },
   {
     path:'playlist', loadChildren: './view-playlist/view-playlist.module#ViewPlaylistModule'
+  },
+  {
+    path:'search/:query', component:SearchComponent, resolve:{
+      search:SearchResolverService
+    }
   },
   {
     path:'**', pathMatch: 'full', redirectTo: 'notfound'

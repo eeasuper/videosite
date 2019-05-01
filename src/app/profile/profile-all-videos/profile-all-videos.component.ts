@@ -16,18 +16,16 @@ export class ProfileAllVideosComponent implements OnInit {
   public pageSizeOptions:number[] = [5,10,25,100];
   public pageIndex = 0;
   pageEvent: PageEvent;
-  test(e:PageEvent){
+  nextPage(e:PageEvent){
     this.pageIndex = e.pageIndex;
-    console.log(e);
   }
 
-  constructor(private profile:ProfileService,private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) { }
   //https://material.angular.io/components/paginator/overview
   ngOnInit() {
     //=====you could improve this by reading the query param and set page index accordingly.
     this.route.data.subscribe((data: { videos: any }) => {
       if(data.videos){
-        console.log(data.videos)
         this.length = data.videos.length;
         this.videos = data.videos;
       }
