@@ -165,28 +165,30 @@ export class VideoListComponent implements OnInit {
     if(this.isSidebarOpen){
       sb = 200;
     }
+    let width;
     [1260,1050,840,630,420,210].forEach((val, ind, arr)=>{
       if(windowWidth < val + sb && (windowWidth > arr[ind+1] + sb)){
         this.width = arr[ind+1];
+        width = arr[ind+1];
         const videoNum = this.getVideoNum(this.width);
         const videoLength = this.data.length;
         if(element && (videoLength < videoNum)){
-          //if the number of videos sent from the backend is equal to the length of this array, set width as equal to the length of the data sent.
+          //if the number of videos sent from the backend is less than 5(1050px), set width as equal to the length of the data sent.
+          //or else width would be set for 5 videos regardless of the number of videos actually sent from backend.
           this.renderer.setStyle(element, 'width', arr[(arr.length-videoLength)] + 10 +'px');
+          if(videoLength <= 2){
+            this.renderer.addClass(this.arrows.nativeElement, 'arrowsRight');
+          }
         }
         else if(element){
           this.renderer.setStyle(element, 'width', this.width + 10 +'px');
         }
         //===Adjustments for when screen size gets lower.
-        if(this.width <= 630){
+        if(width <= 630){
           this.renderer.addClass(this.arrows.nativeElement, 'arrowsRight');
-        }else{
+        }else if(!(videoLength < videoNum)){
+          //when videos sent from backend is NOT less than the amount of videos that would fit within the screen.
           this.renderer.removeClass(this.arrows.nativeElement,'arrowsRight');
-        }
-        if(this.width <= 210){
-        }else{
-          this.renderer.removeClass(this.arrows.nativeElement, 'small-window-arrows');
-          this.renderer.removeClass(this.titleh2.nativeElement, 'small-window-h2');
         }
         //^===Adjustsments for when screen size gets lower.
       }
@@ -214,6 +216,7 @@ export class VideoListComponent implements OnInit {
         else if(element){
           this.renderer.setStyle(element, 'width', this.width + 10 +'px');
         }
+        this.renderer.addClass(this.arrows.nativeElement, 'arrowsRight');
         this.renderer.addClass(this.arrows.nativeElement, 'small-window-arrows');
         this.renderer.addClass(this.titleh2.nativeElement, 'small-window-h2');
       }
