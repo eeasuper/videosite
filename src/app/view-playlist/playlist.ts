@@ -1,22 +1,10 @@
-export class Video{
-  h3: string;
-  thumbnail: string;
-  uploader: string;
-  views: string;
-  order: number;
-  url: string;
-}
+import {Video} from '../view-video/Video';
 
 export class Playlist{
-  name: string;
-  updated: string;
+  title: string;
+  date: any;
   id: number;
-  list: Video[];
-  edit_url: string;
-  uploader_id: number;
-}
-
-export class Playlists{
-  playlists: Playlist[];
-  uploader_id:number;
+  playlist: Video[];
+  userId: number;
+  username: string;
 }

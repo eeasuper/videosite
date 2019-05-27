@@ -85,21 +85,18 @@ export class ApiCallsService {
         "id": val.id
       }
     })
-    this.isLocalStorageJWTExists();
     this.http.put(this.server + "/playlist/"+playlist.id+"/edit/order-change",body,this.httpOptions).pipe(
       catchError(this.handleError('setPlaylistOrder()',''))
     ).subscribe(()=>{})
   }
 
   setPlaylistTitle(playlistId:number, title:string){
-    this.isLocalStorageJWTExists();
     this.http.put(this.server+"/playlist/"+playlistId+"/edit/title-change", {"title":title},this.httpOptions).pipe(
       catchError(this.handleError('setPlaylistTitle()','',"Something went wrong. Title couldn't be set."))
     ).subscribe(()=>{})
   }
 
   deletePlaylist(playlistId:string){
-    this.isLocalStorageJWTExists();
     this.http.delete(this.server+"/playlist/"+playlistId,this.httpOptions).pipe(
       catchError(this.handleError('deletePlaylist()',''))
     ).subscribe((val)=>{
@@ -116,8 +113,6 @@ export class ApiCallsService {
   }
 
   uploadVideo(formData:FormData,userId:number):Observable<any>{
-    this.isLocalStorageJWTExists();
-    console.log(userId);
     return this.http.post(this.server + "/upload/"+userId,formData,this.httpOptions).pipe(
       catchError(this.handleError('uploadVideo()',''))
     )
@@ -131,8 +126,6 @@ export class ApiCallsService {
         id: a
       })
     })
-    console.log(playlistId);
-    this.isLocalStorageJWTExists();
     return this.http.post(this.server + "/playlist/"+playlistId+"/edit/add-video",body,this.httpOptions).pipe(
       catchError(this.handleError('addVideoToPlaylist()',''))
     );
@@ -142,13 +135,11 @@ export class ApiCallsService {
     if(val.lastIndexOf("?") !== -1){
         return val.substring(val.lastIndexOf("view/")+5, val.lastIndexOf("?"));  
       }else{
-        console.log("ff");
         return val.substring(val.lastIndexOf("view/")+5, val.length); 
       }
   }
 
   createPlaylist(playlistData:object):Observable<any>{
-    this.isLocalStorageJWTExists();
     return this.http.post(this.server+"/playlist",playlistData,this.httpOptions).pipe(
       catchError(this.handleError('createPlaylist()',''))
     )
@@ -161,7 +152,6 @@ export class ApiCallsService {
       title: title,
       description: description
     }
-    this.isLocalStorageJWTExists();
     return this.http.put(this.server+"/video", body,this.httpOptions).pipe(
       catchError(this.handleError('setVideoContent()',''))
     )
@@ -202,6 +192,7 @@ export class ApiCallsService {
         //if user is successfully sent back:
         localStorage.setItem("jwtToken", val.body.token);
         if(val.status === 201){
+          this.isLocalStorageJWTExists();
           res(val.body);  
         }
         rej(null)
@@ -246,12 +237,12 @@ export class ApiCallsService {
     });
   }
 
-  isLocalStorageJWTExists():string{
+  isLocalStorageJWTExists():any{
     //If jwt token exists, append it to the httpHeader for verification else delete it.
     let jwt:string = localStorage.getItem("jwtToken") ? localStorage.getItem("jwtToken"):null;
     if(jwt){
       this.httpOptions.headers.append("Authorization", `Bearer ${jwt}`);
-      return jwt;
+      return this.httpOptions;
     }else{
       this.httpOptions.headers.delete("Authorization");
       return null;

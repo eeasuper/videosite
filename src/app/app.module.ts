@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { AppRoutingModule } from './app-routing.module';
+import { MatProgressBarModule } from '@angular/material';
 
 import { userReducer } from './store/reducers/user.reducer';
 import { AppComponent } from './app.component';
@@ -39,6 +40,7 @@ import {ViewVideoListModule} from './view-video-list/view-video-list.module';
     HttpClientModule,
     StoreModule.forRoot({}),
     BrowserAnimationsModule,
+    MatProgressBarModule,
     UserModule,
     NavbarModule,
     SidebarModule,

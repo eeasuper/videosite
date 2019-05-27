@@ -15,7 +15,7 @@ import { ViewVideoPlaylistComponent } from './view-video-playlist/view-video-pla
     ViewVideoComponent
   ],
   providers:[
-  ViewVideoResolverService
+    ViewVideoResolverService
   ]
 })
 export class ViewVideoModule { }

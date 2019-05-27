@@ -1,26 +1,6 @@
-<!--The content below is only a placeholder and can be replaced.-->
+<mat-progress-bar
+  *ngIf="loading" color="accent" mode="determinate" value="progressValue" class="progress-bar">
+</mat-progress-bar>
 <app-navbar></app-navbar>
 <app-sidebar></app-sidebar>
-<!-- <div style="margin-left: 200px;">
-<video width="320" height="240" controls>
-  <source src="http://localhost:8080/files/yui-ura-on.mp4" type="video/mp4">
-</video>
-
-<br/>
-<form method="POST" enctype="multipart/form-data" action="http://localhost:8080/">
-  <table>
-    <tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
-    <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
-  </table>
-</form>
-
-<a href="http://localhost:8080/files/yui-ura-on.mp4" type="video/mp4" >Link</a>
-
-<form method="GET" enctype="multipart/form-data" action="http://localhost:8080/files/yui-ura-on.mp4">
-  <input type="submit" value="Go"/>
-</form>
-<br/>
-<button (click)="getData()">Get Video Data</button>
-<button (click)="test()">test</button>
- -->
 <app-view></app-view>

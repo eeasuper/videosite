@@ -9,16 +9,10 @@ import {ApiCallsService} from '../services/api-calls.service';
 })
 export class ViewVideoComponent implements OnInit {
   @ViewChild('videoPlayer') private video:ElementRef;
-  // private video:HTMLVideoElement = this.v.nativeElement;
   public currentVideo;
   public playlist;
   public videoSource;
-  //
   constructor(private router:Router,private route: ActivatedRoute, private service:ApiCallsService) { }
-
-  doClick(){
-    console.log('clicked');
-  }
 
   onEnded(){
     if(this.playlist){
@@ -41,10 +35,7 @@ export class ViewVideoComponent implements OnInit {
   ngOnInit() {
     this.route.data
       .subscribe((data: { video:Video }) => {
-        // this.currentVideo = data.video;
-        // console.log(data);
         this.currentVideo = data.video[2] || data.video;
-        console.log(data.video);
         this.currentVideo.view = (data.video[1] != null)? data.video[1]: -1;
         this.videoSource = this.service.getVideoSource(this.currentVideo.id);
         //========load() is called so that video is loaded with new src when data is updated.
@@ -52,14 +43,9 @@ export class ViewVideoComponent implements OnInit {
         const options = {year: 'numeric', month: 'long', day: 'numeric'}
         this.currentVideo.date = new Date(this.currentVideo.date).toLocaleDateString("en-US", options);
         this.playlist = (data.video[3] != null) ? data.video[3] : null;
-        // if(data.video[1]){
-        //   this.playlist = data.video[1];
-        // }else{
-        //   this.playlist = null;
-        // }
+
     });
-    // console.log(this.router.getCurrentNavigation().extras.state);
-    // console.log(window.history.state);
+
   }
 
 }

@@ -1,0 +1,4 @@
+.progress-bar{
+  z-index:1001;
+  position: fixed;
+}

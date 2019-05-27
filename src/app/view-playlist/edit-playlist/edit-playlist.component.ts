@@ -1,7 +1,6 @@
 import { Component, OnInit, Renderer2, ElementRef,ViewChild,Inject} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {Playlist,Playlists,Video} from '../playlist';
-import {DraggableCellService} from './draggable-cell.service'
+import {Playlist} from '../Playlist';
 import {Observable,Subscription} from 'rxjs';
 import {ApiCallsService} from '../../services/api-calls.service';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
@@ -10,13 +9,14 @@ import {DialogCloseComponent} from '../../reusable-components/dialog-close/dialo
 import {DialogAddVideoPlaylistComponent} from '../../reusable-components/dialog-add-video-playlist/dialog-add-video-playlist.component';
 import {timer} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
+
 @Component({
   selector: 'app-edit-playlist',
   templateUrl: './edit-playlist.component.html',
   styleUrls: ['./edit-playlist.component.css']
 })
 export class EditPlaylistComponent implements OnInit{
-  public playlist;
+  public playlist:Playlist;
   @ViewChild('h2InputCon') private h2InputCon:ElementRef;
   @ViewChild('h2Input') private h2Input:ElementRef;
   @ViewChild('h2Title') private h2Title:ElementRef;

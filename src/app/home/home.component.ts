@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ApiCallsService} from '../services/api-calls.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import {SafeUrl, DomSanitizer} from '@angular/platform-browser';
+import {Video,Videos} from '../view-video/Video';
 
 @Component({
   selector: 'app-home',
@@ -9,36 +10,16 @@ import {SafeUrl, DomSanitizer} from '@angular/platform-browser';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  public randomList:any[];
+  public randomList:Video[];
   public randomVideoTitle:string = "Recommended";
+  public randomList2:Video[];
+  public randomVideoTitle2:string = "More Recommended";
   constructor(private api:ApiCallsService,private route: ActivatedRoute, private sanitizer:DomSanitizer) { }
 
   ngOnInit() {
-    //https://stackoverflow.com/questions/38558977/angular2-imgcache-unsafe-url
-      this.route.data.subscribe((data:{videoList:any[]})=>{
-        this.randomList = data.videoList;
+    this.route.data.subscribe((data:{videoList:Videos})=>{
+      this.randomList = data.videoList[0];
+      this.randomList2 = data.videoList[1];
     })
-    
   }
-
-  // convertTimetoDate(time:number):string{
-  //   const options = {year: 'numeric', month: 'long', day: 'numeric'}
-  //   return new Date(time).toLocaleDateString("en-US", options);
-  // }
 }
-
-// export interface ListData {
-//   h2: string;
-//   list: VideoInList[];
-// }
-
-// export interface VideoInList{
-//   h3: string;
-//   // thumbnail: SafeUrl;
-//   thumbnail: string;
-//   uploader: string;
-//   //make views number later...(if possible, now)
-//   views: string;
-//   //I should also add uploaded date...
-//   date: string;
-// }

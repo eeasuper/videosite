@@ -10,17 +10,14 @@ const routes: Routes = [
   {
     path: '', component: ViewPlaylistComponent, children:[
       {
-        //path: 'userId'
         path:':userId', component: PlaylistListComponent, resolve:{
           playlists: PlaylistResolverService
         }
       },
       {
-        //url should be like this: https://stackoverflow.com/users/edit/9798292
         path: ':userId/:playlistId/edit', component: EditPlaylistComponent, resolve :{
           playlist: EditPlaylistResolverService
         }
-        //could add another resolver here.  
       }
     ]
   },

@@ -1,8 +1,15 @@
 export class Video{
-  title: string;
+  date: number;
   description: string;
-  uploader: string;
-  views: number;
-  published_date: number;
-  id:number;
+  filename: string;
+  id: number;
+  thumbnail: string;
+  title: string;
+  uploaderId: number;
+  uploaderUsername: string;
+  view: number;
+}
+
+export class Videos{
+  videoList: Video[];
 }
