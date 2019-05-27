@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Playlist} from '../Playlist';
+import {Playlist} from '../../Playlist';
 import {
   Router, Resolve,
   RouterStateSnapshot,

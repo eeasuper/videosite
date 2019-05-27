@@ -1,6 +1,6 @@
-import {Video} from '../view-video/Video';
+import {Video} from './Video';
 
-export class Playlist{
+export interface Playlist{
   title: string;
   date: any;
   id: number;

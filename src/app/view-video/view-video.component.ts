@@ -1,6 +1,6 @@
 import { Component, OnInit,ViewChild,ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {Video} from './Video';
+import {Video} from '../Video';
 import {ApiCallsService} from '../services/api-calls.service';
 @Component({
   selector: 'app-view-video',

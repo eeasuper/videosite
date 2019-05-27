@@ -30,6 +30,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import {SearchModule} from './search/search.module';
 import {ViewVideoListModule} from './view-video-list/view-video-list.module';
+
 @NgModule({
   declarations: [
     AppComponent,

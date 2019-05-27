@@ -7,7 +7,7 @@ import {
 import { Observable, of, EMPTY,forkJoin }  from 'rxjs';
 import { mergeMap, take,map }         from 'rxjs/operators';
 import {ApiCallsService} from '../services/api-calls.service';
-import {Videos} from '../view-video/Video';
+import {Videos} from '../Video';
 
 @Injectable({
   providedIn: 'root'

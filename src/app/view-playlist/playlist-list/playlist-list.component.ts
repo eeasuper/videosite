@@ -1,6 +1,6 @@
 import { Component, OnInit,Input,HostListener,Renderer2,ElementRef,ViewChild} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {Playlist} from '../Playlist';
+import {Playlist} from '../../Playlist';
 import {ApiCallsService} from '../../services/api-calls.service';
 import { Store } from '@ngrx/store';
 

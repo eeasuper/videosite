@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {ViewPlaylistComponent} from './view-playlist.component';
-//AppRoutingModule is used in ViewComponent.
 import {EditPlaylistComponent} from './edit-playlist/edit-playlist.component';
 import {PlaylistListComponent} from './playlist-list/playlist-list.component';
 import {PlaylistResolverService} from './playlist-list/playlist-resolver.service';

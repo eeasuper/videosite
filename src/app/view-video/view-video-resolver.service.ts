@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Video} from './Video';
+import {Video} from '../Video';
 import {
   Router, Resolve,
   RouterStateSnapshot,

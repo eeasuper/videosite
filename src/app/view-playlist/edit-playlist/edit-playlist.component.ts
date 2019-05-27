@@ -1,6 +1,6 @@
 import { Component, OnInit, Renderer2, ElementRef,ViewChild,Inject} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {Playlist} from '../Playlist';
+import {Playlist} from '../../Playlist';
 import {Observable,Subscription} from 'rxjs';
 import {ApiCallsService} from '../../services/api-calls.service';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';

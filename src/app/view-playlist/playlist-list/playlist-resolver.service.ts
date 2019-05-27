@@ -7,7 +7,7 @@ import {
 import { Observable, of, EMPTY,BehaviorSubject }  from 'rxjs';
 import { map}         from 'rxjs/operators';
 
-import {Playlist} from '../Playlist';
+import {Playlist} from '../../Playlist';
 import {ApiCallsService} from '../../services/api-calls.service';
 
 @Injectable({

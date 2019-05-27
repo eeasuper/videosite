@@ -1,4 +1,4 @@
-export class Video{
+export interface Video{
   date: number;
   description: string;
   filename: string;
@@ -10,6 +10,6 @@ export class Video{
   view: number;
 }
 
-export class Videos{
+export interface Videos{
   videoList: Video[];
 }

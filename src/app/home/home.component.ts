@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ApiCallsService} from '../services/api-calls.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import {SafeUrl, DomSanitizer} from '@angular/platform-browser';
-import {Video,Videos} from '../view-video/Video';
+import {Video,Videos} from '../Video';
 
 @Component({
   selector: 'app-home',
