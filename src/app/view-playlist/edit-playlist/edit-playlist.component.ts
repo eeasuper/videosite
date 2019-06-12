@@ -1,31 +1,27 @@
-import { Component, OnInit, Renderer2, ElementRef,ViewChild,Inject} from '@angular/core';
+import { Component, OnInit,Inject,OnDestroy,ChangeDetectionStrategy} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {Playlist} from '../../Playlist';
-import {Observable,Subscription} from 'rxjs';
+import {Observable,Subscription,timer} from 'rxjs';
 import {ApiCallsService} from '../../services/api-calls.service';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
 import {DialogCloseComponent} from '../../reusable-components/dialog-close/dialog-close.component';
 import {DialogAddVideoPlaylistComponent} from '../../reusable-components/dialog-add-video-playlist/dialog-add-video-playlist.component';
-import {timer} from 'rxjs';
-import {switchMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-edit-playlist',
-  templateUrl: './edit-playlist.component.html',
-  styleUrls: ['./edit-playlist.component.css']
+  template: `<app-dumb-edit-playlist [playlist]="playlist" [mainThumbnail]="mainThumbnail" 
+    (openDD)="openDeleteDialog()" (openAD)="openAddDialog()" (setPT)="setPlaylistTitle($event)" 
+    (saveChanges)="saveChanges($event)"></app-dumb-edit-playlist>`,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EditPlaylistComponent implements OnInit{
+export class EditPlaylistComponent implements OnInit,OnDestroy{
   public playlist:Playlist;
-  @ViewChild('h2InputCon') private h2InputCon:ElementRef;
-  @ViewChild('h2Input') private h2Input:ElementRef;
-  @ViewChild('h2Title') private h2Title:ElementRef;
-  @ViewChild('saveButton') private saveButton:ElementRef;
   public mainThumbnail:string;
+  private routeSubscription: Subscription;
 
-  constructor(private router:Router,private route: ActivatedRoute, private renderer:Renderer2, public dialog: MatDialog, private service:ApiCallsService) { }
+  constructor(private router:Router,private route: ActivatedRoute, public dialog: MatDialog, private service:ApiCallsService) { }
 
-  openDialog():void{
+  openDeleteDialog():void{
     this.dialog.open(DialogCloseComponent, {
       data: {
         type: 'playlist',
@@ -42,48 +38,27 @@ export class EditPlaylistComponent implements OnInit{
     });
   }
 
-  h2Click(e):void{
-    this.renderer.setStyle(this.h2Title.nativeElement, 'display', 'none');
-    this.renderer.setStyle(this.h2InputCon.nativeElement, 'display', 'block');
-    this.h2Input.nativeElement.focus();
+  saveChanges(playlist:any):void{
+    this.service.setPlaylistOrder(playlist);
   }
 
-  h2InputBlur(e):void{
-    //DO API CALL HERE, after success or before -for speed-do:
-    this.service.setPlaylistTitle(this.playlist.id,e.target.value);
-    this.playlist.title = e.target.value;
-    this.renderer.setStyle(this.h2Title.nativeElement, 'display', 'block');
-    this.renderer.setStyle(this.h2InputCon.nativeElement, 'display','none');
+  setPlaylistTitle(newTitle:PlaylistTitle){
+    this.service.setPlaylistTitle(newTitle.playlistId,newTitle.newTitle);
   }
 
-  drop(e: CdkDragDrop<string[]>){
-    this.toggleSave(false);
-    moveItemInArray(this.playlist.playlist, e.previousIndex, e.currentIndex);
-    let timer$ = timer(4000);
-    timer$.pipe(
-      switchMap(()=>{
-        this.mainThumbnail = this.playlist.playlist[0].thumbnail;
-        return new Observable;
-      })
-    ).subscribe(()=>{});
-  }
-
-  saveChanges():void{
-    this.service.setPlaylistOrder(this.playlist);
-    this.toggleSave(true);
-  }
-  toggleSave(saveChanges:boolean):void{
-    if(!saveChanges){
-      this.renderer.removeAttribute(this.saveButton.nativeElement, 'disabled');
-    }else if(saveChanges){
-      this.renderer.setAttribute(this.saveButton.nativeElement, 'disabled','true');
-    }
-  }
   ngOnInit() {
-    this.route.data
+    this.routeSubscription = this.route.data
       .subscribe((data: { playlist: Playlist }) => {
         this.playlist = data.playlist;
         this.mainThumbnail = this.playlist.playlist[0].thumbnail;
     });
   }
+  ngOnDestroy(){
+    this.routeSubscription.unsubscribe();
+  }
+}
+
+export interface PlaylistTitle{
+  playlistId: number;
+  newTitle: string;
 }

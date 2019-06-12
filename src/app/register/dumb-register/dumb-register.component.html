@@ -1,0 +1,47 @@
+<div class="form-container">
+  <div class="inner-con">
+    <h1>Sign Up</h1>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <input matInput placeholder="Name" [formControl]="registerForm.get('nameControl')"
+          [errorStateMatcher]="matcher">
+        <mat-error *ngIf="registerForm.get('nameControl').hasError('required')">
+          Username is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Username" [formControl]="registerForm.get('usernameControl')"
+          [errorStateMatcher]="matcher">
+        <mat-error *ngIf="registerForm.get('usernameControl').hasError('pattern')">
+          Username should be 5 ~ 24 characters long.
+        </mat-error>
+        <mat-error *ngIf="registerForm.get('usernameControl').hasError('required')">
+          Username is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Password" type="password" [formControl]="registerForm.get('passwordControl')"
+          [errorStateMatcher]="matcher">
+        <mat-error *ngIf="registerForm.get('passwordControl').hasError('pattern')">
+          Please create a stronger password
+        </mat-error>
+        <mat-error *ngIf="registerForm.get('passwordControl').hasError('required')">
+          Password is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class=" full-width">
+        <input matInput placeholder="Email" [formControl]="registerForm.get('emailControl')"
+               [errorStateMatcher]="matcher">
+        <mat-error *ngIf="registerForm.get('emailControl').hasError('email') && !registerForm.get('emailControl').hasError('required')">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="registerForm.get('emailControl').hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <div class="submit-con">
+        <button type="submit" [disabled]="!registerForm.valid" class="submit button button-lar">Sign Up</button>
+      </div>
+    </form>
+  </div>
+<div>

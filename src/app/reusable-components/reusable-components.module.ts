@@ -11,8 +11,12 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { DialogAddVideoPlaylistComponent } from './dialog-add-video-playlist/dialog-add-video-playlist.component';
 import { DialogCreatePlaylistComponent } from './dialog-create-playlist/dialog-create-playlist.component';
+import { DumbDialogUploadComponent } from './dialog-upload/dumb-dialog-upload/dumb-dialog-upload.component';
+import { DumbDialogCreatePlaylistComponent } from './dialog-create-playlist/dumb-dialog-create-playlist/dumb-dialog-create-playlist.component';
+import { DumbDialogAddVideoPlaylistComponent } from './dialog-add-video-playlist/dumb-dialog-add-video-playlist/dumb-dialog-add-video-playlist.component';
+
 @NgModule({
-  declarations: [DialogCloseComponent, DialogUploadComponent, DialogAddVideoPlaylistComponent, DialogCreatePlaylistComponent],
+  declarations: [DialogCloseComponent, DialogUploadComponent, DialogAddVideoPlaylistComponent, DialogCreatePlaylistComponent, DumbDialogUploadComponent, DumbDialogCreatePlaylistComponent, DumbDialogAddVideoPlaylistComponent],
   imports: [
     CommonModule,
     MatDialogModule,

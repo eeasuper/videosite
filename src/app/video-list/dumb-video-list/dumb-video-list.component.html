@@ -1,0 +1,14 @@
+<div class="videos-container">
+  <div class="header">
+    <h2 #titleh2>{{title}}</h2>
+    <div class="arrows-container" #arrows>
+      <button class="arrow-left-con arrow button" (click)="handleClick('left')"> <div class="left-arrow"></div></button>
+      <div #page class="page" [attr.data-totalpage]="setTotalPage()">{{videoCon2.nativeElement.dataset.state}}&nbsp;/&nbsp;{{totalPage}}
+      </div>
+      <button class="arrow-right-con arrow button" (click)="handleClick('right')"><div class="right-arrow"></div></button>
+    </div>
+  </div>
+  <div #videosContainer2 class="videos-container2" data-state=1>
+    <app-video-list-tab *ngFor="let value of videos; let i = index;" [value]="value"></app-video-list-tab>
+  </div>
+</div>

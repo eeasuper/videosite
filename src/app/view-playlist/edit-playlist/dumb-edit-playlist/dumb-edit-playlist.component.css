@@ -1,0 +1,259 @@
+:host{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height:100%;
+}
+.container{
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  flex-wrap:wrap;
+  width: 100%;
+}
+.inner-con{
+  width:95%;
+  /*border: 1px solid black;*/
+  color:#4a4a48;
+  background-color: #fff;
+}
+.upper-con{
+  display: flex;
+  width:100%;
+  height:112px;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: #f1f2eb;
+}
+.img-con{
+  display: inline-block;
+  position: relative;
+  width: 164px;
+  height:92px;
+}
+.img-con img{
+  height:100%;
+}
+.data-con{
+  display: inline-block;
+  width: 100%;
+  margin-left: 10px;
+}
+h2{
+  font-size: 1.5em;
+  display: block;
+  /*display: none;*/
+  font-weight:500;
+  width: 70%;
+  /*make display none when user clicks.*/
+  color: black;
+  position:relative;
+  cursor: text;
+  padding-left:5px;
+  border-radius:3px;
+  background-color: #d8dad3;
+}
+h2 button{
+  position: absolute;
+  right:0;
+  top:0;
+  bottom:0;
+  min-width:30px;
+}
+
+.h2-button div{
+  background-image: url('/assets/icons/pen_icon.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width:100%;
+  height:100%;
+}
+h2:hover{
+  background-color: #fff;
+}
+.h2-input{
+  width: 70%;
+  /*display: block;*/
+  display: none;
+  top: 10px;
+  height: 1.5rem;
+  padding: 5px;
+  border: 1px solid #d8dad3;
+}
+.h2-input form{
+  height: 100%;
+}
+
+.h2-input form input{
+  height: 100%;
+  width:100%;
+  outline: none;
+  padding-left: 5px;
+  font-size: 1.2rem;
+  border: none;
+}
+
+h4{
+  display: block;
+  font-size: 0.8em;
+  margin-left: 10px;
+  margin-top:5px;
+  font-weight:400;
+}
+
+.playlist-buttons{
+  margin-top:5px;
+}
+
+.button-play{
+  box-sizing:border-box;
+  vertical-align: middle;
+  margin-right:5px;
+}
+
+.button-play::before{
+  content: '';
+  background-image: url('/assets/icons/play_icon2.png');
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  background-size: contain;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+}
+
+.button-play span{
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.button-med{
+  vertical-align: middle;
+  margin-right:5px;
+}
+
+table{
+  background-color: #4a4a48;
+  color: white;
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0px;
+}
+tbody{
+  background: transparent;
+}
+
+.tr-list-box{
+  width: 100%;
+  /*border-bottom: 1px solid #d8dad3;*/
+  min-height: 70px;
+  cursor: move;
+  background-color: #4a4a48;
+  position:relative;
+  vertical-align: middle;
+  display: block;
+}
+
+.tr-list-box:hover .h3-a{
+  color: #a4c2a5;
+}
+
+td{
+  max-height:68px;
+  box-sizing: border-box;
+}
+.video-order{
+  width: 20px;
+  min-width:20px;
+  padding-right:3px;
+  text-align: center;
+  color: white;
+}
+.video-thumbnail{
+  width: 80px;
+  min-width:80px;
+}
+.video-thumbnail img{
+  width:100%;
+  vertical-align: middle;
+}
+
+.video-h3{
+  /*width: 412px;*/
+  padding: 15px;
+  font-size:12px;
+  color: white;
+}
+.video-h3 .h3-a:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.h3-a{
+  color: #fff;
+  text-decoration: none;
+}
+
+.video-h3-uploader{
+  font-size: 11px;
+  font-weight:400;
+  color: #d8dad3;
+  display:inline-block;
+}
+
+.video-remove{
+  width:20px;
+  height:20px;
+  position:absolute;
+  top:0;
+  right:0;
+  border-radius: 1px;
+  /*border: 1px solid #d8dad3;*/
+  cursor:pointer;
+}
+.video-remove:before{
+  content:'';
+  background-image: url('/assets/icons/close_icon.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 15px;
+  height: 15px;
+  display: block;
+  margin-left: 1px;
+  vertical-align: middle;
+}
+.video-remove a{
+  width:100%;
+  height:100%;
+  position:absolute;
+  display: inline-block;
+  top:0;
+  left:0;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  opacity:0.7;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.tr-list-box:last-child {
+  border: none;
+}
+
+tbody.cdk-drop-list-dragging .tr-list-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

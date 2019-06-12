@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
 import {SidebarService} from '../services/sidebar.service';
 import {Observable, Subscription} from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit,OnDestroy {
   public clientX: number = 0;
   public clientY: number = 0;
   public clicked: boolean;
@@ -20,6 +20,7 @@ export class NavbarComponent implements OnInit {
   public formGroup = this.fb.group({
     query: ['',[Validators.required]],
   });
+  private storeSubscription:Subscription;
   get queryControl(){
     return this.formGroup.get('query');
   }
@@ -32,7 +33,7 @@ export class NavbarComponent implements OnInit {
     })
   }
   ngOnInit() {
-    this.store.select('user').subscribe(user=>{
+    this.storeSubscription = this.store.select('user').subscribe(user=>{
       if(!user.isAuthenticated){
         this.authenticated = false;
       }else if(user.isAuthenticated){
@@ -56,5 +57,9 @@ export class NavbarComponent implements OnInit {
 
   onSubmit(e){
     this.router.navigate(["search",this.queryControl.value]);
+  }
+
+  ngOnDestroy(){
+    this.storeSubscription.unsubscribe();
   }
 }

@@ -27,6 +27,5 @@ export class SearchResolverService implements Resolve<any>{
         return val;
      })
     )
-   return null;
  }
 }

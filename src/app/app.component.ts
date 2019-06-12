@@ -49,6 +49,7 @@ export class AppComponent implements OnInit{
         case event instanceof NavigationError: {
           this.progressValue = 100;
           this.loading = false;
+          window.scrollTo(0, 0)
           break;
         }
         default: {

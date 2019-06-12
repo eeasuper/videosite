@@ -1,17 +1,14 @@
-<!-- <div class="container"> -->
-  <div class="list-con" *ngFor="let video of list;let i = index">
-    <div class="left-con">
-      <img [src]="video.thumbnail" class="thumbnail"/>
-      <div class="details">
-        <h2 class="detail-comp">{{video.title}}</h2>
-        <p class="detail-comp">Uploader: {{video.uploaderUsername}}</p>
-        <p class="detail-comp">{{video.view}} views</p>
-      </div>
-      <a class="anchor" [routerLink]="['/view',video.id]"></a>
+<div class="list-con" *ngFor="let video of list;let i = index">
+  <div class="left-con">
+    <img [src]="video.thumbnail" class="thumbnail"/>
+    <div class="details">
+      <h2 class="detail-comp">{{video.title}}</h2>
+      <p class="detail-comp">Uploader: {{video.uploaderUsername}}</p>
+      <p class="detail-comp">{{video.view}} views</p>
     </div>
-    <div class="description">
-      {{video.description}}
-    </div>
-
+    <a class="anchor" [routerLink]="['/view',video.id]"></a>
   </div>
-<!-- </div> -->
+  <div class="description">
+    {{video.description}}
+  </div>
+</div>

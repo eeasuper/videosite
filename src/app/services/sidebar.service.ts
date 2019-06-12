@@ -14,19 +14,11 @@ export class SidebarService {
       this.isOpen = !this.isOpen;
       this.change.emit(this.isOpen);
     }else{
+      console.log(open);
       this.isOpen = open;
-      this.change.emit(this.isOpen);
+      this.change.emit(open);
     }
   }
-
-  // toggleForDownSize(hasClosed:boolean,windowWidth:number){
-  //   if(windowWidth <=850 && wasOpen){
-  //     this.isOpen = !this.isOpen;
-  //     this.change.emit(this.isOpen);
-  //   }else if(windowWidth ){
-
-  //   }
-  // }
 
   constructor() { }
 }

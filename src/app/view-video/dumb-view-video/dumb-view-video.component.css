@@ -1,0 +1,100 @@
+:host{
+  overflow: hidden;
+  display: block;
+  position: relative;
+  width:99%;
+  color: #4a4a48;
+  margin-top: -20px;
+  min-width:100%;
+}
+
+/*height for everything inside upper-container is relative to the height created by the video tag.*/
+.upper-container{
+  white-space: nowrap;
+  display: flex;
+  margin-top:20px;
+  width: 100%;
+  position: relative;
+}
+
+.video{
+  position: relative;
+  /*width:63%;*/
+  width:65%;
+  height:100%;
+  display: inline-block;
+  outline:none;
+}
+
+.description{
+  width: 35%;
+  display:inline-block;
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  background-color: #F1F2EB;
+  margin-left:5px;
+  padding: 10px;
+  box-sizing: border-box;
+  position:relative;
+}
+
+h1{
+  font-size: 1.4rem;
+  font-weight:600;
+  width: 100%;
+  word-break: break-all;
+  display: block;
+  white-space: normal;
+  max-height:5rem;
+  text-align: left;
+}
+.column{
+  margin-top: 5px;
+}
+.uploader{
+  font-size:0.9rem;
+}
+.published{
+  font-size: 0.8rem;
+}
+.views{
+}
+
+hr{
+  margin: 5px 0px;
+}
+
+.description_desc{
+  display: block;
+  font-size: 0.9rem;
+  width: 100%;
+  word-break: normal;
+  display: block;
+  white-space: normal;
+  max-height:10rem;
+  text-overflow: ellipsis;
+  overflow: auto;
+  max-height: 13rem;
+}
+
+.lower-container{
+  white-space: nowrap;
+  margin-top: 5px;
+  width: 100%;
+  position: relative;
+  display:inline-block;
+}
+
+@media only screen and (max-width: 840px){
+  .upper-container{
+    flex-direction: column;
+  }
+  .upper-container video{
+    width: 100%;
+    height: auto;
+  }
+  .description{ 
+    width:100%;
+    margin:5px 0 0 0;
+  }
+}

@@ -14,7 +14,7 @@ import {ApiCallsService} from '../../services/api-calls.service';
 })
 export class ProfileAllVideosResolverService implements Resolve<any> {
 
-    constructor(private service:ApiCallsService) { }
+  constructor(private service:ApiCallsService) { }
   
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Observable<never> {
     let userId = parseInt(route.parent.paramMap.get('userId'));
@@ -26,7 +26,5 @@ export class ProfileAllVideosResolverService implements Resolve<any> {
           return val;
         })
     )
-
-    return null;
   }
 }

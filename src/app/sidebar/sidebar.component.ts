@@ -1,18 +1,19 @@
-import { Component, OnInit,HostBinding } from '@angular/core';
+import { Component, OnInit,HostBinding,ChangeDetectionStrategy,OnDestroy,ChangeDetectorRef } from '@angular/core';
 import {SidebarService} from '../services/sidebar.service';
 import {User,selectUser} from '../store/selectors/index';
 import { Store } from '@ngrx/store';
-
+import {Subscription} from 'rxjs';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']
+  styleUrls: ['./sidebar.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit,OnDestroy {
 
   @HostBinding('class.is-open')
   isOpen = true;
-
+  subscriptions: Subscription = new Subscription();
   public myPlaylistsUrl;
   public unAuthenticated:any[] = [
     {
@@ -35,13 +36,13 @@ export class SidebarComponent implements OnInit {
     }
   ]
   public titles:object[] = this.unAuthenticated;
-  constructor(private sidebar:SidebarService, private store:Store<any>) { }
+  constructor(private sidebar:SidebarService, private store:Store<any>,private cdRef:ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.sidebar.change.subscribe(isOpen =>{
+    this.subscriptions.add(this.sidebar.change.subscribe(isOpen =>{
       this.isOpen = isOpen;
-    })
-    this.store.select('user').subscribe(user=>{
+    }));
+    this.subscriptions.add(this.store.select('user').subscribe(user=>{
       if(!user.isAuthenticated){
         this.titles = this.unAuthenticated;
       }else if(user.isAuthenticated){
@@ -61,8 +62,11 @@ export class SidebarComponent implements OnInit {
           }
         ]
         this.titles = authenticated;
+        this.cdRef.markForCheck();
       }
-    })
+    }));
   }
-
+  ngOnDestroy(){
+    this.subscriptions.unsubscribe();
+  }
 }

@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {ProfileService} from '../profile.service';
 @Component({
   selector: 'app-profile-home',
-  templateUrl: './profile-home.component.html',
-  styleUrls: ['./profile-home.component.css']
+  template: `<app-video-list [data]="recentVideos" [title]="recentVideosTitle"></app-video-list>`,
+  styles: [':host{width: 100%; height: 100%; display: inline-block; margin-top: 20px;}']
 })
 export class ProfileHomeComponent implements OnInit {
   public recentVideosTitle = "Uploaded Recently"

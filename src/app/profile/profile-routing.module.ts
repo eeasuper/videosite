@@ -5,8 +5,6 @@ import {ProfileComponent} from './profile.component';
 import {ProfileResolverService} from './profile-resolver.service';
 import {ProfileHomeComponent} from './profile-home/profile-home.component';
 import {ProfileAllVideosComponent} from './profile-all-videos/profile-all-videos.component';
-import {AllVideosListResolverService} from './profile-all-videos/all-videos-list/all-videos-resolver.service';
-import {AllVideosListComponent} from './profile-all-videos/all-videos-list/all-videos-list.component';
 import {ProfileAllVideosResolverService} from './profile-all-videos/profile-all-videos-resolver.service';
 const routes: Routes = [
   {
@@ -20,11 +18,6 @@ const routes: Routes = [
         path:'video-list', component: ProfileAllVideosComponent, resolve:{
           videos: ProfileAllVideosResolverService
         }
-        // ,children:[
-        //   {
-        //     path:'', component: AllVideosListComponent
-        //   }
-        // ]
       }
     ]
   },

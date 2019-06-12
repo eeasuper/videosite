@@ -28,7 +28,9 @@ export class EditPlaylistResolverService implements Resolve<Playlist> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Playlist> | Observable<never> {
     let userId = route.paramMap.get('userId');
     let playlistId = route.paramMap.get('playlistId');
-    this.store.select('user').subscribe(user=>{
+    this.store.select('user').pipe(
+        take(1)
+      ).subscribe(user=>{
       let loggedInId = user.user.id;   
       if(!user.isAuthenticated){
         this.authenticated = false;
@@ -39,6 +41,7 @@ export class EditPlaylistResolverService implements Resolve<Playlist> {
       }
     })
     if(!this.authenticated){
+      //could navigate to a 403 page
       this.router.navigate(['/']);
       return;
     }

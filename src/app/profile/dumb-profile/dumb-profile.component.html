@@ -1,0 +1,18 @@
+<div class="banner-container">
+  <div class="banner">
+  </div>
+  <div class="banner-content">
+    <h1 [routerLink]="['/profile',user.id]">
+      {{user.username}}'s Videos
+    </h1>
+    <div class="buttons-con">
+      <button class="menu-button button button-med" (click)="openUploadDialog()" *ngIf="authorized">Upload Video</button>
+      <button class="menu-button button button-med" [routerLink]="['/playlist',user.id]">{{user.username}}'s Playlists</button
+        >
+      <button class="menu-button button button-med" [routerLink]="['video-list']">{{user.username}}'s Videos</button
+        >        
+      <button class="menu-button button button-med" (click)="openPlaylistDialog()" *ngIf="authorized">Create Playlist</button>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

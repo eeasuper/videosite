@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="inner-con">
+    <div class="upper-con">
+      <div class="img-con">
+        <img [src]="mainThumbnail"/>
+      </div>
+      <div class="data-con">
+        <h2 #h2Title (click)="h2Click($event)">{{playlist.title}}<button class="h2-button button"><div></div></button></h2>
+        <div #h2InputCon class="h2-input">
+          <form>
+            <input #h2Input   type="text" [attr.value]="playlist.title" (blur)="h2InputBlur($event)"/>
+          </form>
+        </div>
+        <h4>Updated on {{playlist.date}}</h4>
+        <div class="playlist-buttons">
+          <button class="button-play button-med button" [routerLink]="['/view',playlist.playlist[0].id]" [queryParams]="{playlist:playlist.id}" ><span>Play All</span></button>
+          <button class="button-med button" (click)="openAddDialog()">Add Video</button>
+          <button class="button-med button" mat-button (click)="openDeleteDialog()">Delete Playlist</button>
+          <button #saveButton class="button-med button button-accent" mat-button (click)="saveChanges()" disabled>Save Changes</button>
+        </div>
+      </div>
+    </div>
+    <table>
+      <tbody cdkDropList (cdkDropListDropped)="drop($event)" >
+        <tr *ngFor="let value of playlist.playlist; let i = index;" class="tr-list-box" cdkDrag>
+          <td class="video-order">{{i+1}}</td>
+          <td class="video-thumbnail"><img [src]="value.thumbnail"/></td>
+          <td class="video-h3">
+            <h3><a [routerLink]="value.url" [queryParams]="{playlist:playlist.id}"class="h3-a">{{value.title}}</a></h3>
+            <h3 class="video-h3-uploader">by {{value.uploaderUsername}}</h3>
+          </td>
+          <!-- make anchor remove video from playlist. -->
+          <button class="button video-remove"><a></a></button>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

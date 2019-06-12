@@ -118,13 +118,14 @@ nav ul:nth-child(1){
 .account{
   height: 34px;
   width:34px;
-  border-radius: 50px;
+  border-radius: 50%;
   border: 1px solid #d8dad3;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color:#fff;
   cursor: pointer;
+  outline:none;
 }
 
 .account span{
@@ -133,7 +134,10 @@ nav ul:nth-child(1){
   background-image: url('/assets/icons/user_icon_24.png');
   background-size: contain;
   background-repeat: no-repeat;
+}
 
+.account:active{
+  border: 1px solid #0074D9;
 }
 
 .end{

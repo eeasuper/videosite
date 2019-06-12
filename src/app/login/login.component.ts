@@ -1,4 +1,4 @@
-import { Component, OnInit,OnDestroy } from '@angular/core';
+import { Component, OnInit,OnDestroy,ChangeDetectionStrategy } from '@angular/core';
 import {SidebarService} from '../services/sidebar.service'
 import {FormControl, FormGroupDirective, NgForm, Validators,FormGroup} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
@@ -8,26 +8,10 @@ import {Router} from '@angular/router'
 import {ApiCallsService} from '../services/api-calls.service';
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  template: `<app-dumb-login (childSubmit)="onSubmit($event)"></app-dumb-login>`,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent implements OnInit,OnDestroy {
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-    //replace with .pattern() for email with a better one I have.
-  ]);
-
-  loginForm = new FormGroup({
-    usernameControl: new FormControl('', [
-      ]),
-    passwordControl: new FormControl('', [
-      ])
-  });
-
-  usernameMatcher = new MyErrorStateMatcher();
-
-  matcher = new MyErrorStateMatcher();
 
   constructor(private sidebar:SidebarService, private store:Store<any>, private router:Router, private service:ApiCallsService) { }
 
@@ -36,8 +20,9 @@ export class LoginComponent implements OnInit,OnDestroy {
       this.sidebar.toggle(false);  
     },0);
   }
-  onSubmit(){
-    this.service.login(this.loginForm.value).then((val)=>{
+
+  onSubmit(formOutput:FormOutput){
+    this.service.login(formOutput).then((val)=>{
       if(val != null){
         this.store.dispatch({
           type: ActionTypes.SET_CURRENT_USER,
@@ -48,27 +33,19 @@ export class LoginComponent implements OnInit,OnDestroy {
         })  
       }
     })
-    
-    this.store.select('user').subscribe((data)=>{
-      // console.log(data);
-    })
     this.router.navigate(['/']);
-
   }
+
   ngOnDestroy(){
-    setTimeout(()=>{
-      if(window.innerWidth <= 440 || window.innerHeight <= 360){
-        this.sidebar.toggle(false)
-      }else{
-        this.sidebar.toggle(true);  
-      }
-    },0);
+    let innerWidth = window.innerWidth;
+    if(innerWidth <= 440 || innerWidth <= 360){
+      this.sidebar.toggle(false)
+    }else{
+      this.sidebar.toggle(true);  
+    }
   }
 }
-
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
+export interface FormOutput{
+  username: string;
+  password: string;
 }

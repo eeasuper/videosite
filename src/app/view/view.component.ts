@@ -3,7 +3,7 @@ import {SidebarService} from '../services/sidebar.service';
 
 @Component({
   selector: 'app-view',
-  templateUrl: './view.component.html',
+  template: `<router-outlet></router-outlet>`,
   styleUrls: ['./view.component.css']
 })
 export class ViewComponent implements OnInit {
@@ -16,8 +16,6 @@ export class ViewComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   changeWidth(){
     let windowWidth = window.innerWidth;
-  //   // console.log(this.downSized);
-  //   // console.log(windowWidth);
     if(this.debounce === 0){
       this.debounce = window.setTimeout(()=>{
         if(this.isOpen && windowWidth <= 1050){
@@ -25,18 +23,6 @@ export class ViewComponent implements OnInit {
         } else if(!this.isOpen && windowWidth >= 1050){
           this.sidebar.toggle(true);
         }
-
-  //       if(windowWidth <= 850){
-  //         this.downSized = true;
-  //       }else if(windowWidth >= 850){
-  //         this.downSized = false;
-  //       }
-
-  //       if(this.isOpen){
-  //         this.renderer.setStyle(this.element.nativeElement,"width", windowWidth-200+"px");
-  //       }else{
-  //         this.renderer.setStyle(this.element.nativeElement,"width", "100%");
-  //       }
         this.debounce = 0;
       },50);
     }

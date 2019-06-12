@@ -61,17 +61,4 @@ export class ViewVideoResolverService implements Resolve<any>{
       )
   }
   
-  pipe(ob:Observable<any>):Observable<any>{
-    return ob.pipe(
-      take(1),
-      mergeMap(data=>{
-        if(data){
-          return of(data);
-        }else{
-          this.router.navigate(['/']);
-          return EMPTY;
-        }
-      })
-    );
-  }
 }

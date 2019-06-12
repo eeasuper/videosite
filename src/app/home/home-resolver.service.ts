@@ -22,10 +22,10 @@ export class HomeResolverService implements Resolve<Videos[]>{
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Videos[]> | Observable<never> {
-
+    
     return forkJoin(
       this.service.getVideoRandomList().pipe(
-        map((val)=>{
+        map((val:any)=>{
           if(val){
             val.forEach((v,i)=>{
               v.thumbnail = this.service.getVideoThumbnail(v.id);

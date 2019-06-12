@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login.component';
 import {MatInputModule} from '@angular/material/input';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { DumbLoginComponent } from './dumb-login/dumb-login.component';
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, DumbLoginComponent],
   imports: [
     CommonModule,
     MatInputModule,
@@ -15,8 +16,5 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
   exports:[
   LoginComponent
   ],
-  // entryComponents:[
-  // LoginComponent
-  // ]
 })
 export class LoginModule { }

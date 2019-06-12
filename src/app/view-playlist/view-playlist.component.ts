@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-view-playlist',
-  templateUrl: './view-playlist.component.html',
-  styleUrls: ['./view-playlist.component.css']
+  template: '<router-outlet></router-outlet>',
+  styles: [':host { width: 100%; margin-top: -20px;}']
 })
 export class ViewPlaylistComponent implements OnInit {
 

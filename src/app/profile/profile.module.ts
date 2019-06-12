@@ -8,13 +8,13 @@ import {ProfileRoutingModule} from './profile-routing.module';
 import { ProfileHomeComponent } from './profile-home/profile-home.component';
 import { ProfileAllVideosComponent } from './profile-all-videos/profile-all-videos.component';
 import {ProfileService} from './profile.service';
-import { AllVideosListComponent } from './profile-all-videos/all-videos-list/all-videos-list.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {ViewVideoListModule} from '../view-video-list/view-video-list.module';
+import { DumbProfileComponent } from './dumb-profile/dumb-profile.component';
 // import {ReusableComponentsModule} from '../reusable-components/reusable-components.module';
 // import {DialogUploadComponent} from '../reusable-components/dialog-upload/dialog-upload.component';
 @NgModule({
-  declarations: [ProfileComponent, ProfileHomeComponent, ProfileAllVideosComponent, AllVideosListComponent],
+  declarations: [ProfileComponent, ProfileHomeComponent, ProfileAllVideosComponent, DumbProfileComponent],
   imports: [
     CommonModule,
     ProfileRoutingModule,

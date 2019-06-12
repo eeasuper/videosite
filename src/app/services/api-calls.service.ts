@@ -3,8 +3,8 @@ import { HttpClient,HttpHeaders, HttpEvent,
   HttpInterceptor,
   HttpHandler,
   HttpRequest, } from '@angular/common/http';
-import { catchError, map, tap,switchMap } from 'rxjs/operators';
-import {Observable,of,timer} from 'rxjs';
+import { catchError, map, tap,switchMap,take,concatMap } from 'rxjs/operators';
+import {Observable,of,timer,concat} from 'rxjs';
 import {Router} from '@angular/router';
 import {ValidationErrors,FormControl,AbstractControl} from '@angular/forms'
 import { Store } from '@ngrx/store';
@@ -29,6 +29,7 @@ export class ApiCallsService {
 
   getIP():Observable<any>{
     return this.http.get("https://api.ipify.org?format=json").pipe(
+      take(1),
       catchError(this.handleError('getIP()', ''))
     )
   }
@@ -39,20 +40,23 @@ export class ApiCallsService {
 
   getVideoDescription(videoId:string):Observable<any>{
     return this.http.get(this.server+"/video/"+videoId).pipe(
+      take(1),
       catchError(this.handleError('getVideoDescription()',''))
     )
   }
 
   getVideoList(userId:number):Observable<any>{
     return this.http.get(this.server+"/video/"+userId+"/all").pipe(
+      take(1),
       catchError(this.handleError('getVideoList()',''))
     )
   }
 
   getVideoRecentList(userId:string):Observable<any>{
     return this.http.get(this.server+"/video/"+userId+"/recent").pipe(
-        catchError(this.handleError('getVideoRecentList()',''))
-      )
+      take(1),
+      catchError(this.handleError('getVideoRecentList()',''))
+    )
   }
 
   getVideoRandomList(): Observable<any>{
@@ -63,6 +67,7 @@ export class ApiCallsService {
 
   getPlaylist(playlistId:string):Observable<any>{
     return this.http.get(this.server + "/playlist/"+playlistId).pipe(
+      take(1),
       catchError(this.handleError('getPlaylist()',''))
     )
   }
@@ -73,11 +78,13 @@ export class ApiCallsService {
 
   getAllPlaylists(userId:string):Observable<any>{
     return this.http.get(this.server + "/user/"+userId+"/playlist").pipe(
+      take(1),
       catchError(this.handleError('getAllPlaylists()',''))
     )
   }
 
   setPlaylistOrder(playlist:any){
+    let httpOptions = this.isLocalStorageJWTExists();
     let list = playlist.playlist;
     let body = {}
     list.forEach((val,ind)=>{
@@ -85,20 +92,25 @@ export class ApiCallsService {
         "id": val.id
       }
     })
-    this.http.put(this.server + "/playlist/"+playlist.id+"/edit/order-change",body,this.httpOptions).pipe(
+    this.http.put(this.server + "/playlist/"+playlist.id+"/edit/order-change",body,httpOptions).pipe(
+      take(1),
       catchError(this.handleError('setPlaylistOrder()',''))
     ).subscribe(()=>{})
   }
 
   setPlaylistTitle(playlistId:number, title:string){
-    this.http.put(this.server+"/playlist/"+playlistId+"/edit/title-change", {"title":title},this.httpOptions).pipe(
+    let httpOptions = this.isLocalStorageJWTExists();
+    this.http.put(this.server+"/playlist/"+playlistId+"/edit/title-change", {"title":title},httpOptions).pipe(
+      take(1),
       catchError(this.handleError('setPlaylistTitle()','',"Something went wrong. Title couldn't be set."))
     ).subscribe(()=>{})
   }
 
   deletePlaylist(playlistId:string){
-    this.http.delete(this.server+"/playlist/"+playlistId,this.httpOptions).pipe(
-      catchError(this.handleError('deletePlaylist()',''))
+    let httpOptions = this.isLocalStorageJWTExists();
+    this.http.delete(this.server+"/playlist/"+playlistId,httpOptions).pipe(
+      take(1),
+      catchError(this.handleError('deletePlaylist()','Could not delete playlist'))
     ).subscribe((val)=>{
       this.store.select('user').subscribe(user=>{
         this.route.navigate(["/playlist",user.user.id]);  
@@ -108,17 +120,21 @@ export class ApiCallsService {
 
   getUser(userId:string):Observable<any>{
     return this.http.get(this.server+"/user/"+userId).pipe(
+      take(1),
       catchError(this.handleError('getUser()',''))
     )
   }
 
   uploadVideo(formData:FormData,userId:number):Observable<any>{
-    return this.http.post(this.server + "/upload/"+userId,formData,this.httpOptions).pipe(
+    let httpOptions = this.isLocalStorageJWTExists();
+    return this.http.post(this.server + "/upload/"+userId,formData,httpOptions).pipe(
+      take(1),
       catchError(this.handleError('uploadVideo()',''))
     )
   }
 
   addVideoToPlaylist(playlistId:any, array:string[]):Observable<any>{
+    let httpOptions = this.isLocalStorageJWTExists();
     let body = [];
     array.forEach((val,ind)=>{
       let a = this.checkUrl(val);
@@ -126,12 +142,14 @@ export class ApiCallsService {
         id: a
       })
     })
-    return this.http.post(this.server + "/playlist/"+playlistId+"/edit/add-video",body,this.httpOptions).pipe(
+    return this.http.post(this.server + "/playlist/"+playlistId+"/edit/add-video",body,httpOptions).pipe(
+      take(1),
       catchError(this.handleError('addVideoToPlaylist()',''))
     );
   }
 
   checkUrl(val:string){
+    // Get rid of query parameter.
     if(val.lastIndexOf("?") !== -1){
         return val.substring(val.lastIndexOf("view/")+5, val.lastIndexOf("?"));  
       }else{
@@ -139,20 +157,26 @@ export class ApiCallsService {
       }
   }
 
-  createPlaylist(playlistData:object):Observable<any>{
-    return this.http.post(this.server+"/playlist",playlistData,this.httpOptions).pipe(
-      catchError(this.handleError('createPlaylist()',''))
+  createPlaylist(playlistData:object,videoUrlsForPlaylist:string[]):Observable<any>{
+    let httpOptions = this.isLocalStorageJWTExists();
+    return this.http.post(this.server+"/playlist",playlistData,httpOptions).pipe(
+      take(1),
+      catchError(this.handleError('createPlaylist()','')),
+      concatMap((newPlaylist:any)=>{
+        return this.addVideoToPlaylist(newPlaylist.id,videoUrlsForPlaylist)
+      })
     )
   }
 
-
   setVideoContent(videoId:number, title:string, description:string):Observable<any>{
+    let httpOptions = this.isLocalStorageJWTExists();
     let body = {
       id: videoId,
       title: title,
       description: description
     }
-    return this.http.put(this.server+"/video", body,this.httpOptions).pipe(
+    return this.http.put(this.server+"/video", body,httpOptions).pipe(
+      take(1),
       catchError(this.handleError('setVideoContent()',''))
     )
   }
@@ -164,33 +188,33 @@ export class ApiCallsService {
       "videoId": videoId
     }
     return this.http.post(this.server+"/addViewCount", body).pipe(
+      take(1),
       catchError(this.handleError('setViewCount()',''))
     );
   }
 
   getViewCount(videoId:number):Observable<any>{
     return this.http.get(this.server+"/getViewCount/"+videoId).pipe(
+      take(1),
       catchError(this.handleError('getViewCount()',''))
     )
   }
 
   getSearch(title:string):Observable<any>{
     return this.http.get(this.server+"/search/"+title).pipe(
+      take(1),
       catchError(this.handleError('getSearch()',''))
     )
   }
 
   login(user:any):Promise<any>{
-    let body = {
-      username: user.usernameControl,
-      password: user.passwordControl
-    }
     return new Promise((res,rej)=>{
-      this.http.post(this.server+"/login", body, {observe: 'response'}).pipe(
+      this.http.post(this.server+"/login", user, {observe: 'response'}).pipe(
+        take(1),
         catchError(this.handleError('login()',''))
       ).toPromise().then((val:any)=>{
-        //if user is successfully sent back:
-        localStorage.setItem("jwtToken", val.body.token);
+        let authorization = val.headers.get("Authorization")
+        authorization != null ? localStorage.setItem("jwtToken", authorization):null;
         if(val.status === 201){
           this.isLocalStorageJWTExists();
           res(val.body);  
@@ -214,14 +238,16 @@ export class ApiCallsService {
     }
     return new Promise((res,rej)=>{
       this.http.post(this.server+"/register", body, {observe: 'response'}).pipe(
+        take(1),
         catchError(this.handleError('register()',''))
       ).toPromise().then((val:any)=>{
-        localStorage.setItem("jwtToken", val.body.token);
+        let authorization = val.headers.get("Authorization")
+        authorization != null ? localStorage.setItem("jwtToken", authorization):null;
         if(val.status === 201){
+          this.isLocalStorageJWTExists();
           res(val.body);  
         }
       }).catch((err)=>{
-          console.log(err);
           rej(err);
         })
     })
@@ -241,8 +267,13 @@ export class ApiCallsService {
     //If jwt token exists, append it to the httpHeader for verification else delete it.
     let jwt:string = localStorage.getItem("jwtToken") ? localStorage.getItem("jwtToken"):null;
     if(jwt){
-      this.httpOptions.headers.append("Authorization", `Bearer ${jwt}`);
-      return this.httpOptions;
+      let httpOptions = {
+        headers: new HttpHeaders({
+          "Authorization": `Bearer ${jwt}`
+        })
+      }
+      this.httpOptions = httpOptions;
+      return httpOptions;
     }else{
       this.httpOptions.headers.delete("Authorization");
       return null;
@@ -250,7 +281,7 @@ export class ApiCallsService {
   }
 
   validateDecodeJWT(){
-    let jwt = jwt_decode(localStorage.getItem("jwtToken"));
+    let jwt = localStorage.getItem("jwtToken")!=null?jwt_decode(localStorage.getItem("jwtToken")):null;
     if(jwt!=null){
       this.store.dispatch({
           type: ActionTypes.SET_CURRENT_USER,

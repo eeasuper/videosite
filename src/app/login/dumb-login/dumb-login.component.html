@@ -1,0 +1,24 @@
+<div class="form-container">
+  <div class="inner-con">
+    <h1>Sign In</h1>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <input matInput placeholder="Username" [formControl]="loginForm.get('usernameControl')"
+          [errorStateMatcher]="usernameMatcher">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Password" type="password" formControlName="passwordControl">
+      </mat-form-field>
+      <div class="submit-con">
+        <button type="submit" [disabled]="!loginForm.valid" class="submit button button-lar">Sign In</button>
+      </div>
+    </form>
+  </div>
+<div>
+<div class="login-notice">
+  Sample Login ID:
+  <br>
+  ID: tom
+  <br>
+  password: 1234
+</div>

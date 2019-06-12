@@ -1,9 +1,10 @@
-import { Component, OnInit,Input,OnChanges} from '@angular/core';
+import { Component, OnInit,Input,OnChanges,ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
   selector: 'app-view-video-list',
   templateUrl: './view-video-list.component.html',
-  styleUrls: ['./view-video-list.component.css']
+  styleUrls: ['./view-video-list.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ViewVideoListComponent implements OnInit,OnChanges {
   @Input('videos') private videos;
