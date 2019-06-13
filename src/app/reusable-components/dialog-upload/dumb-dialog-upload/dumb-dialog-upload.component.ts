@@ -14,7 +14,7 @@ export class DumbDialogUploadComponent implements OnInit {
   private validUpload:boolean = false;
   private fileToUpload:FormData;
   @Output('snackbarMessage') snackbarMessage = new EventEmitter<string>();
-  @Output('submit') submit = new EventEmitter<FormOutput>();
+  @Output('submitChild') submit = new EventEmitter<FormOutput>();
   @Input('loading') public loading:boolean;
 
   public formGroup = new FormGroup({

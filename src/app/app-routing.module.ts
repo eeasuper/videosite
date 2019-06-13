@@ -7,12 +7,15 @@ import {ViewVideoModule} from './view-video/view-video.module'
 import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 //AppRoutingModule is used in ViewComponent.
+import {UnreachableComponent} from './unreachable/unreachable.component';
 import {ProfileComponent} from './profile/profile.component'
 import {ProfileResolverService} from './profile/profile-resolver.service';
 import {HomeResolverService} from './home/home-resolver.service';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {SearchComponent} from './search/search.component';
 import {SearchResolverService} from './search/search-resolver.service';
+import {ErrorStatusCodeComponent} from './error-status-code/error-status-code.component';
+
 const routes: Routes = [
   {
     path: '', component: HomeComponent, pathMatch: 'full',
@@ -42,6 +45,12 @@ const routes: Routes = [
     path:'search/:query', component:SearchComponent, resolve:{
       search:SearchResolverService
     }
+  },
+  {
+    path:'unreachable', component:UnreachableComponent, pathMatch:'full'
+  },
+  {
+    path: 'error/:status_code', component:ErrorStatusCodeComponent, pathMatch: 'full'
   },
   {
     path:'**', pathMatch: 'full', redirectTo: 'notfound'

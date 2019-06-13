@@ -1,0 +1,13 @@
+:host{
+  display: table;
+  width:50%;
+  height:50%;
+  text-align: center;
+  align-items: center;
+}
+
+.container{
+  display: table-cell;
+  vertical-align: middle;
+  box-sizing:border-box;
+}

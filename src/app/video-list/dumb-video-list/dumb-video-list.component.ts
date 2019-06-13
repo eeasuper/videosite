@@ -149,6 +149,8 @@ export class DumbVideoListComponent implements OnInit,OnChanges {
           this.renderer.setStyle(element, 'width', arr[(arr.length-videoLength)] + 10 +'px');
           if(videoLength <= 2){
             this.renderer.addClass(this.arrows.nativeElement, 'arrowsRight');
+            this.renderer.addClass(this.arrows.nativeElement, 'small-window-arrows');
+            this.renderer.addClass(this.titleh2.nativeElement, 'small-window-h2');
           }
         }
         else if(element){
@@ -173,7 +175,8 @@ export class DumbVideoListComponent implements OnInit,OnChanges {
         if(element){
           this.renderer.setStyle(element, 'width', arr[ind] + 10+'px');
         }
-      }else if(!(arr[ind+1] + sb) && windowWidth < val + sb){
+      }
+      else if(!(arr[ind+1] + sb) && windowWidth < val + sb){
         //if val is 210, arr[ind+1] gives NaN.
         this.width = 210;
         if(element && (videoLength < videoNum)){

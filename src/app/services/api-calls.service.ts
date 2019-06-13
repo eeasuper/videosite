@@ -3,8 +3,8 @@ import { HttpClient,HttpHeaders, HttpEvent,
   HttpInterceptor,
   HttpHandler,
   HttpRequest, } from '@angular/common/http';
-import { catchError, map, tap,switchMap,take,concatMap } from 'rxjs/operators';
-import {Observable,of,timer,concat} from 'rxjs';
+import { catchError, map, tap,switchMap,take,concatMap,retry } from 'rxjs/operators';
+import {Observable,of,timer,concat,throwError } from 'rxjs';
 import {Router} from '@angular/router';
 import {ValidationErrors,FormControl,AbstractControl} from '@angular/forms'
 import { Store } from '@ngrx/store';
@@ -61,6 +61,7 @@ export class ApiCallsService {
 
   getVideoRandomList(): Observable<any>{
     return this.http.get(this.server + "/video/random").pipe(
+        take(1),
         catchError(this.handleError('getVideoRandomList()',''))
       )
   }
@@ -267,11 +268,11 @@ export class ApiCallsService {
     //If jwt token exists, append it to the httpHeader for verification else delete it.
     let jwt:string = localStorage.getItem("jwtToken") ? localStorage.getItem("jwtToken"):null;
     if(jwt){
-      let httpOptions = {
-        headers: new HttpHeaders({
-          "Authorization": `Bearer ${jwt}`
-        })
-      }
+        let httpOptions = {
+          headers: new HttpHeaders({
+            "Authorization": `Bearer ${jwt}`
+          })
+        }
       this.httpOptions = httpOptions;
       return httpOptions;
     }else{
@@ -295,59 +296,29 @@ export class ApiCallsService {
 
   private handleError<T> (operation = 'operation', result?: T,snackbarMessage?:string) {
     return (error: any): Observable<T> => {
-     if(snackbarMessage){
-       this.openSnackBar(snackbarMessage, "Okay")
-     }
-      // TODO: send the error to remote logging infrastructure
-      // console.error(error); // log to console instead
+      // console.log(operation);
+      if(operation === "getAllPlaylists()"){
+        this.route.navigate(['playlist/no-playlist']);
+        return throwError("no-playlist");
+      }
+      if(snackbarMessage){
+        this.openSnackBar(snackbarMessage, "Okay")
+      }
+      if(error.status === 0){
+         this.route.navigate(['/unreachable']);
+         return throwError("unreachable");
+      }
       if(error.status === 404){
         this.route.navigate(['/notfound']);
+        return throwError('notfound');
       }
-      // TODO: better job of transforming error for user consumption
-      // this.log(`${operation} failed: ${error.message}`);
+
+      if(error.status.toString().startsWith("4") || error.status.toString().startsWith("5")){
+        this.route.navigate(['/error',error.status]);
+      }
    
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
   }
-
-  // private log(message: string) {
-  //   this.messageService.add(`HeroService: ${message}`);
-  // }
 }
-
-
-/*
-  debounceViewCount():boolean{
-    //should be making api call here to get last viewed time.
-    // let vt = this.lastViewedTime;
-    //year is 2019, minute is accurate, date is accurate all other numbers should be lowered by 1. Also remember hour goes by the 24 hour clock.
-    let vt = {
-      'year': 2019,
-      'month': 2,
-      'day': 13,
-      'hour': 13,
-      'minutes': 0,
-      'seconds': 0
-    }  
-    let now = new Date();
-    let now1 = new Date(now.getFullYear(), now.getMonth(), now.getDate(),now.getHours(), now.getMinutes(), now.getSeconds())
-    //3600000 is ms for 1 hour.
-    var diff = Math.abs((now1.getTime() - new Date(vt.year, vt.month, vt.day, vt.hour, vt.minutes, vt.seconds).getTime())/3600000);
-    if(diff > 1){
-      console.log("ff");
-      return true;
-    }
-    console.log("f");
-    return false;
-  }
-*/
-
-// export interface CustomDate{
-//   'year': number,
-//   'month':number,
-//   'day':number,
-//   'hour':number,
-//   'minutes':number,
-//   'seconds':number
-// }

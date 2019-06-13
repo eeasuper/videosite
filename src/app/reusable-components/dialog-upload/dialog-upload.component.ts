@@ -1,4 +1,4 @@
-import { Component, OnInit,Inject,ChangeDetectionStrategy} from '@angular/core';
+import { Component, OnInit,Inject,ChangeDetectionStrategy,ChangeDetectorRef} from '@angular/core';
 import { MAT_DIALOG_DATA,MatDialogRef,MatDialog} from '@angular/material';
 import {ApiCallsService} from '../../services/api-calls.service';
 import {MatSnackBar} from '@angular/material';
@@ -12,9 +12,8 @@ import {MatSnackBar} from '@angular/material';
 export class DialogUploadComponent implements OnInit {
 
   public loading: boolean;
-
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData, private dialog:MatDialog,private snackBar: MatSnackBar,private service:ApiCallsService,private cdRef:ChangeDetectorRef) { }
   openSnackBar(message: string) {
-    console.log(message);
     this.snackBar.open(message, "Okay", {
       duration: 5000,
     });
@@ -26,6 +25,8 @@ export class DialogUploadComponent implements OnInit {
       return this.service.setVideoContent(parseInt(res.id), formOutput.titleOfFile, formOutput.descriptionOfFile)
         .toPromise().then((res)=>{
           this.loading = false;
+          this.cdRef.markForCheck();
+          this.dialog.closeAll();
           this.openSnackBar("Video is successfully uploaded");
         }).catch((err)=>{
           this.loading = false;
@@ -34,7 +35,7 @@ export class DialogUploadComponent implements OnInit {
     })
   }
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData, private snackBar: MatSnackBar,private service:ApiCallsService) { }
+  
   ngOnInit() {
   }
 

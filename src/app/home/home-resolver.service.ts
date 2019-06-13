@@ -5,9 +5,10 @@ import {
   ActivatedRouteSnapshot
 }                                 from '@angular/router';
 import { Observable, of, EMPTY,forkJoin }  from 'rxjs';
-import { mergeMap, take,map }         from 'rxjs/operators';
+import { mergeMap, take,map,retry,catchError}         from 'rxjs/operators';
 import {ApiCallsService} from '../services/api-calls.service';
 import {Videos} from '../Video';
+import {MatSnackBar} from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,7 @@ export class HomeResolverService implements Resolve<Videos[]>{
     
     return forkJoin(
       this.service.getVideoRandomList().pipe(
+        retry(3),
         map((val:any)=>{
           if(val){
             val.forEach((v,i)=>{
@@ -35,9 +37,13 @@ export class HomeResolverService implements Resolve<Videos[]>{
             this.router.navigate(['/']);
             return EMPTY;
           }
+        }),
+        catchError((val)=>{
+          return of(`val`)
         })
       ),
       this.service.getVideoRandomList().pipe(
+        retry(3),
         map((val)=>{
           if(val){
             val.forEach((v,i)=>{
@@ -48,6 +54,9 @@ export class HomeResolverService implements Resolve<Videos[]>{
             this.router.navigate(['/']);
             return EMPTY;
           }
+        }),
+        catchError((val)=>{
+          return of(`val`)
         })
       ),
     )

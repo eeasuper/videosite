@@ -14,7 +14,6 @@ export class SidebarService {
       this.isOpen = !this.isOpen;
       this.change.emit(this.isOpen);
     }else{
-      console.log(open);
       this.isOpen = open;
       this.change.emit(open);
     }

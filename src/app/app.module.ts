@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { AppRoutingModule } from './app-routing.module';
 import { MatProgressBarModule } from '@angular/material';
+import {RouterModule} from '@angular/router';
 
 import { userReducer } from './store/reducers/user.reducer';
 import { AppComponent } from './app.component';
@@ -30,11 +31,14 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import {SearchModule} from './search/search.module';
 import {ViewVideoListModule} from './view-video-list/view-video-list.module';
 import {VideoListModule} from './video-list/video-list.module';
-
+import { UnreachableComponent } from './unreachable/unreachable.component';
+import { ErrorStatusCodeComponent } from './error-status-code/error-status-code.component';
 @NgModule({
   declarations: [
     AppComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    UnreachableComponent,
+    ErrorStatusCodeComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +64,7 @@ import {VideoListModule} from './video-list/video-list.module';
     VideoListModule
   ],
   providers: [
-    SidebarService,
+    SidebarService
   ],
   bootstrap: [AppComponent],
   entryComponents:[

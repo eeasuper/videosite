@@ -12,7 +12,7 @@ import {FormOutput} from '../dialog-add-video-playlist.component';
 })
 export class DumbDialogAddVideoPlaylistComponent implements OnInit {
   @ViewChild('formArray') private formArray:ElementRef;
-  @Output("submit") submit = new EventEmitter<FormOutput>();
+  @Output("submitChild") submit = new EventEmitter<FormOutput>();
 
   public formGroup = this.fb.group({
     urls: this.fb.array([

@@ -6,6 +6,7 @@ import {PlaylistListModule} from './playlist-list/playlist-list.module'
 import {EditPlaylistModule} from './edit-playlist/edit-playlist.module'
 import {PlaylistResolverService} from './playlist-list/playlist-resolver.service'
 import {EditPlaylistResolverService} from './edit-playlist/edit-playlist-resolver.service';
+import { NoPlaylistFoundComponent } from './no-playlist-found/no-playlist-found.component';
 
 @NgModule({
   imports: [
@@ -14,7 +15,7 @@ import {EditPlaylistResolverService} from './edit-playlist/edit-playlist-resolve
     PlaylistListModule,
     EditPlaylistModule,
   ],
-  declarations: [ViewPlaylistComponent],
+  declarations: [ViewPlaylistComponent, NoPlaylistFoundComponent],
   providers:[
     PlaylistResolverService,
     EditPlaylistResolverService
