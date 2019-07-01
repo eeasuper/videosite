@@ -7,7 +7,7 @@ import {ApiCallsService} from '../../services/api-calls.service'
 })
 export class ViewVideoPlaylistComponent implements OnInit {
   @Input('data') public playlist;
-  @Input('video') private videoData;
+  @Input('video') public videoData;
   
   constructor(private service:ApiCallsService) { }
 

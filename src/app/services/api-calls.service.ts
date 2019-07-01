@@ -107,9 +107,9 @@ export class ApiCallsService {
     ).subscribe(()=>{})
   }
 
-  deletePlaylist(playlistId:string){
+  deletePlaylist(playlistId:string,userId:number){
     let httpOptions = this.isLocalStorageJWTExists();
-    this.http.delete(this.server+"/playlist/"+playlistId,httpOptions).pipe(
+    this.http.delete(`${this.server}/playlist/${playlistId}/${userId}`,httpOptions).pipe(
       take(1),
       catchError(this.handleError('deletePlaylist()','Could not delete playlist'))
     ).subscribe((val)=>{

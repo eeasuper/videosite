@@ -18,14 +18,15 @@ export class EditPlaylistComponent implements OnInit,OnDestroy{
   public playlist:Playlist;
   public mainThumbnail:string;
   private routeSubscription: Subscription;
-
+  userId:number;
   constructor(private router:Router,private route: ActivatedRoute, public dialog: MatDialog, private service:ApiCallsService) { }
 
   openDeleteDialog():void{
     this.dialog.open(DialogCloseComponent, {
       data: {
         type: 'playlist',
-        id: this.playlist.id
+        id: this.playlist.id,
+        userId: this.userId
       }
     });
   }
@@ -51,6 +52,7 @@ export class EditPlaylistComponent implements OnInit,OnDestroy{
       .subscribe((data: { playlist: Playlist }) => {
         this.playlist = data.playlist;
         this.mainThumbnail = this.playlist.playlist[0].thumbnail;
+        this.userId = data.playlist.userId;
     });
   }
   ngOnDestroy(){

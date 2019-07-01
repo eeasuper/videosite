@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild,ElementRef,EventEmitter,Output,ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit,ViewChild,ElementRef,EventEmitter,Output,ChangeDetectionStrategy,Input } from '@angular/core';
 import { FormBuilder,Validators, FormArray,AsyncValidatorFn,ValidationErrors,FormControl } from '@angular/forms';
 import {ApiCallsService} from '../../../services/api-calls.service';
 import {timer,Observable} from 'rxjs';
@@ -13,7 +13,7 @@ import {FormOutput} from '../dialog-add-video-playlist.component';
 export class DumbDialogAddVideoPlaylistComponent implements OnInit {
   @ViewChild('formArray') private formArray:ElementRef;
   @Output("submitChild") submit = new EventEmitter<FormOutput>();
-
+  @Input('loading') loading;
   public formGroup = this.fb.group({
     urls: this.fb.array([
       this.fb.control('',[Validators.required],[this.asyncValidator(this.service)])

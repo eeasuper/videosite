@@ -14,7 +14,7 @@ export class PlaylistListComponent implements OnInit,OnDestroy {
 
   public playlists:Playlist[];    
   private objectValues = Object.values;
-  private loggedInId:number;
+  public loggedInId:number;
   private subscription:Subscription = new Subscription();
 
   constructor(private store:Store<any>,private element:ElementRef,private renderer:Renderer2, private router:Router,private route: ActivatedRoute, private service:ApiCallsService) { }

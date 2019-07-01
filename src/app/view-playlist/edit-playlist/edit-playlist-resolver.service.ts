@@ -54,6 +54,7 @@ export class EditPlaylistResolverService implements Resolve<Playlist> {
           val.url = "/view/"+val.id;
         })
         result.date = this.service.setDate(result.date);
+        result.userId = userId;
         return result;
       })
     )

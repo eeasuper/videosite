@@ -16,7 +16,8 @@ export class VideoListComponent implements OnInit,OnDestroy {
   public widthChanged:boolean = true;
   private debounce:number = 0;
   private sidebarSubscription:Subscription;
-
+  public isSidebarOpen = true;
+  
   @HostListener('window:resize', ['$event'])
   limitVideos(){
     this.limit();
@@ -31,7 +32,7 @@ export class VideoListComponent implements OnInit,OnDestroy {
     }
   }
 
-  private isSidebarOpen = true;
+
 
   constructor(private renderer:Renderer2, private element:ElementRef,private sidebar:SidebarService,private cdRef:ChangeDetectorRef) { }
 

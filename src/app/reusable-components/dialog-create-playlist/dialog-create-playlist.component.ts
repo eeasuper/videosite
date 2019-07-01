@@ -10,8 +10,7 @@ import {finalize,timeout,catchError,take} from 'rxjs/operators';
 
 @Component({
   selector: 'app-dialog-create-playlist',
-  templateUrl: './dialog-create-playlist.component.html',
-  styleUrls: ['./dialog-create-playlist.component.css'],
+  template: `<app-dumb-dialog-create-playlist (submitChild)="onSubmit($event)" loading="loading"></app-dumb-dialog-create-playlist>`,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DialogCreatePlaylistComponent implements OnInit {

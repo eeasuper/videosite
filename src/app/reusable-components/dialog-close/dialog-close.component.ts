@@ -14,7 +14,7 @@ export class DialogCloseComponent {
     switch(type){
       case 'playlist':
         this.router.navigate(["/"]);
-        this.service.deletePlaylist(this.data.id);
+        this.service.deletePlaylist(this.data.id,this.data.userId);
       default :
         return;
     }
@@ -26,4 +26,5 @@ export class DialogCloseComponent {
 export interface DialogData{
   type: string;
   id: string;
+  userId: number;
 }

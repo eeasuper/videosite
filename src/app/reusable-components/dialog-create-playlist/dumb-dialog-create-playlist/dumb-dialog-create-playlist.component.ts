@@ -14,6 +14,7 @@ import {FormOutput} from '../dialog-create-playlist.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DumbDialogCreatePlaylistComponent implements OnInit {
+  @Input('loading') loading;
   @ViewChild('formArray') private formArray:ElementRef;
   @Output("submitChild") submit = new EventEmitter<FormOutput>();
   private invalidUrl= true;

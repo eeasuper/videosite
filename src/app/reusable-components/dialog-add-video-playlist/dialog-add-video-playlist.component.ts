@@ -10,8 +10,7 @@ import {timer,Observable} from 'rxjs';
 import {switchMap,take,finalize} from 'rxjs/operators'
 @Component({
   selector: 'app-dialog-add-video-playlist',
-  templateUrl: './dialog-add-video-playlist.component.html',
-  styleUrls: ['./dialog-add-video-playlist.component.css'],
+  template: `<app-dumb-dialog-add-video-playlist (submitChild)="onSubmit($event)" loading="loading"></app-dumb-dialog-add-video-playlist>`,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DialogAddVideoPlaylistComponent implements OnInit {
